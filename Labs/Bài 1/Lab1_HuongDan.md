@@ -183,12 +183,13 @@ Bạn sẽ thấy trang portfolio hiển thị trong browser. Nhưng hiện tạ
 ### 2.1 Tạo thư mục GitHub Actions
 
 ```bash
-mkdir -p .github/workflows
+mkdir .github\workflows
+Dùng: mkdir -p .github/workflows (nếu chạy trên Linux)
 ```
 
-### 2.2 Viết Pipeline File
+### 2.2 Viết Pipeline File: deploy.yml
 
-Tạo file `.github/workflows/deploy.yml`:
+Tạo file `.github/workflows/deploy.yml` (lưu ý: thay '/' bởi '\' khi sử dụng hdh Window):
 
 ```yaml
 # ============================================================

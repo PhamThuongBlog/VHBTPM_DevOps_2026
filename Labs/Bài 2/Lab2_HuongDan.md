@@ -225,7 +225,7 @@ Tạo file `package.json`:
 ```
 
 ### 3.3 Build & Chạy Docker
-
+Thực thi các lệnh sau ở PowerShell:
 ```bash
 # Build Docker image
 docker build -t devops-lab2-app .

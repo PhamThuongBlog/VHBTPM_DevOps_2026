@@ -122,8 +122,12 @@ echo -n "Docker:   "; docker --version 2>/dev/null || echo "❌ Not installed"
 echo -n "Node.js:  "; node --version 2>/dev/null || echo "⚠️  Optional"
 
 echo ""
-echo "✅ Toolchain ready for DevOps!"
+echo " Toolchain ready for DevOps!"
 ```
+**Lưu ý:**
+- Tạo file kịch bản tại đường dẫn Lab2: ví dụ: "devops-check.sh" với nội dung như trên
+- Mở Bash và cd đến thư mục chứa file trên và chạy lệnh: bash devops-check.sh
+
 
 ✅ **Tiêu chí chấm 1:** Cả 3 công cụ (VS Code, Git, Docker) đều hiển thị version?
 

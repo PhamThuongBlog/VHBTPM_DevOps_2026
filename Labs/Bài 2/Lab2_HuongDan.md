@@ -247,7 +247,7 @@ curl http://localhost:3000
   "platform": "linux"
 }
 ```
-
+**Notes:** Bạn gửi Docker image đã build "devops-lab2-app" cho developer khác để họ chạy trên máy họ. Kết quả chạy là gì?
 ### 3.4 So sánh — Nguyên tắc Lean
 
 | Không có Docker (Lãng phí) | Có Docker (Lean) |

@@ -50,8 +50,8 @@ Ops cấu hình server                     5. Gửi notification
   │                                        │
   ▼                                        ▼
 ⚠️ Mất vài giờ → vài ngày              ✅ Mất vài phút → TỰ ĐỘNG
-⚠️ Dễ sai sót do con người              ✅ Nhất quán mỗi lần chạy
-⚠️ "It works on my machine"             ✅ Môi trường build chuẩn hóa
+⚠️ Dễ sai sót do con người             ✅ Nhất quán mỗi lần chạy
+⚠️ "It works on my machine"            ✅ Môi trường build chuẩn hóa
 ```
 
 **Bạn sẽ trải nghiệm DevOps workflow ngay trong lab này!**

@@ -1,6 +1,7 @@
 # Lab 1: Trải nghiệm DevOps Workflow End-to-End
 
 > **Hướng dẫn chi tiết từng bước — Thời lượng: 60 phút**
+
 > **Bài 1 — Tổng quan về Vận hành & Bảo trì Phần mềm**
 
 ---

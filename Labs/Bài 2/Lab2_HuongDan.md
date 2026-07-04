@@ -319,7 +319,7 @@ Dựa trên những gì đã học ở Bài 1-2, hãy vẽ sơ đồ DevOps tool
 |-----------|---------------|:---:|
 | **C**ulture | Team workflow với Git Flow + Code Review | Lab 5 |
 | **A**utomation | CI/CD pipeline tự động deploy website | Lab 1 |
-| **A**utomation | Automation script setup môi trường | Lab 2 |
+| **A**utomation | Giải pháp của bạn là gì? | Lab 2 |
 | **L**ean | Docker — môi trường nhất quán mọi nơi | Lab 2 |
 | **L**ean | Infrastructure as Code — không cấu hình thủ công | Lab 3 |
 | **M**easurement | Test reports (Newman, SonarQube metrics) | Lab 6 |

@@ -10,10 +10,10 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Trải nghiệm **toàn bộ vòng đời DevOps**: Plan → Code → Build → Test → Deploy → Monitor
-2. ✅ Tự tay tạo CI/CD pipeline với **GitHub Actions** (miễn phí, không cần server)
-3. ✅ Deploy website lên **GitHub Pages** — có URL thật để truy cập
-4. ✅ So sánh DevOps tự động với cách làm thủ công truyền thống
+1. Trải nghiệm **toàn bộ vòng đời DevOps**: Plan → Code → Build → Test → Deploy → Monitor
+2. Tự tay tạo CI/CD pipeline với **GitHub Actions** (miễn phí, không cần server)
+3. Deploy website lên **GitHub Pages** — có URL thật để truy cập
+4. So sánh DevOps tự động với cách làm thủ công truyền thống
 
 ---
 
@@ -49,12 +49,12 @@ Ops upload lên server                   4. Deploy lên server
 Ops cấu hình server                     5. Gửi notification
   │                                        │
   ▼                                        ▼
-⚠️ Mất vài giờ → vài ngày              ✅ Mất vài phút → TỰ ĐỘNG
-⚠️ Dễ sai sót do con người             ✅ Nhất quán mỗi lần chạy
-⚠️ "It works on my machine"            ✅ Môi trường build chuẩn hóa
+Mất vài giờ → vài ngày              Mất vài phút → TỰ ĐỘNG
+Dễ sai sót do con người             Nhất quán mỗi lần chạy
+"It works on my machine"            Môi trường build chuẩn hóa
 ```
 
-**Bạn sẽ trải nghiệm DevOps workflow ngay trong lab này!**
+**Sinh viên sẽ trải nghiệm DevOps workflow ngay trong lab này!**
 
 ---
 
@@ -125,14 +125,14 @@ Tạo file `index.html`:
 </head>
 <body>
     <div class="container">
-        <h1>👋 Hello, DevOps!</h1>
+        <h1> Hello, DevOps!</h1>
         <h2>Lab 1 — Trải nghiệm CI/CD Pipeline</h2>
 
         <div class="info">
-            <p>🎯 <strong>Bài học:</strong> DevOps Lab 1 — Tổng quan</p>
-            <p>🚀 <strong>Deploy bởi:</strong> GitHub Actions CI/CD</p>
-            <p>📅 <strong>Ngày deploy:</strong> <span id="date"></span></p>
-            <p>🔄 <strong>Pipeline status:</strong> <span class="status">✅ Automated</span></p>
+            <p> <strong>Bài học:</strong> DevOps Lab 1 — Tổng quan</p>
+            <p> <strong>Deploy bởi:</strong> GitHub Actions CI/CD</p>
+            <p> <strong>Ngày deploy:</strong> <span id="date"></span></p>
+            <p> <strong>Pipeline status:</strong> <span class="status"> Automated</span></p>
         </div>
 
         <div>
@@ -146,7 +146,7 @@ Tạo file `index.html`:
 
         <div class="footer">
             <p>Deployed automatically via GitHub Actions Pipeline</p>
-            <p>🔄 Push code → CI Build → Auto Deploy → Live! 🚀</p>
+            <p> Push code → CI Build → Auto Deploy → Live! </p>
         </div>
     </div>
 
@@ -196,7 +196,7 @@ Tạo file `.github/workflows/deploy.yml`:
 # Tự động deploy website lên GitHub Pages mỗi khi push code
 # ============================================================
 
-name: 🚀 Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 # === Khi nào pipeline chạy? ===
 on:
@@ -212,29 +212,29 @@ jobs:
 
     steps:
       # Step 1: Checkout code từ GitHub
-      - name: 📦 Checkout Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       # Step 2: Kiểm tra HTML cơ bản
-      - name: 🧪 Validate HTML
+      - name: Validate HTML
         run: |
           echo "Checking index.html exists..."
           if [ -f "index.html" ]; then
-            echo "✅ index.html found!"
+            echo "index.html found!"
             echo "File size: $(wc -c < index.html) bytes"
           else
-            echo "❌ index.html NOT found!"
+            echo " index.html NOT found!"
             exit 1
           fi
 
       # Step 3: Deploy lên GitHub Pages
-      - name: 🚀 Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
           publish_branch: gh-pages
-          commit_message: "🚀 Auto-deploy from CI pipeline"
+          commit_message: "Auto-deploy from CI pipeline"
 ```
 
 ### 2.3 Giải thích từng dòng
@@ -259,7 +259,7 @@ jobs:
 3. Branch: `gh-pages` → `/ (root)` → **Save**
 4. Đợi 1-2 phút → URL sẽ hiện ra: `https://<USER>.github.io/devops-lab1-portfolio/`
 
-> 📝 Nếu chưa thấy phần "Pages", pipeline sẽ tự tạo branch `gh-pages` sau lần chạy đầu tiên.
+> Nếu chưa thấy phần "Pages", pipeline sẽ tự tạo branch `gh-pages` sau lần chạy đầu tiên.
 
 ✅ **CHECKPOINT 2:** File `.github/workflows/deploy.yml` đã được tạo? Cấu trúc thư mục:
 ```
@@ -286,14 +286,14 @@ git push origin main
 ### 3.2 Quan sát Pipeline Chạy
 
 1. Vào repo trên GitHub → tab **Actions**
-2. Bạn sẽ thấy pipeline `🚀 Deploy to GitHub Pages` đang chạy:
+2. Bạn sẽ thấy pipeline ` Deploy to GitHub Pages` đang chạy:
 
 ```
-🚀 Deploy to GitHub Pages
+ Deploy to GitHub Pages
   └─ build-and-deploy
-      ├─ 📦 Checkout Code ............ ✅ (2s)
-      ├─ 🧪 Validate HTML ............ ✅ (1s)  "index.html found! File size: 1234 bytes"
-      └─ 🚀 Deploy to GitHub Pages ... ✅ (5s)
+      ├─  Checkout Code ............  (2s)
+      ├─  Validate HTML ............  (1s)  "index.html found! File size: 1234 bytes"
+      └─  Deploy to GitHub Pages ...  (5s)
 ```
 
 3. Nhấp vào từng step để xem log chi tiết
@@ -306,15 +306,15 @@ Vào trình duyệt, truy cập:
 https://<YOUR_USERNAME>.github.io/devops-lab1-portfolio/
 ```
 
-🎉 **Website của bạn đã ONLINE!** Bất kỳ ai trên thế giới cũng có thể truy cập!
+ **Website của bạn đã ONLINE!** Bất kỳ ai trên thế giới cũng có thể truy cập!
 
 ### 3.4 Test CI/CD: Sửa Code → Push → Tự động Update
 
 Sửa file `index.html`, thay đổi dòng tiêu đề:
 
 ```html
-<h1>👋 Xin chào, DevOps!</h1>
-<h2>Lab 1 — Website đã được cập nhật tự động! 🔄</h2>
+<h1> Xin chào, DevOps!</h1>
+<h2>Lab 1 — Website đã được cập nhật tự động! </h2>
 ```
 
 ```bash
@@ -325,7 +325,7 @@ git push origin main
 
 Quay lại tab **Actions** → pipeline **tự động chạy lại** → đợi ~10 giây → **refresh website** → nội dung đã thay đổi!
 
-> 🤯 **Bạn vừa trải nghiệm DevOps thực thụ: Push code → Tự động deploy → Live!**
+>  **Bạn vừa trải nghiệm DevOps thực thụ: Push code → Tự động deploy → Live!**
 
 ✅ **CHECKPOINT 3:** Website online tại `*.github.io`? Sửa code + push → website tự cập nhật?
 
@@ -421,7 +421,7 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm:
 | 1 | **Repository** — public, có README, có index.html | 15% | Truy cập repo trên GitHub |
 | 2 | **Pipeline** — `.github/workflows/deploy.yml` tồn tại | 25% | File YAML đúng cấu trúc |
 | 3 | **Website Online** — URL `*.github.io` hoạt động | 35% | Mở URL thấy trang portfolio |
-| 4 | **CI/CD Hoạt động** — Push code → pipeline chạy → web update | 15% | Actions tab hiển thị ✅ |
+| 4 | **CI/CD Hoạt động** — Push code → pipeline chạy → web update | 15% | Actions tab hiển thị  |
 | 5 | **Bảng So sánh + Workflow** — hiểu DevOps vs Traditional | 10% | File text hoặc ảnh chụp |
 | **TỔNG** | | **100%** | |
 

@@ -189,7 +189,7 @@ Dùng: mkdir -p .github/workflows (nếu chạy trên Linux)
 
 ### 2.2 Viết Pipeline File: deploy.yml
 
-Tạo file `.github/workflows/deploy.yml` (lưu ý: thay '/' bởi '\' khi sử dụng hdh Window):
+Tạo file `.github/workflows/deploy.yml` (lưu ý: thay '/' bởi ' \ ' khi sử dụng hdh Window):
 
 ```yaml
 # ============================================================

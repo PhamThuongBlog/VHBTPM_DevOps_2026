@@ -1,11 +1,11 @@
 # Lab 3: Cấp phát Hạ tầng Đám mây với Terraform & AWS
 
 ## Thông tin chung
-- **Bài học:** Bài 3 — Cơ sở Hạ tầng Dưới dạng Mã (IaC)
+- **Bài học 3 — Cơ sở Hạ tầng Dưới dạng Mã (IaC)**
 - **CDR:** 3.2 — Vận dụng IaC trong thiết lập và quản lý cấu hình hạ tầng
 - **Mức Bloom:** Vận dụng (Apply)
 - **Thời lượng:** 90 phút
-- **Hình thức:** Cá nhân
+- **Hình thức:** Sinh viên tự thực hành theo hướng dẫn
 
 ## Mục tiêu
 Sau khi hoàn thành lab, sinh viên có thể:
@@ -46,6 +46,6 @@ Sau khi hoàn thành lab, sinh viên có thể:
 │   ├── verify.sh               ← Kiểm tra kết quả
 │   └── cleanup.sh              ← Dọn dẹp tài nguyên
 ├── screenshots/                 ← Ảnh minh họa kết quả từng bước
-└── solution/                    ← Đáp án (cho giảng viên)
+└── solution/                    ← Đáp án (SV tham khảo)
     └── Lab3_Solution.md
 ```

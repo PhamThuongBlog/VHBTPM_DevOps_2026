@@ -1,7 +1,7 @@
 # Lab 2: Thiết lập Môi trường DevOps & Áp dụng Nguyên tắc CALMS
 
 > **Hướng dẫn chi tiết từng bước — Thời lượng: 75 phút**
-> **Bài học:** Bài 2 — DevOps và các Nguyên tắc Cốt lõi
+> **Bài 2 — DevOps và các Nguyên tắc Cốt lõi**
 
 ---
 
@@ -9,11 +9,11 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Cài đặt **DevOps Toolchain**: VS Code + Git + Docker Desktop
-2. ✅ Hiểu **5 nguyên tắc CALMS** qua thực hành
-3. ✅ Viết **automation script** đầu tiên (nguyên tắc Automation)
-4. ✅ Sử dụng **Docker** để loại bỏ "It works on my machine" (nguyên tắc Lean)
-5. ✅ Vẽ **DevOps Toolchain Map** — biết tool nào cho giai đoạn nào
+1. Cài đặt **DevOps Toolchain**: VS Code + Git + Docker Desktop
+2. Hiểu **5 nguyên tắc CALMS của DevOps** qua thực hành
+3. Viết **automation script** đầu tiên (nguyên tắc Automation)
+4. Sử dụng **Docker** để loại bỏ "It works on my machine" (nguyên tắc Lean)
+5. Vẽ **DevOps Toolchain Map** — biết tool nào cho giai đoạn nào
 
 ---
 
@@ -25,7 +25,7 @@ Sau lab này, bạn sẽ:
 | RAM | ≥ 8GB | Docker cần ~2GB |
 | Internet | Có | Để tải Docker images |
 | **VS Code** | Bản mới nhất | [Tải tại đây](https://code.visualstudio.com/) |
-| **Git** | ≥ 2.40 | Đã cài ở Lab 5 |
+| **Git** | ≥ 2.40 | Cần cài từ khi thực hiện Lab 1 |
 | **Docker Desktop** | ≥ 24.x | [Tải tại đây](https://www.docker.com/products/docker-desktop/) |
 | **Tài khoản GitHub** | Có | Đã tạo ở Lab 1 |
 
@@ -61,7 +61,7 @@ Jira      GitHub   npm       SonarQube Artifactory Helm       AWS        ELK
 
 ## BƯỚC 1: Cài đặt DevOps Toolchain Cơ bản (20 phút)
 
-> 🎯 **Mục tiêu CALMS:** Thiết lập nền tảng công cụ để tự động hóa (Automation) và tinh gọn (Lean)
+> **Mục tiêu CALMS:** Thiết lập nền tảng công cụ để tự động hóa (Automation) và tinh gọn (Lean)
 
 ### 1.1 VS Code — IDE cho DevOps
 
@@ -125,13 +125,13 @@ echo ""
 echo "✅ Toolchain ready for DevOps!"
 ```
 
-✅ **CHECKPOINT 1:** Cả 3 công cụ (VS Code, Git, Docker) đều hiển thị version?
+✅ **Tiêu chí chấm 1:** Cả 3 công cụ (VS Code, Git, Docker) đều hiển thị version?
 
 ---
 
 ## BƯỚC 2: Automation — Script Tự động hóa Đầu tiên (15 phút)
 
-> 🎯 **Mục tiêu CALMS:** Hiểu nguyên tắc **Automation** — biến công việc thủ công thành code chạy tự động
+> **Mục tiêu CALMS:** Hiểu nguyên tắc **Automation** — biến công việc thủ công thành code chạy tự động
 
 ### 2.1 Bài toán
 
@@ -159,27 +159,27 @@ Tạo file `setup-dev-env.sh` (macOS/Linux):
 set -e
 
 echo "========================================="
-echo "  🚀 DevOps Lab 2 — Auto Environment Setup"
+echo "  DevOps Lab 2 — Auto Environment Setup"
 echo "========================================="
 echo ""
 
 # --- Step 1: Check prerequisites ---
 echo "[1/4] Checking prerequisites..."
-command -v git &>/dev/null && echo "  ✅ Git: $(git --version)" || echo "  ❌ Git not found"
-command -v node &>/dev/null && echo "  ✅ Node.js: $(node --version)" || echo "  ⚠️  Node.js not found (optional)"
+command -v git &>/dev/null && echo "   Git: $(git --version)" || echo "   Git not found"
+command -v node &>/dev/null && echo "  Node.js: $(node --version)" || echo "    Node.js not found (optional)"
 
 # --- Step 2: Create project structure ---
 echo "[2/4] Creating project structure..."
 mkdir -p src tests docs
-echo "  ✅ Created: src/ tests/ docs/"
+echo "  Created: src/ tests/ docs/"
 
 # --- Step 3: Initialize Git ---
 echo "[3/4] Initializing Git repository..."
 if [ ! -d ".git" ]; then
     git init
-    echo "  ✅ Git initialized"
+    echo "   Git initialized"
 else
-    echo "  ⚠️  Git already initialized"
+    echo "    Git already initialized"
 fi
 
 # --- Step 4: Generate config files ---
@@ -194,7 +194,7 @@ node_modules/
 dist/
 .vscode/
 EOF
-echo "  ✅ .gitignore created"
+echo "   .gitignore created"
 
 # README.md
 cat > README.md << 'EOF'
@@ -207,11 +207,11 @@ Môi trường được thiết lập tự động bởi `setup-dev-env.sh`
 bash setup-dev-env.sh    # Tự động cài đặt mọi thứ
 ```
 EOF
-echo "  ✅ README.md created"
+echo "   README.md created"
 
 echo ""
 echo "========================================="
-echo "  ✅ SETUP COMPLETE! (Time: ${SECONDS}s)"
+echo "   SETUP COMPLETE! (Time: ${SECONDS}s)"
 echo "========================================="
 echo ""
 echo "Project is ready at: $(pwd)"
@@ -223,22 +223,22 @@ Tạo file `setup-dev-env.ps1` (Windows PowerShell):
 ```powershell
 # DevOps Lab 2 — Automation Setup Script (Windows)
 Write-Host "=========================================" -ForegroundColor Cyan
-Write-Host "  🚀 DevOps Lab 2 — Auto Environment Setup" -ForegroundColor Cyan
+Write-Host "   DevOps Lab 2 — Auto Environment Setup" -ForegroundColor Cyan
 Write-Host "=========================================" -ForegroundColor Cyan
 Write-Host ""
 
 Write-Host "[1/4] Checking prerequisites..." -ForegroundColor Yellow
 $git = Get-Command git -ErrorAction SilentlyContinue
-if ($git) { Write-Host "  ✅ Git: $(git --version)" -ForegroundColor Green }
+if ($git) { Write-Host "   Git: $(git --version)" -ForegroundColor Green }
 $node = Get-Command node -ErrorAction SilentlyContinue
-if ($node) { Write-Host "  ✅ Node.js: $(node --version)" -ForegroundColor Green }
+if ($node) { Write-Host "   Node.js: $(node --version)" -ForegroundColor Green }
 
 Write-Host "[2/4] Creating project structure..." -ForegroundColor Yellow
 New-Item -ItemType Directory -Force -Path src,tests,docs | Out-Null
-Write-Host "  ✅ Created: src/ tests/ docs/" -ForegroundColor Green
+Write-Host "   Created: src/ tests/ docs/" -ForegroundColor Green
 
 Write-Host "[3/4] Initializing Git..." -ForegroundColor Yellow
-if (-not (Test-Path ".git")) { git init; Write-Host "  ✅ Git initialized" -ForegroundColor Green }
+if (-not (Test-Path ".git")) { git init; Write-Host "   Git initialized" -ForegroundColor Green }
 
 Write-Host "[4/4] Generating config files..." -ForegroundColor Yellow
 @"
@@ -249,10 +249,10 @@ node_modules/
 dist/
 .vscode/
 "@ | Out-File -FilePath .gitignore -Encoding UTF8
-Write-Host "  ✅ .gitignore created" -ForegroundColor Green
+Write-Host "   .gitignore created" -ForegroundColor Green
 
 Write-Host ""
-Write-Host "✅ SETUP COMPLETE!" -ForegroundColor Green
+Write-Host " SETUP COMPLETE!" -ForegroundColor Green
 ```
 
 ### 2.3 Chạy Script
@@ -278,15 +278,15 @@ bash setup-dev-env.sh
 | Người mới cần document dài | Script = document (self-documenting) |
 | Dễ quên bước → lỗi | Script chạy nhất quán 100% |
 
-> 💡 **Bài học DevOps #1:** Bất cứ việc gì làm thủ công ≥ 2 lần → **HÃY VIẾT SCRIPT TỰ ĐỘNG HÓA!**
+>  **Bài học DevOps #1:** Bất cứ việc gì làm thủ công ≥ 2 lần → **HÃY VIẾT SCRIPT TỰ ĐỘNG HÓA!**
 
-✅ **CHECKPOINT 2:** Script chạy thành công? Tạo đủ src/, tests/, docs/, .gitignore, README.md?
+✅ **Tiêu chí chấm 2:** Script chạy thành công? Tạo đủ src/, tests/, docs/, .gitignore, README.md?
 
 ---
 
 ## BƯỚC 3: Lean — Tối ưu với Docker (15 phút)
 
-> 🎯 **Mục tiêu CALMS:** Hiểu nguyên tắc **Lean** — loại bỏ lãng phí "It works on my machine"
+>  **Mục tiêu CALMS:** Hiểu nguyên tắc **Lean** — loại bỏ lãng phí "It works on my machine"
 
 ### 3.1 Bài toán
 
@@ -340,7 +340,7 @@ const server = http.createServer((req, res) => {
 
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(` Server running at http://localhost:${PORT}`);
     console.log(`Environment: Node.js ${process.version} on ${process.platform}`);
 });
 ```
@@ -393,7 +393,7 @@ curl http://localhost:3000
 | Mất 30 phút setup môi trường mới | `docker run` → 5 giây |
 | Version Node.js khác nhau giữa các máy | Version cố định trong Dockerfile |
 
-> 💡 **Bài học DevOps #2:** Docker loại bỏ lãng phí "It works on my machine" → Môi trường **giống hệt** từ dev → test → production.
+>  **Bài học DevOps #2:** Docker loại bỏ lãng phí "It works on my machine" → Môi trường **giống hệt** từ dev → test → production.
 
 ### 3.5 Dọn dẹp Container
 
@@ -401,13 +401,13 @@ curl http://localhost:3000
 docker stop lab2-app && docker rm lab2-app
 ```
 
-✅ **CHECKPOINT 3:** `curl localhost:3000` trả về JSON? Docker container đang chạy?
+ **Tiêu chí chấm 3:** `curl localhost:3000` trả về JSON? Docker container đang chạy?
 
 ---
 
 ## BƯỚC 4: DevOps Toolchain Map + Tổng kết (15 phút)
 
-> 🎯 **Mục tiêu CALMS:** **Measurement** (đo lường tools) + **Sharing** (chia sẻ kiến thức)
+>  **Mục tiêu CALMS:** **Measurement** (đo lường tools) + **Sharing** (chia sẻ kiến thức)
 
 ### 4.1 Vẽ DevOps Toolchain Map
 
@@ -462,7 +462,7 @@ Dựa trên những gì đã học ở Bài 1-2, hãy vẽ sơ đồ DevOps tool
 | **S**haring | Code Review trên GitHub | Lab 5 |
 | **S**haring | Toolchain map — chia sẻ kiến thức | Lab 2 |
 
-✅ **CHECKPOINT 4:** Đã vẽ toolchain map + điền bảng công cụ + điền bảng CALMS?
+ **Tiêu chí chấm 4:** Đã vẽ toolchain map + điền bảng công cụ + điền bảng CALMS?
 
 ---
 
@@ -489,7 +489,7 @@ Dựa trên điểm số, viết ra 3 hành động cụ thể để cải thi�
 2. ________________________________________________
 3. ________________________________________________
 
-✅ **CHECKPOINT 5:** Đã tự đánh giá CALMS + viết 3 hành động cải thiện?
+ **Tiêu chí chấm 5:** Đã tự đánh giá CALMS + viết 3 hành động cải thiện?
 
 ---
 
@@ -522,7 +522,7 @@ Dựa trên điểm số, viết ra 3 hành động cụ thể để cải thi�
 
 ---
 
-## TIÊU CHÍ CHẤM ĐIỂM
+## TIÊU CHÍ CHẤM ĐIỂM - TỔNG KẾT
 
 | # | Tiêu chí | Điểm | Cách đánh giá |
 |---|----------|:----:|--------------|

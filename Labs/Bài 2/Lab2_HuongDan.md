@@ -371,22 +371,6 @@ Dựa trên điểm số, viết ra 3 hành động cụ thể để cải thi�
 
 ---
 
-## BÀI TẬP MỞ RỘNG
-
-### 🟢 Cơ bản
-1. **Thêm health check vào Dockerfile:** `HEALTHCHECK --interval=30s CMD curl -f http://localhost:3000 || exit 1`
-2. **Thêm Docker Compose:** Tạo `docker-compose.yml` chạy app + database
-
-### 🟡 Trung bình
-3. **CI/CD cho Docker app:** Tạo GitHub Actions pipeline build Docker image + push lên Docker Hub
-4. **Multi-stage Docker build:** Tối ưu Docker image size (giảm từ 200MB → 50MB)
-
-### 🔴 Nâng cao
-5. **DevSecOps:** Thêm Snyk/Trivy scan vào automation script để quét lỗ hổng dependencies
-6. **Infrastructure as Code:** Dùng Terraform để provision môi trường dev tự động
-
----
-
 ## TIÊU CHÍ CHẤM ĐIỂM - TỔNG KẾT
 
 | # | Tiêu chí | Điểm | Cách đánh giá |

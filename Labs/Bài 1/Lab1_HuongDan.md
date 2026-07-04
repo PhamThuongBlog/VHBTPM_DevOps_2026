@@ -257,8 +257,8 @@ jobs:
 
 1. Vào repo → **Settings** → **Pages**
 2. Source: **Deploy from a branch**
-3. Branch: `gh-pages` → `/ (root)` → **Save**
-4. Đợi 1-2 phút → URL sẽ hiện ra: `https://<USER>.github.io/devops-lab1-portfolio/`
+3. Branch: `gh-pages` → `/ (root)` → **Save** , hoặc `main` → `/ (root)` → **Save** (nếu bạn đã có trang GitHub page trước đó cho một website khác)
+4. Đợi 1-2 phút → URL sẽ hiện ra: `https://<USER>.github.io/devops-lab1-portfolio/` . Ví dụ: https://phamthuongblog.github.io/devops-lab1-portfolio/
 
 > Nếu chưa thấy phần "Pages", pipeline sẽ tự tạo branch `gh-pages` sau lần chạy đầu tiên.
 

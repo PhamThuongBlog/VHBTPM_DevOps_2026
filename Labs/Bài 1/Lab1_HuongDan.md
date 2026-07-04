@@ -172,7 +172,7 @@ xdg-open index.html
 
 Bạn sẽ thấy trang portfolio hiển thị trong browser. Nhưng hiện tại nó chỉ chạy **local** — chưa ai khác xem được!
 
-✅ **CHECKPOINT 1:** `index.html` hiển thị trong browser local?
+✅ **Tiêu chí chấm điểm 1:** `index.html` hiển thị trong browser local?
 
 ---
 
@@ -261,7 +261,7 @@ jobs:
 
 > Nếu chưa thấy phần "Pages", pipeline sẽ tự tạo branch `gh-pages` sau lần chạy đầu tiên.
 
-✅ **CHECKPOINT 2:** File `.github/workflows/deploy.yml` đã được tạo? Cấu trúc thư mục:
+✅ **Tiêu chí chấm điểm 2:** File `.github/workflows/deploy.yml` đã được tạo? Cấu trúc thư mục:
 ```
 devops-lab1-portfolio/
 ├── .github/
@@ -327,7 +327,7 @@ Quay lại tab **Actions** → pipeline **tự động chạy lại** → đợi
 
 >  **Bạn vừa trải nghiệm DevOps thực thụ: Push code → Tự động deploy → Live!**
 
-✅ **CHECKPOINT 3:** Website online tại `*.github.io`? Sửa code + push → website tự cập nhật?
+✅ **Tiêu chí chấm điểm 3:** Website online tại `*.github.io`? Sửa code + push → website tự cập nhật?
 
 ---
 
@@ -381,7 +381,7 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm:
 3. **GitHub Actions pipeline đã giúp bạn tiết kiệm bao nhiêu thời gian so với cách thủ công?**
    → Thủ công: download file → upload lên server → cấu hình → test (15-30 phút). DevOps: `git push` (10 giây).
 
-✅ **CHECKPOINT 4:** Đã điền bảng so sánh + vẽ workflow + trả lời 3 câu hỏi?
+✅ **Tiêu chí chấm điểm 4:** Đã điền bảng so sánh + vẽ workflow + trả lời 3 câu hỏi?
 
 ---
 
@@ -414,7 +414,7 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm:
 
 ---
 
-## TIÊU CHÍ CHẤM ĐIỂM
+## TIÊU CHÍ CHẤM ĐIỂM - TỔNG HỢP
 
 | # | Tiêu chí | Điểm | Cách đánh giá |
 |---|----------|:----:|--------------|

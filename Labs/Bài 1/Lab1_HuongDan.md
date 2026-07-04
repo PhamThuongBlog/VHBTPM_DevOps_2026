@@ -349,12 +349,10 @@ Dựa trên trải nghiệm lab, hãy điền bảng sau:
 ### 4.2 Vẽ DevOps Workflow của Bạn
 
 Vẽ sơ đồ workflow bạn vừa trải nghiệm:
-
 ```
-<img width="1171" height="122" alt="image" src="https://github.com/user-attachments/assets/4e199380-2815-46ab-bfb9-091d999f46de" />
 
 ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  PLAN    │───▶│  CODE    │───▶│  BUILD   │───▶│  TEST    │───▶│  DEPLOY  │
+│  PLAN    │───▶│ CODE    │───▶│  BUILD   │───▶│  TEST   │───▶│  DEPLOY  │
 │          │    │          │    │          │    │          │    │          │
 │ Quyết    │    │ Viết     │    │ GitHub   │    │ Validate │    │ GitHub   │
 │ định làm │    │ index.   │    │ Actions  │    │ HTML     │    │ Pages    │

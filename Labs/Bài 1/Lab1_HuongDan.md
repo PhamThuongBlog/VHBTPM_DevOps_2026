@@ -1,7 +1,7 @@
 # Lab 1: Trải nghiệm DevOps Workflow End-to-End
 
 > **Hướng dẫn chi tiết từng bước — Thời lượng: 60 phút**
-> **Bài học:** Bài 1 — Tổng quan về Vận hành & Bảo trì Phần mềm
+> **Bài 1 — Tổng quan về Vận hành & Bảo trì Phần mềm**
 
 ---
 
@@ -21,11 +21,11 @@ Sau lab này, bạn sẽ:
 | Thành phần | Yêu cầu |
 |------------|---------|
 | **Tài khoản GitHub** | Có (đăng ký miễn phí tại github.com) |
-| **Git** | ≥ 2.x (đã cài ở Bài 5) |
+| **Git** | ≥ 2.x |
 | **VS Code** | Hoặc trình soạn thảo bất kỳ |
 | **Trình duyệt** | Chrome/Firefox/Edge |
 
-> 🎉 **Không cần cài server, không cần cloud account, không cần thẻ tín dụng!**
+> **Không cần cài server, không cần cloud account, không cần thẻ tín dụng!**
 
 ---
 
@@ -65,7 +65,7 @@ Ops cấu hình server                     5. Gửi notification
 2. Repository name: `devops-lab1-portfolio`
 3. Description: `Lab 1 — DevOps Course: My First CI/CD Pipeline`
 4. Chọn **Public**
-5. **TÍCH** "Add a README file" (lần này có tích nhé!)
+5. **TÍCH** "Add a README file" (để tạo file readme mô tả mục đích của kho GitHub!)
 6. Create repository
 
 ### 1.2 Clone về máy
@@ -169,9 +169,9 @@ open index.html
 xdg-open index.html
 ```
 
-Bạn sẽ thấy trang portfolio hiển thị đẹp trong browser. Nhưng hiện tại nó chỉ chạy **local** — chưa ai khác xem được!
+Bạn sẽ thấy trang portfolio hiển thị trong browser. Nhưng hiện tại nó chỉ chạy **local** — chưa ai khác xem được!
 
-✅ **CHECKPOINT 1:** `index.html` hiển thị đẹp trong browser local?
+✅ **CHECKPOINT 1:** `index.html` hiển thị trong browser local?
 
 ---
 

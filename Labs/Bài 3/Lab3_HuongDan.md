@@ -8,11 +8,11 @@
 
 Sau khi hoàn thành lab này, bạn sẽ:
 
-1. ✅ Viết được file cấu hình Terraform (.tf) để khai báo tài nguyên AWS
-2. ✅ Sử dụng thành thạo quy trình: `terraform init` → `plan` → `apply` → `destroy`
-3. ✅ Cấp phát được **máy chủ ảo EC2** và **S3 bucket** trên AWS chỉ bằng mã
-4. ✅ Truy xuất thông tin tài nguyên đã tạo qua Terraform outputs
-5. ✅ Dọn dẹp tài nguyên đúng cách, không để phát sinh chi phí
+1.  Viết được file cấu hình Terraform (.tf) để khai báo tài nguyên AWS
+2.  Sử dụng thành thạo quy trình: `terraform init` → `plan` → `apply` → `destroy`
+3.  Cấp phát được **máy chủ ảo EC2** và **S3 bucket** trên AWS chỉ bằng mã
+4.  Truy xuất thông tin tài nguyên đã tạo qua Terraform outputs
+5.  Dọn dẹp tài nguyên đúng cách, không để phát sinh chi phí
 
 ---
 
@@ -38,9 +38,9 @@ Sau khi hoàn thành lab này, bạn sẽ:
 
 ```
 ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│   VIẾT   │───▶│   INIT   │───▶│   PLAN   │───▶│  APPLY   │
+│   VIẾT   │───▶│   INIT  │───▶│   PLAN   │───▶│  APPLY  │
 │  file.tf │    │  tải     │    │  xem     │    │  tạo tài │
-│           │    │  plugin  │    │  trước   │    │  nguyên  │
+│          │    │  plugin  │    │  trước   │    │  nguyên  │
 └──────────┘    └──────────┘    └──────────┘    └──────────┘
 ```
 
@@ -175,7 +175,7 @@ aws sts get-caller-identity
 
 ✅ **CHECKPOINT 2:** AWS CLI hoạt động? Chạy lệnh trên và thấy thông tin tài khoản.
 
-> 🔒 **BẢO MẬT:** Không bao giờ commit Access Key lên GitHub! Terraform sẽ tự động đọc từ file credentials của AWS CLI.
+>  **BẢO MẬT:** Không bao giờ commit Access Key lên GitHub! Terraform sẽ tự động đọc từ file credentials của AWS CLI.
 
 ---
 
@@ -268,7 +268,7 @@ variable "environment" {
 | `s3_bucket_prefix` | Tiền tố tên bucket | S3 bucket cần tên duy nhất toàn cầu |
 | `environment` | Tag môi trường | Giúp phân loại tài nguyên |
 
-> 💡 **Lưu ý về AMI ID:** AMI ID `ami-0c7217cdff66f2296` là Amazon Linux 2023 ở region `us-east-1`. Nếu bạn chọn region khác, cần tra cứu AMI ID tương ứng trên AWS Console → EC2 → AMI Catalog.
+>  **Lưu ý về AMI ID:** AMI ID `ami-0c7217cdff66f2296` là Amazon Linux 2023 ở region `us-east-1`. Nếu bạn chọn region khác, cần tra cứu AMI ID tương ứng trên AWS Console → EC2 → AMI Catalog.
 
 ✅ **CHECKPOINT 4:** File `variables.tf` đã viết đúng? Mở file kiểm tra đủ 5 biến.
 
@@ -316,7 +316,7 @@ resource "aws_security_group" "lab_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]   # ⚠️ Trong thực tế: giới hạn IP của bạn
+    cidr_blocks = ["0.0.0.0/0"]   #  Trong thực tế: giới hạn IP của bạn
   }
 
   # Cho phép HTTP
@@ -382,7 +382,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "lab_bucket_encryp
 # (khai báo tags chung để áp dụng cho provider)
 ```
 
-### ⚠️ QUAN TRỌNG — Cập nhật EC2 Resource
+###  QUAN TRỌNG — Cập nhật EC2 Resource
 
 Quay lại phần `resource "aws_instance" "lab_server"` và **thêm dòng** `vpc_security_group_ids` vào sau dòng `key_name`:
 
@@ -413,7 +413,7 @@ resource "aws_instance" "lab_server" {
 | `aws_s3_bucket_versioning` | Versioning cho S3 | Giữ lịch sử thay đổi của file |
 | `aws_s3_bucket_server_side_encryption_configuration` | Mã hóa S3 | Bảo mật dữ liệu với AES256 |
 
-> 💡 **Best Practice:** Bật Versioning và Encryption cho S3 bucket là DevOps best practice về bảo mật và an toàn dữ liệu.
+>  **Best Practice:** Bật Versioning và Encryption cho S3 bucket là DevOps best practice về bảo mật và an toàn dữ liệu.
 
 ✅ **CHECKPOINT 5:** File `main.tf` đã có đủ: provider, EC2, S3, Security Group, random_id? Kiểm tra xong chạy thử:
 ```bash
@@ -513,7 +513,7 @@ Initializing provider plugins...
 Terraform has been successfully initialized!
 ```
 
-> 📦 `terraform init` tải 2 provider plugins: **AWS** (để làm việc với AWS API) và **Random** (để tạo ID ngẫu nhiên).
+>  `terraform init` tải 2 provider plugins: **AWS** (để làm việc với AWS API) và **Random** (để tạo ID ngẫu nhiên).
 
 ### 6.2 Format & Kiểm tra cú pháp
 
@@ -568,7 +568,7 @@ Terraform will perform the following actions:
 Plan: 7 to add, 0 to change, 0 to destroy.
 ```
 
-> 🔍 **Đọc kỹ output của `terraform plan`!** Dấu `+` màu xanh = tài nguyên sẽ được tạo mới. Dấu `-` màu đỏ = tài nguyên sẽ bị xóa. Dấu `~` màu vàng = tài nguyên sẽ bị thay đổi.
+>  **Đọc kỹ output của `terraform plan`!** Dấu `+` màu xanh = tài nguyên sẽ được tạo mới. Dấu `-` màu đỏ = tài nguyên sẽ bị xóa. Dấu `~` màu vàng = tài nguyên sẽ bị thay đổi.
 
 ### 6.4 Thực thi: `terraform apply`
 
@@ -608,7 +608,7 @@ s3_bucket_arn = "arn:aws:s3:::my-terraform-lab-a1b2c3d4"
 ssh_connect_command = "ssh -i ~/.ssh/my-aws-key.pem ec2-user@ec2-54-123-45-67.compute-1.amazonaws.com"
 ```
 
-🎉 **CHÚC MỪNG!** Bạn vừa cấp phát hạ tầng AWS bằng code thành công!
+ **CHÚC MỪNG!** Bạn vừa cấp phát hạ tầng AWS bằng code thành công!
 
 ✅ **CHECKPOINT 7:** `terraform apply` thành công? Màn hình hiển thị "Apply complete! Resources: 7 added..."
 
@@ -669,11 +669,11 @@ aws_security_group.lab_sg
 random_id.bucket_suffix
 ```
 
-> 📝 **Terraform State:** File `terraform.tfstate` lưu trạng thái thực tế của hạ tầng. Đây là file quan trọng nhất — **không xóa, không sửa tay, không commit lên GitHub** (chứa thông tin nhạy cảm)!
+>  **Terraform State:** File `terraform.tfstate` lưu trạng thái thực tế của hạ tầng. Đây là file quan trọng nhất — **không xóa, không sửa tay, không commit lên GitHub** (chứa thông tin nhạy cảm)!
 
 ### 7.5 Dọn dẹp: `terraform destroy`
 
-> ⚠️ **RẤT QUAN TRỌNG:** Luôn chạy `terraform destroy` sau khi hoàn thành lab để tránh bị AWS tính phí!
+>  **RẤT QUAN TRỌNG:** Luôn chạy `terraform destroy` sau khi hoàn thành lab để tránh bị AWS tính phí!
 
 ```bash
 terraform destroy

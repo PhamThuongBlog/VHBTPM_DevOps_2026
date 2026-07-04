@@ -5,7 +5,7 @@
 - **CDR:** 1.2 (Hiểu DevOps vs truyền thống) + 1.3 (Hiểu vòng đời DevOps)
 - **Mức Bloom:** Hiểu + Vận dụng cơ bản
 - **Thời lượng:** 60 phút
-- **Hình thức:** Cá nhân
+- **Hình thức:** Sinh viên tự thực hành
 
 ## Mục tiêu
 Sau lab này, sinh viên có thể:
@@ -16,8 +16,7 @@ Sau lab này, sinh viên có thể:
 
 ## Tại sao chọn GitHub Actions + GitHub Pages?
 - ✅ **Hoàn toàn miễn phí** — không cần tài khoản cloud, không cần thẻ tín dụng
-- ✅ **5 phút setup** — phù hợp bài intro, không làm SV nản
-- ✅ **Đủ để thấy DevOps flow**: push code → CI chạy → deploy tự động
+- ✅ Th**Ttể hiện rõ DevOps flow**: push code → CI chạy → deploy tự động
 - ✅ **Visual Pipeline** — GitHub UI hiển thị từng step
 
 ## Kịch bản Lab
@@ -33,3 +32,5 @@ Bạn là developer trong 1 team nhỏ. Bạn được giao tạo **trang giới
 | 2 | Viết GitHub Actions CI/CD Pipeline | 15 phút |
 | 3 | Push Code & Quan sát Pipeline | 15 phút |
 | 4 | So sánh DevOps vs Truyền thống | 15 phút |
+=> Hướng dẫn chi tiết: Sinh viên xem file: Lab1_HuongDan.
+Chúc bạn học và thực hành tốt bài Lab1

@@ -288,6 +288,7 @@ devops-lab1-portfolio/
 git add index.html .github/workflows/deploy.yml
 git commit -m "feat: portfolio page + GitHub Actions CI/CD pipeline"
 git push origin main
+Lưu ý: nếu muốn trang web thay đổi nội dung, thì mọi update code cần đẩy lên nhánh :'gh-pages ' thay vì nhánh 'main' 
 ```
 
 ### 3.2 Quan sát Pipeline Chạy

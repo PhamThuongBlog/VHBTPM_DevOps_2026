@@ -259,6 +259,8 @@ Write-Host ""
 Write-Host " SETUP COMPLETE!" -ForegroundColor Green
 ```
 
+**Lưu ý:** script PowerShell trên dùng để tự động chuẩn bị môi trường DevOps trên Windows
+
 ### 2.3 Chạy Script
 
 ```bash

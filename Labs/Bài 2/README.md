@@ -1,11 +1,11 @@
 # Lab 2: Thiết lập Môi trường DevOps & Áp dụng Nguyên tắc CALMS
 
 ## Thông tin chung
-- **Bài học:** Bài 2 — DevOps và các Nguyên tắc Cốt lõi
+- **Bài 2 — DevOps và các Nguyên tắc Cốt lõi** 
 - **CDR:** 2.1 (Khái niệm DevOps) + 2.2 (Nguyên tắc cốt lõi) + 2.3 (Công cụ DevOps)
 - **Mức Bloom:** Hiểu + Vận dụng cơ bản
 - **Thời lượng:** 75 phút
-- **Hình thức:** Cá nhân
+- **Hình thức:** Sinh viên tự thực hành theo hướng dẫn
 
 ## Mục tiêu
 Sau lab này, sinh viên có thể:

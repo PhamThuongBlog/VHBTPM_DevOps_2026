@@ -263,9 +263,7 @@ jobs:
    
    git push origin gh-pages
    
-   git checkout main
-
-   để bật nhánh main làm nhánh hiện thời)
+   git checkout main => để bật nhánh main làm nhánh hiện thời)
 5. Đợi 1-2 phút → URL sẽ hiện ra: `https://<USER>.github.io/devops-lab1-portfolio/` . Ví dụ: https://phamthuongblog.github.io/devops-lab1-portfolio/
 
 > Nếu chưa thấy phần "Pages", pipeline sẽ tự tạo branch `gh-pages` sau lần chạy đầu tiên.

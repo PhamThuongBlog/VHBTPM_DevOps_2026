@@ -1,0 +1,12 @@
+{
+  "name": "devops-lab8-app",
+  "version": "2.0.0",
+  "description": "DevOps Lab 8 — CD Pipeline Demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

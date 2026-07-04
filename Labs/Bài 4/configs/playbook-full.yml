@@ -1,0 +1,59 @@
+---
+# ============================================
+# DevOps Lab 4 — Full Stack Playbook
+# Cấu hình: Webservers + All Servers
+# ============================================
+
+# ----- Phần 1: Cấu hình Web Servers -----
+- name: Configure Web Tier
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install common packages
+      apt:
+        name:
+          - curl
+          - git
+          - htop
+          - vim
+        state: present
+
+    - name: Create application directory
+      file:
+        path: /opt/myapp
+        state: directory
+        mode: '0755'
+
+    - name: Deploy application config
+      copy:
+        content: |
+          APP_NAME=DevOpsLab4
+          APP_ENV=production
+          APP_PORT=8080
+        dest: /opt/myapp/config.env
+
+    - name: Create health check script
+      copy:
+        content: |
+          #!/bin/bash
+          echo "=== Health Check: $(date) ==="
+          echo "Hostname: $(hostname)"
+          echo "Uptime: $(uptime)"
+          echo "Disk: $(df -h / | tail -1)"
+          echo "Memory: $(free -m | grep Mem)"
+        dest: /opt/myapp/health-check.sh
+        mode: '0755'
+
+# ----- Phần 2: Cấu hình tất cả Servers -----
+- name: Setup Monitoring Agents
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install monitoring tools
+      apt:
+        name:
+          - sysstat
+          - net-tools
+        state: present

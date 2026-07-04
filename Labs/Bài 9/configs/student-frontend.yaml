@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-frontend
+  labels:
+    lab: devops-lab9
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-frontend
+  template:
+    metadata:
+      labels:
+        app: student-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        command: ["sh", "-c"]
+        args:
+        - |
+          cat > /usr/share/nginx/html/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html><head><title>DevOps Lab 9 — K8s Microservices</title>
+          <style>
+          *{margin:0;padding:0;box-sizing:border-box}
+          body{font-family:system-ui;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+          .container{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+          h1{color:#667eea;text-align:center;margin-bottom:8px}
+          h2{color:#764ba2;text-align:center;font-weight:normal;font-size:16px;margin-bottom:30px}
+          table{width:100%;border-collapse:collapse}
+          th{background:#667eea;color:#fff;padding:12px;text-align:left}
+          td{padding:10px 12px;border-bottom:1px solid #eee}
+          tr:hover{background:#f8f9fa}
+          .status{text-align:center;margin-top:30px;padding:12px;background:#e8f5e9;border-radius:8px;color:#2e7d32}
+          .refresh{display:block;margin:20px auto;padding:10px 30px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+          </style></head>
+          <body>
+          <div class="container">
+          <h1>🚀 DevOps Lab 9</h1>
+          <h2>Kubernetes Microservices — Student Manager</h2>
+          <table id="students"><thead><tr><th>ID</th><th>Name</th><th>Grade</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+          <p class="status" id="status">🔄 Connecting to API...</p>
+          <button class="refresh" onclick="loadData()">🔄 Refresh Data</button>
+          </div>
+          <script>
+          async function loadData(){
+          document.getElementById('status').textContent='🔄 Loading...';
+          try{
+          const res=await fetch('http://api-svc:3000/api/students');
+          const d=await res.json();
+          document.getElementById('students').querySelector('tbody').innerHTML=d.data.map(s=>`<tr><td>${s.id}</td><td>${s.name}</td><td>${s.grade}</td></tr>`).join('');
+          document.getElementById('status').innerHTML='✅ Connected to API | Students: '+d.data.length+' | <b>K8s Microservices WORKING!</b>';
+          }catch(e){
+          document.getElementById('status').innerHTML='❌ Cannot connect to API: '+e.message;
+          }
+          }
+          loadData();
+          </script></body></html>
+          HTMLEOF
+          nginx -g 'daemon off;'
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+  labels:
+    lab: devops-lab9
+spec:
+  selector:
+    app: student-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30081
+  type: NodePort

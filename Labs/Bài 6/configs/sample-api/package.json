@@ -1,0 +1,14 @@
+{
+  "name": "lab6-devops-testing",
+  "version": "1.0.0",
+  "description": "Sample API for DevOps Lab 6 — Testing & Static Analysis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "newman run Student-API-Tests.json --reporters cli"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5"
+  }
+}

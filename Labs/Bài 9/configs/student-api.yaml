@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-api
+  labels:
+    lab: devops-lab9
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-api
+  template:
+    metadata:
+      labels:
+        app: student-api
+    spec:
+      containers:
+      - name: api
+        image: node:18-alpine
+        command: ["node", "-e"]
+        args:
+        - |
+          const http = require('http');
+          const students = [
+            {id:"SV001",name:"Nguyen Van A",grade:"K20"},
+            {id:"SV002",name:"Tran Thi B",grade:"K20"},
+            {id:"SV003",name:"Le Van C",grade:"K21"}
+          ];
+          const server = http.createServer((req,res)=>{
+            res.writeHead(200,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'});
+            if(req.url==='/api/students') return res.end(JSON.stringify({success:true,data:students}));
+            if(req.url==='/api/health') return res.end(JSON.stringify({status:'OK',service:'student-api'}));
+            res.writeHead(404);res.end(JSON.stringify({error:'Not found'}));
+          });
+          server.listen(3000,()=>console.log('API running on :3000'));
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-svc
+  labels:
+    lab: devops-lab9
+spec:
+  selector:
+    app: student-api
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP

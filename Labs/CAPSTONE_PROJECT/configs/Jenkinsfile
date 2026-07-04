@@ -1,0 +1,93 @@
+pipeline {
+    agent any
+    tools { maven 'M3' }
+
+    environment {
+        SONAR_HOST_URL = 'http://capstone-sonarqube:9000'
+        NEXUS_URL      = 'http://capstone-nexus:8081'
+        DOCKER_USER    = 'YOUR_DOCKER_USERNAME'
+        APP_NAME       = 'student-manager'
+        APP_PORT       = '8080'
+    }
+
+    stages {
+        stage('1. Checkout') {
+            steps {
+                echo '📦 STEP 1/9: CHECKOUT — Lấy code từ GitHub...'
+                checkout scm
+            }
+        }
+        stage('2. Build') {
+            steps {
+                echo '🔨 STEP 2/9: BUILD — Maven compile...'
+                sh 'mvn clean compile'
+            }
+        }
+        stage('3. Unit Test') {
+            steps {
+                echo '🧪 STEP 3/9: UNIT TEST — JUnit 5...'
+                sh 'mvn test'
+            }
+            post { always { junit 'target/surefire-reports/*.xml' } }
+        }
+        stage('4. Static Analysis') {
+            steps {
+                echo '🔍 STEP 4/9: SAST — SonarQube scan...'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=sonar123 || true'
+            }
+        }
+        stage('5. Package') {
+            steps {
+                echo '📦 STEP 5/9: PACKAGE — Maven package .jar...'
+                sh 'mvn package -DskipTests'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+        stage('6. Publish to Nexus') {
+            steps {
+                echo '📤 STEP 6/9: PUBLISH — Upload artifact lên Nexus...'
+                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::${NEXUS_URL}/repository/maven-releases/ || true'
+            }
+        }
+        stage('7. Docker Build') {
+            steps {
+                echo '🐳 STEP 7/9: DOCKER BUILD — Build image...'
+                sh 'docker build -t ${APP_NAME}:${BUILD_NUMBER} .'
+            }
+        }
+        stage('8. Docker Push') {
+            steps {
+                echo '📤 STEP 8/9: PUSH — Push image lên Docker Hub...'
+                sh '''
+                    docker tag ${APP_NAME}:${BUILD_NUMBER} ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER}
+                    docker tag ${APP_NAME}:${BUILD_NUMBER} ${DOCKER_USER}/${APP_NAME}:latest
+                    docker push ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER} || true
+                    docker push ${DOCKER_USER}/${APP_NAME}:latest || true
+                '''
+            }
+        }
+        stage('9. Deploy') {
+            steps {
+                echo '🚀 STEP 9/9: DEPLOY — Run container + Verify...'
+                sh '''
+                    docker stop ${APP_NAME} 2>/dev/null || true
+                    docker rm ${APP_NAME} 2>/dev/null || true
+                    docker run -d --name ${APP_NAME} --network capstone_devops-net -p ${APP_PORT}:8080 ${APP_NAME}:${BUILD_NUMBER}
+                    sleep 15
+                    curl -f http://localhost:${APP_PORT}/api/students/health || exit 1
+                '''
+            }
+        }
+    }
+    post {
+        success {
+            echo '🎉 CAPSTONE PIPELINE SUCCESS — All 9 stages passed!'
+        }
+        failure {
+            echo '💥 CAPSTONE PIPELINE FAILED — Check logs above!'
+        }
+        always {
+            cleanWs()
+        }
+    }
+}

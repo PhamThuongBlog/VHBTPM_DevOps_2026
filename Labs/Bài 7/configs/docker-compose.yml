@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # ===== Jenkins CI Server =====
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: lab7-jenkins
+    ports:
+      - "8080:8080"      # Web UI
+      - "50000:50000"    # Agent connection
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    restart: unless-stopped
+    networks:
+      - ci-network
+
+  # ===== Nexus Repository =====
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: lab7-nexus
+    ports:
+      - "8081:8081"      # Web UI
+      - "8082:8082"      # Docker registry
+    volumes:
+      - nexus_data:/nexus-data
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m
+    restart: unless-stopped
+    networks:
+      - ci-network
+
+  # ===== SonarQube Code Analysis =====
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: lab7-sonarqube
+    ports:
+      - "9000:9000"      # Web UI
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    restart: unless-stopped
+    networks:
+      - ci-network
+
+volumes:
+  jenkins_home:
+  nexus_data:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+
+networks:
+  ci-network:
+    driver: bridge

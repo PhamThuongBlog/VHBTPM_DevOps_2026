@@ -1,0 +1,9 @@
+{
+  "name": "devops-lab2-docker",
+  "version": "1.0.0",
+  "description": "DevOps Lab 2 — Docker Lean Demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

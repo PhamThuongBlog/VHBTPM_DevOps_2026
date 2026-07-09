@@ -10,7 +10,7 @@ Sau khi hoàn thành lab này, bạn sẽ:
 
 1.  Viết được file cấu hình Terraform (.tf) để khai báo tài nguyên AWS
 2.  Sử dụng thành thạo quy trình: `terraform init` → `plan` → `apply` → `destroy`
-3.  Cấp phát được **máy chủ ảo EC2** và **S3 bucket** trên AWS chỉ bằng mã
+3.  Cấp phát được **máy chủ ảo EC2** và **S3 bucket** trên AWS bằng mã IaC
 4.  Truy xuất thông tin tài nguyên đã tạo qua Terraform outputs
 5.  Dọn dẹp tài nguyên đúng cách, không để phát sinh chi phí
 

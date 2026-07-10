@@ -118,7 +118,11 @@ on windows_amd64    (hoặc darwin_amd64 / linux_amd64)
 msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
 ```
 Kiểm tra cài đặt thành công chưa bằng cách thực thi lệnh: aws --version
-=>Kết quả mong đợi: hiện thị: aws-cli/2.27.29 Python/3.13.3 Windows/11 exe/AMD64
+
+**Kết quả mong đợi:**
+```
+aws-cli/2.27.29 Python/3.13.3 Windows/11 exe/AMD64
+```
 
 #### macOS
 ```bash

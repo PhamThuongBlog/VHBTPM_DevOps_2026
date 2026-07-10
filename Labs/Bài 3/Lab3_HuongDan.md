@@ -423,12 +423,7 @@ resource "aws_instance" "lab_server" {
 
 >  **Best Practice:** Bật Versioning và Encryption cho S3 bucket là DevOps best practice về bảo mật và an toàn dữ liệu.
 
-✅ **CHECKPOINT 5:** File `main.tf` đã có đủ: provider, EC2, S3, Security Group, random_id? Kiểm tra xong chạy thử:
-```bash
-terraform fmt      # Format code
-terraform validate # Kiểm tra cú pháp
-```
-
+✅ **CHECKPOINT 5:** File `main.tf` đã có đủ: provider, EC2, S3, Security Group, random_id? 
 ---
 
 ## BƯỚC 5: Viết File outputs.tf (5 phút)

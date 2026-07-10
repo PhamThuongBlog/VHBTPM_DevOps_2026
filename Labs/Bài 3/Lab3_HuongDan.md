@@ -544,6 +544,20 @@ var.key_name
 
   Enter a value: my-aws-key     ← Nhập tên Key Pair của bạn
 ```
+**Lưu ý:**
+Nếu chưa có Key Pair, bạn có thể tạo Key Pair khi tạo EC2 thủ công, hoặc có thể tạo Key Pair trước rồi mới tạo EC2 như sau:
+```
+Vào: EC2 → Network & Security → Key Pairs → Create key pair
+```
+→ Sau đó nhập:
+```
+Name: my-aws-key
+
+Type: RSA
+
+Format: .pem
+```
+→ Nhấn Create → File .pem sẽ được tải về.
 
 **Kết quả mong đợi:** Terraform hiển thị danh sách tài nguyên SẼ được tạo:
 ```

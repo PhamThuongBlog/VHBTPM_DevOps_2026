@@ -593,7 +593,7 @@ Plan: 7 to add, 0 to change, 0 to destroy.
 terraform apply
 ```
 
-Terraform hiển thị lại plan và yêu cầu xác nhận:
+Terraform hiển thị lại plan , hỏi lại key pair và yêu cầu xác nhận:
 ```
 Do you want to perform these actions?
   Terraform will perform the actions described above.

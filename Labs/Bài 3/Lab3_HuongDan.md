@@ -643,7 +643,7 @@ ssh_connect_command = "ssh -i ~/.ssh/my-aws-key.pem ec2-user@ec2-54-123-45-67.co
 #### Kiểm tra S3:
 1. Vào AWS Console → S3 → Buckets
 2. Tìm bucket có tên bắt đầu bằng `my-terraform-lab-`
-3. Kiểm tra: Versioning = **Enabled**, Encryption = **AES256**
+3. Kiểm tra: Versioning = **Enabled**, Encryption = **AES256** (Lưu ý: Server-side encryption with Amazon S3 managed keys (SSE-S3) => Đây chính là AES256.)
 
 ### 7.2 Kiểm tra bằng AWS CLI
 

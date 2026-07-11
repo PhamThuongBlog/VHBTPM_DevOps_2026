@@ -764,7 +764,7 @@ EOF
 Sau đó truy cập `http://<ec2_public_ip>` để thấy trang web!
 
 ### 🔴 Mức Nâng cao
-3. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biên count:** 
+3. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biến count:** 
 ```
  provider "aws" {
   region = "ap-southeast-1"

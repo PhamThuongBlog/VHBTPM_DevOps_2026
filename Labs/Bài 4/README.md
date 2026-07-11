@@ -5,13 +5,13 @@
 - **CDR:** 4.2 — Vận dụng IaaS trong quản lý cấu hình hạ tầng với Ansible
 - **Mức Bloom:** Vận dụng (Apply)
 - **Thời lượng:** 90 phút
-- **Hình thức:** Cá nhân
+- **Hình thức:** Sinh viên thực hành theo hướng dẫn
 
 ## Mục tiêu
 Sau lab này, sinh viên có thể:
 1. Cài đặt Ansible và hiểu kiến trúc Control Node vs Managed Nodes
 2. Viết Ansible Inventory để quản lý nhiều server
-3. Sử dụng Ansible Ad-hoc Commands để kiểm tra & quản lý nhanh
+3. Sử dụng Ansible Commands để kiểm tra & quản lý nhanh
 4. Viết Ansible Playbook để tự động hóa cấu hình server
 5. Áp dụng Ansible Roles để tổ chức code chuẩn DevOps
 
@@ -22,15 +22,15 @@ Sau lab này, sinh viên có thể:
 ## Kiến trúc Lab — Docker làm Managed Nodes
 ```
 ┌─────────────────────┐
-│   CONTROL NODE      │        ┌──────────────────┐
-│   (máy local)       │──SSH──▶│  MANAGED NODES    │
-│   Ansible installed │        │  (Docker containers)│
+│   CONTROL NODE      │        ┌────────────────── ┐
+│   (máy local)       │──SSH──▶│  MANAGED NODES   │
+│   Ansible installed │        │(Docker containers)│
 │                     │        │  ┌──────────────┐ │
-│  inventory.ini      │        │  │ web-server-1  │ │
-│  playbook.yml       │──SSH──▶│  ├──────────────┤ │
-│  ansible.cfg        │        │  │ web-server-2  │ │
+│  inventory.ini      │        │  │ web-server-1 │ │
+│  playbook.yml       │──SSH──▶│  ├─────────────┤ │
+│  ansible.cfg        │        │  │ web-server-2 │ │
 │                     │        │  ├──────────────┤ │
-│                     │──SSH──▶│  │ db-server-1   │ │
+│                     │──SSH──▶│  │ db-server-1 │ │
 └─────────────────────┘        │  └──────────────┘ │
                                 └──────────────────┘
 ```

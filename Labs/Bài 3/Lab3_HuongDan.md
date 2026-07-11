@@ -764,8 +764,25 @@ EOF
 Sau đó truy cập `http://<ec2_public_ip>` để thấy trang web!
 
 ### 🔴 Mức Nâng cao
-3. **Tạo VPC riêng:** Tạo VPC + Subnet + Internet Gateway bằng Terraform, rồi triển khai EC2 vào VPC đó thay vì dùng default VPC
+3. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biên count:** 
+```
+ provider "aws" {
+  region = "ap-southeast-1"
+}
 
+resource "aws_instance" "lab_server" {
+  count = 5
+
+  ami                    = "ami-xxxxxxxx"
+  instance_type          = "t2.micro"
+  key_name               = "my-keypair"
+  vpc_security_group_ids = [aws_security_group.lab_sg.id]
+
+  tags = {
+    Name = "Lab-Server-${count.index + 1}"
+  }
+}
+```
 ---
 
 ## TIÊU CHÍ CHẤM ĐIỂM (Rubric)

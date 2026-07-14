@@ -95,13 +95,13 @@ mkdir lab4-ansible && cd lab4-ansible
 docker network create ansible-lab
 
 # Tạo 3 "server" containers (Ubuntu, có SSH)
-docker run -d --name web-server-1 --network ansible-lab \
+docker run -d --name web-server-1 --privileged --network ansible-lab \
   -p 2201:22 phamthuongdocker/ubuntu-sshd:22.04
 
-docker run -d --name web-server-2 --network ansible-lab \
+docker run -d --name web-server-2 --privileged --network ansible-lab \
   -p 2202:22 phamthuongdocker/ubuntu-sshd:22.04
 
-docker run -d --name db-server-1 --network ansible-lab \
+docker run -d --name db-server-1 --privileged --network ansible-lab \
   -p 2203:22 phamthuongdocker/ubuntu-sshd:22.04
 
 # Kiểm tra containers đang chạy

@@ -23,20 +23,7 @@ Sau lab này, sinh viên có thể:
 <p align="center">
   <img src="ansible_architec_2.png" alt="Ansible Architecture" width="600">
 </p>
-```
-┌─────────────────────┐
-│   CONTROL NODE      │        ┌────────────────── ┐
-│   (máy local)       │──SSH──▶│  MANAGED NODES   │
-│   Ansible installed │        │(Docker containers)│
-│                     │        │  ┌──────────────┐ │
-│  inventory.ini      │        │  │ web-server-1 │ │
-│  playbook.yml       │──SSH──▶│  ├─────────────┤ │
-│  ansible.cfg        │        │  │ web-server-2 │ │
-│                     │        │  ├──────────────┤ │
-│                     │──SSH──▶│  │ db-server-1 │ │
-└─────────────────────┘        │  └──────────────┘ │
-                                └──────────────────┘
-```
+
 
 ## Nội dung Lab
 | Step | Nội dung | Thời gian |

@@ -37,7 +37,7 @@ Sau lab này, bạn sẽ:
 ### Kiến trúc Ansible
 
 <p align="center">
-  <img src="ansible_architect.png" alt="Ansible Architecture" width="700">
+  <img src="ansible_architect.png" alt="Ansible Architecture" width="600">
 </p>
 
 ```

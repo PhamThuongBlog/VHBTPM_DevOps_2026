@@ -36,8 +36,9 @@ Sau lab này, bạn sẽ:
 
 ### Kiến trúc Ansible
 
-![Ansible](ansible_architect.png)
-
+<p align="center">
+  <img src="ansible_architect.png" alt="Ansible Architecture" width="700">
+</p>
 
 ```
 ┌────────────────────┐         SSH (không cần agent!)

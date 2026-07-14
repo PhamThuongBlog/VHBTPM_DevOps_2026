@@ -301,7 +301,7 @@ Tạo file `playbook-webserver.yml`:
           <h1>🚀 DevOps Lab 4 — Ansible Managed!</h1>
           <p>Server: {{ ansible_hostname }}</p>
           <p>OS: {{ ansible_distribution }} {{ ansible_distribution_version }}</p>
-          <p>IP: {{ ansible_default_ipv4.address }}</p>
+          <p>IP: {{ ansible_host }}</p>
           <p>Managed by: <b>Ansible Playbook</b></p>
           </body>
           </html>

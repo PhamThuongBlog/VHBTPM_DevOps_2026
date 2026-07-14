@@ -40,19 +40,7 @@ Sau lab này, bạn sẽ:
   <img src="ansible_architect.png" alt="Ansible Architecture" width="600">
 </p>
 
-```
-┌────────────────────┐         SSH (không cần agent!)
-│   CONTROL NODE     │────────▶ ┌────────────┐
-│   (cài Ansible)    │────────▶│ Web Server 1│
-│                    │────────▶└────────────┘
-│  inventory.ini    │────────▶ ┌────────────┐
-│  playbook.yml     │────────▶│ Web Server 2│
-└────────────────────┘        └────────────┘
-                                     ...
-                              ┌────────────┐
-                              │ DB Server 1 │
-                              └────────────┘
-```
+
 
 ### So sánh: IaC vs Config Management
 

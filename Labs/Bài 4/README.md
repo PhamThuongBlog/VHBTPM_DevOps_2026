@@ -20,6 +20,9 @@ Sau lab này, sinh viên có thể:
 - Đã cài đặt: Docker Desktop (dùng container làm managed nodes)
 
 ## Kiến trúc Lab — Docker làm Managed Nodes
+<p align="center">
+  <img src="ansible_architect2.png" alt="Ansible Architecture" width="600">
+</p>
 ```
 ┌─────────────────────┐
 │   CONTROL NODE      │        ┌────────────────── ┐

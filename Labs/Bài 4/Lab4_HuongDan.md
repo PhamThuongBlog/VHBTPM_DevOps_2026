@@ -8,11 +8,11 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Cài đặt Ansible + dựng **managed nodes** bằng Docker (không cần máy ảo thật!)
-2. ✅ Viết **Inventory** để quản lý danh sách server
-3. ✅ Dùng **Ad-hoc Commands** kiểm tra nhanh hàng loạt server
-4. ✅ Viết **Playbook** tự động cấu hình web server + database
-5. ✅ Áp dụng **Variables** và **Templates** — nền tảng của Ansible Roles
+1. Cài đặt Ansible + dựng **managed nodes** bằng Docker (không cần máy ảo thật!)
+2. Viết **Inventory** để quản lý danh sách server
+3. Dùng **Ad-hoc Commands** kiểm tra nhanh hàng loạt server
+4. Viết **Playbook** tự động cấu hình web server + database
+5. Áp dụng **Variables** và **Templates** — nền tảng của Ansible Roles
 
 ---
 
@@ -35,6 +35,9 @@ Sau lab này, bạn sẽ:
 > Ansible = công cụ **Configuration Management** (quản lý cấu hình) + **Automation**. Nó cho phép bạn quản lý hàng trăm server từ 1 máy control node, KHÔNG cần cài agent trên managed nodes.
 
 ### Kiến trúc Ansible
+
+![Uploading image.png…]()
+
 
 ```
 ┌────────────────────┐         SSH (không cần agent!)

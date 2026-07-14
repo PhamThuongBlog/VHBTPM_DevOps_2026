@@ -96,19 +96,19 @@ docker network create ansible-lab
 
 # Tạo 3 "server" containers (Ubuntu, có SSH)
 docker run -d --name web-server-1 --network ansible-lab \
-  -p 2201:22 rastasheep/ubuntu-sshd:18.04
+  -p 2201:22 phamthuongdocker/ubuntu-sshd:22.04
 
 docker run -d --name web-server-2 --network ansible-lab \
-  -p 2202:22 rastasheep/ubuntu-sshd:18.04
+  -p 2202:22 phamthuongdocker/ubuntu-sshd:22.04
 
 docker run -d --name db-server-1 --network ansible-lab \
-  -p 2203:22 rastasheep/ubuntu-sshd:18.04
+  -p 2203:22 phamthuongdocker/ubuntu-sshd:22.04
 
 # Kiểm tra containers đang chạy
 docker ps --filter "network=ansible-lab"
 ```
 
-> ⚠️ Image `rastasheep/ubuntu-sshd:18.04` có sẵn SSH với user `root`, password `root`.
+> ⚠️ Image  ` phamthuongdocker/ubuntu-sshd:22.04` có sẵn SSH với user `root`, password `root`.
 
 **Kết quả mong đợi:** 3 containers: web-server-1, web-server-2, db-server-1 đều **Up**.
 

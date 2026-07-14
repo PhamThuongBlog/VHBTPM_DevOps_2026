@@ -21,7 +21,7 @@ Sau lab này, sinh viên có thể:
 
 ## Kiến trúc Lab — Docker làm Managed Nodes
 <p align="center">
-  <img src="ansible_architect2.png" alt="Ansible Architecture" width="600">
+  <img src="ansible_architec_2.png" alt="Ansible Architecture" width="600">
 </p>
 ```
 ┌─────────────────────┐

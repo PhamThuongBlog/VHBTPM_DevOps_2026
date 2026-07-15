@@ -168,7 +168,9 @@ Tạo file `ansible.cfg`:
 inventory = ./inventory.ini
 host_key_checking = False
 timeout = 30
-stdout_callback = yaml
+# stdout_callback = yaml, hoặc:
+stdout_callback = default
+result_format = yaml
 ```
 
 ### 2.3 Test Inventory

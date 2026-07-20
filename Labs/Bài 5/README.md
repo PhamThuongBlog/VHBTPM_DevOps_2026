@@ -21,7 +21,7 @@ Sau khi hoàn thành lab, sinh viên có thể:
 - Đã cài đặt: Git, VS Code, tài khoản GitHub
 
 ## Kịch bản Lab
-Sinh viên đóng vai **2 developer** trong 1 team phát triển ứng dụng web "Student Manager". Team sử dụng Git Flow để quản lý code:
+Sinh viên đóng vai **2 developer** trong 1 team phát triển ứng dụng "Student Manager". Team sử dụng Git Flow để quản lý code:
 - **Dev A**: Tạo repo, thiết lập Git Flow, phát triển feature "add-student"
 - **Dev B**: Clone repo, phát triển feature "search-student", tạo PR, review code của Dev A
 - Cả hai: Giải quyết merge conflict, hoàn thiện quy trình

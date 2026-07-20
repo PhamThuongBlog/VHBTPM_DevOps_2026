@@ -9,12 +9,12 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Khởi tạo Git repo, kết nối GitHub, làm việc với remote
-2. ✅ Thành thạo: `git add` → `git commit` → `git push` → `git pull`
-3. ✅ Áp dụng Git Flow: `main`, `develop`, `feature/*`, `hotfix/*`
-4. ✅ Tạo Pull Request và thực hiện Code Review trên GitHub
-5. ✅ Giải quyết merge conflict khi 2 người cùng sửa 1 file
-6. ✅ Sử dụng `.gitignore` và viết `README.md` chuyên nghiệp
+1.  Khởi tạo Git repo, kết nối GitHub, làm việc với remote
+2.  Thành thạo: `git add` → `git commit` → `git push` → `git pull`
+3.  Áp dụng Git Flow: `main`, `develop`, `feature/*`, `hotfix/*`
+4.  Tạo Pull Request và thực hiện Code Review trên GitHub
+5.  Giải quyết merge conflict khi 2 người cùng sửa 1 file
+6.  Sử dụng `.gitignore` và viết `README.md` chuyên nghiệp
 
 ---
 
@@ -34,21 +34,9 @@ Sau lab này, bạn sẽ:
 
 ### Git Flow — Chiến lược Phân nhánh
 
-```
-main ─────●────────────●────────────●────────── (production)
-           \          / \          /
-develop ───●────────●───●────────●──────────── (tích hợp)
-             \      /     \      /
-feature/A ────●────●       \    /
-                            \  /
-feature/B ───────────────────●──●──────────── (tính năng mới)
-
-release/v1.0 ────────────────────●─────────── (chuẩn bị release)
-
-hotfix/bug ─────────────────────────●───────── (sửa lỗi khẩn)
-                                        \
-main ────────────────────────────────────●──── (cập nhật production)
-```
+<p align="center">
+  <img src="gitflow_0.png" alt="Git Flow đơn giản" width="600">
+</p>
 
 | Nhánh | Mục đích | Tách từ | Merge vào |
 |-------|----------|---------|-----------|
@@ -59,14 +47,9 @@ main ─────────────────────────
 | `hotfix/*` | Sửa lỗi khẩn cấp trên production | `main` | `main` + `develop` |
 
 ### GitHub Flow (Đơn giản hơn — dùng trong lab này)
-
-```
-main ─────●────────●────────●──────── (production)
-           \      / \      /
-feature/A ──●────●   \    /
-                      \  /
-feature/B ─────────────●──●──────────
-```
+<p align="center">
+  <img src="gitflow_1.png" alt="Git Flow" width="600">
+</p>
 
 1. Tạo branch từ `main`: `git checkout -b feature/xxx`
 2. Code + commit trên branch
@@ -93,13 +76,9 @@ feature/B ─────────────●──●──────�
 
 ### Vòng đời File trong Git
 
-```
-Working Dir          Staging Area        Local Repo         Remote (GitHub)
-( modified )  ──add──▶ ( staged ) ──commit──▶ ( committed ) ──push──▶ ( shared )
-                                                        ▲
-                                                        │ pull
-                                                        │
-```
+<p align="center">
+  <img src="GitFileCycle.png" alt="Vòng đời file trong Git - Quá trình chuyển dịch trạng thái" width="600">
+</p>
 
 ---
 
@@ -132,7 +111,7 @@ git config --list
 
 ### 1.3 Tạo GitHub Personal Access Token (PAT)
 
-> ⚠️ Từ 2021, GitHub không cho phép đăng nhập bằng password khi push code. Phải dùng **Personal Access Token** hoặc **SSH Key**.
+> Từ 2021, GitHub không cho phép đăng nhập bằng password khi push code. Phải dùng **Personal Access Token** hoặc **SSH Key**.
 
 1. Vào GitHub → Settings → Developer settings → Personal access tokens → **Tokens (classic)**
 2. Generate new token → **Generate new token (classic)**
@@ -141,7 +120,7 @@ git config --list
 5. Tích chọn: `repo`, `workflow`, `read:org`
 6. Generate token → **COPY & LƯU LẠI NGAY!** (chỉ hiện 1 lần)
 
-> 🔒 Token này thay thế password khi push code. Ví dụ: `ghp_xxxxxxxxxxxxxxxxxxxx`
+> Token này thay thế password khi push code. Ví dụ: `ghp_xxxxxxxxxxxxxxxxxxxx`
 
 ✅ **CHECKPOINT 1:** `git --version` OK + `git config --list` thấy user.name, user.email + đã có GitHub Token?
 
@@ -414,7 +393,7 @@ def add_student(students: list, student_id: str, name: str, age: int, grade: str
 
     new_student = Student(student_id, name, age, grade)
     students.append(new_student)
-    print(f"✅ Đã thêm sinh viên: {new_student}")
+    print(f"Đã thêm sinh viên: {new_student}")
     return students
 ```
 
@@ -779,9 +758,9 @@ Cập nhật `README.md` lần cuối:
 **Version 1.0.0** — Phát triển bởi Nhóm A & Nhóm B
 
 ## Tính năng
-- ✅ Quản lý thông tin sinh viên (Student Model)
-- ✅ Thêm sinh viên mới (add_student)
-- ✅ Tìm kiếm sinh viên theo tên hoặc mã (search_student)
+- Quản lý thông tin sinh viên (Student Model)
+- Thêm sinh viên mới (add_student)
+- Tìm kiếm sinh viên theo tên hoặc mã (search_student)
 
 ## Cài đặt & Chạy
 
@@ -826,17 +805,9 @@ git push origin main
 
 ## BÀI TẬP MỞ RỘNG (Optional)
 
-### 🟢 Mức Cơ bản
-1. **Thêm `.gitignore` đầy đủ:** Tạo `.gitignore` cho Python project đầy đủ (dùng [gitignore.io](https://www.toptal.com/developers/gitignore))
-
-### 🟡 Mức Trung bình
-2. **Git Rebase:** Thay vì merge, dùng `git rebase develop` trên feature branch để giữ lịch sử thẳng (linear history)
-3. **Git Stash:** Dùng `git stash` khi đang code dở nhưng cần chuyển branch gấp
-
-### 🔴 Mức Nâng cao
-4. **Git Hooks:** Tạo pre-commit hook kiểm tra Python syntax trước khi commit
-5. **Conventional Commits:** Áp dụng chuẩn commit message: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
-6. **Protected Branches:** Cấu hình branch protection rule trên GitHub: không ai được push trực tiếp vào `main`, bắt buộc PR + 1 review
+1. **Git Hooks:** Tạo pre-commit hook kiểm tra Python syntax trước khi commit
+2. **Conventional Commits:** Áp dụng chuẩn commit message: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
+3. **Protected Branches:** Cấu hình branch protection rule trên GitHub: không ai được push trực tiếp vào `main`, bắt buộc PR + 1 review
 
 ---
 

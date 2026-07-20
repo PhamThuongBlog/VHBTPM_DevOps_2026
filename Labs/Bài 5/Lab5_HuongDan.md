@@ -109,7 +109,7 @@ git config --global core.editor "code --wait"
 git config --list
 ```
 
-### 1.3 Tạo GitHub Personal Access Token (PAT)
+### 1.3 Tạo GitHub Personal Access Token (PAT) - SINH VIÊN TÙY CHỌN
 
 > Từ 2021, GitHub không cho phép đăng nhập bằng password khi push code. Phải dùng **Personal Access Token** hoặc **SSH Key**.
 

@@ -190,7 +190,7 @@ git remote -v
 # origin  https://github.com/<USER>/devops-lab5-student-manager.git (push)
 ```
 
-### 2.4 Thêm Collaborator (Dev A)
+### 2.4 Thêm Collaborator (Dev A thực hiện bước này)
 
 1. Vào repo trên GitHub → **Settings** → **Collaborators** → **Add people**
 2. Nhập username của Dev B → **Add**

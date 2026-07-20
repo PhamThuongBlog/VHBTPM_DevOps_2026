@@ -113,11 +113,11 @@ git config --list
 
 > Từ 2021, GitHub không cho phép đăng nhập bằng password khi push code. Phải dùng **Personal Access Token** hoặc **SSH Key**.
 
-1. Vào GitHub → Settings → Developer settings → Personal access tokens → **Tokens (classic)**
+1. Vào GitHub → Settings → Developer settings → Personal access tokens → **Tokens (classic - nếu muốn áp dụng cho tất cả các kho trong tài khoản GitHub) / Fine-grained tokens (nếu muốn áp dụng chỉ cho kho)** 
 2. Generate new token → **Generate new token (classic)**
 3. Note: `Lab5-DevOps`
 4. Expiration: `30 days`
-5. Tích chọn: `repo`, `workflow`, `read:org`
+5. Tích chọn: `repo` (Tại mục Repository access, chọn kho muốn truy cập), `workflow`, `read:org`
 6. Generate token → **COPY & LƯU LẠI NGAY!** (chỉ hiện 1 lần)
 
 > Token này thay thế password khi push code. Ví dụ: `ghp_xxxxxxxxxxxxxxxxxxxx`

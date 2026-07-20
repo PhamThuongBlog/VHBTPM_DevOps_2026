@@ -77,7 +77,7 @@ Sau lab này, bạn sẽ:
 ### Vòng đời File trong Git
 
 <p align="center">
-  <img src="GitFLow_2.png" alt="Vòng đời file trong Git - Quá trình chuyển dịch trạng thái" width="600">
+  <img src="GitFileCycle.png" alt="Vòng đời file trong Git - Quá trình chuyển dịch trạng thái" width="600">
 </p>
 
 ---

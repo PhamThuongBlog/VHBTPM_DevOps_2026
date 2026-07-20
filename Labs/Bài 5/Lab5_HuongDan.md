@@ -48,7 +48,7 @@ Sau lab này, bạn sẽ:
 
 ### GitHub Flow (Đơn giản hơn — dùng trong lab này)
 <p align="center">
-  <img src="GitFlow_1.png" alt="Git Flow đơn giản" width="600">
+  <img src="GitFlow_2.png" alt="Git Flow đơn giản" width="600">
 </p>
 
 1. Tạo branch từ `main`: `git checkout -b feature/xxx`

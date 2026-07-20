@@ -807,7 +807,7 @@ git push origin main
 ---
 
 ## BÀI TẬP MỞ RỘNG (Optional)
-1. **.gitignore** Dùng .gitignore để bảo mật dữ liệu (các file private)
+1. **.gitignore:** Dùng .gitignore để bảo mật dữ liệu (các file private)
 1. **Git Hooks:** Tạo pre-commit hook kiểm tra Python syntax trước khi commit
 2. **Conventional Commits:** Áp dụng chuẩn commit message: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
 3. **Protected Branches:** Cấu hình branch protection rule trên GitHub: không ai được push trực tiếp vào `main`, bắt buộc PR + 1 review

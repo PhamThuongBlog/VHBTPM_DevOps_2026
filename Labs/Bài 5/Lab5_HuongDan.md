@@ -47,9 +47,11 @@ Sau lab này, bạn sẽ:
 | `hotfix/*` | Sửa lỗi khẩn cấp trên production | `main` | `main` + `develop` |
 
 ### GitHub Flow (Đơn giản hơn — dùng trong lab này)
+
 <p align="center">
-  <img src="GitFlow_2.png" alt="Git Flow đơn giản" width="600">
+  <img src="GitFlow_2.png" alt="Git Flow thực hành bởi lab - đơn giản" width="600">
 </p>
+
 
 1. Tạo branch từ `main`: `git checkout -b feature/xxx`
 2. Code + commit trên branch

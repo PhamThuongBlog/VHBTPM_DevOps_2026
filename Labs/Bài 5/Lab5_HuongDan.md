@@ -49,7 +49,7 @@ Sau lab này, bạn sẽ:
 ### GitHub Flow (Đơn giản hơn — dùng trong lab này)
 
 <p align="center">
-  <img src="GitFlow_2.png" alt="Git Flow thực hành bởi lab - đơn giản" width="600">
+  <img src="GitFLow_2.png" alt="Git Flow thực hành bởi lab - đơn giản" width="500">
 </p>
 
 

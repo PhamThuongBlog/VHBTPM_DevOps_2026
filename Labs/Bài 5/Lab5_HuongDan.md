@@ -252,6 +252,9 @@ if __name__ == "__main__":
 ### 3.2 Quy trình add → commit → push
 
 ```bash
+# cd về thử mục root:
+cd ..
+
 # Xem trạng thái — file nào đã thay đổi?
 git status
 # (src/student.py sẽ hiện màu đỏ = untracked)

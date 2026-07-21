@@ -629,26 +629,28 @@ git commit -m "docs: update README version info - Team B"
 git push origin feature/update-readme-b
 ```
 
-### 6.2 Merge Branch A (Không Conflict)
 
-1. Dev A tạo PR: `feature/update-readme-a` → `develop`
-2. Dev B review + approve
+### 6.2 Merge Branch B (không CONFLICT!)
+Dev B tạo PR: `feature/update-readme-b` → `develop`
+2. Dev A review + approve
 3. Merge → **Thành công!** (chưa có conflict vì branch B chưa merge)
 
-### 6.3 Merge Branch B (CÓ CONFLICT!)
 
-1. Dev B tạo PR: `feature/update-readme-b` → `develop`
+### 6.2 Merge Branch A (CÓ Conflict)
+1. Dev A tạo PR: `feature/update-readme-a` → `develop`
 2. GitHub hiển thị: ⚠️ **"This branch has conflicts that must be resolved"**
+
+
 
 ### 6.4 Giải quyết Conflict
 
 ```bash
-# Dev B kéo code develop mới nhất về
+# Dev A kéo code develop mới nhất về
 git checkout develop
 git pull origin develop
 
-# Merge feature/update-readme-b vào develop (local)
-git merge feature/update-readme-b
+# Merge feature/update-readme-a vào develop (local)
+git merge feature/update-readme-a
 ```
 
 Git báo conflict:
@@ -668,13 +670,13 @@ Mở `README.md` trong VS Code:
 **Version 1.0.0** — Phát triển bởi Nhóm A
 =======
 **Version 1.0.0** — Phát triển bởi Nhóm B
->>>>>>> feature/update-readme-b
+>>>>>>> feature/update-readme-a
 ```
 
 **Giải thích:**
 - `<<<<<<< HEAD` → code hiện tại trên develop (của Nhóm A)
 - `=======` → ranh giới giữa 2 phiên bản
-- `>>>>>>> feature/update-readme-b` → code từ branch của Dev B
+- `>>>>>>> feature/update-readme-a` → code từ branch của Dev B
 
 **Cách sửa:** Giữ lại cả 2 ý hoặc chọn 1:
 

@@ -1,7 +1,7 @@
 # Lab 6: Kiểm thử & Phân tích Mã nguồn Tĩnh trong DevOps
 
 ## Thông tin chung
-- **Bài học:** Bài 6 — Kiểm thử & Phân tích Mã nguồn Tĩnh
+- **Bài học 6:** Kiểm thử & Phân tích Mã nguồn Tĩnh
 - **CDR:** 6.2 — Vận dụng nguyên lý kiểm thử trong DevOps
 - **Mức Bloom:** Vận dụng (Apply)
 - **Thời lượng:** 90 phút

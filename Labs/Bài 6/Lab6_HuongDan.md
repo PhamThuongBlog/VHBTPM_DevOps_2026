@@ -404,8 +404,11 @@ curl "http://localhost:8080/OTHER/core/other/htmlreport/" > zap-report.html
 
 Vào tab **Alerts** → xem các lỗ hổng được phát hiện
 Ví dụ: 
+<p align="center">
+  <img src="zap.png" alt="Kết quả Attack với ZAP" width="600">
+</p>
 
-
+Tương tự với các endpoint khác, kết quả: ZAP phát hiện các lỗ hổng an ninh như chỉ ra trong Bảng:
 | Mức độ | Loại lỗ hổng | Endpoint bị ảnh hưởng |
 |:------:|-------------|----------------------|
 | High | Cross Site Scripting (Reflected) | `/api/search?q=<script>` |

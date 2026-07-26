@@ -39,26 +39,6 @@ Sau lab này, bạn sẽ:
   <img src="test2.png" alt="Dynamic vs Static Testing" width="600">
 </p>
 
-```
-                    SOFTWARE TESTING
-                    ┌───────────────┐
-                    │               │
-                    ▼               ▼
-            ┌──────────────┐ ┌──────────────┐
-            │   DYNAMIC    │ │   STATIC     │
-            │  (Chạy code) │ │ (Không chạy) │
-            └──────┬───────┘ └──────┬───────┘
-                   │               │
-        ┌──────────┼──────────┐    │
-        ▼          ▼          ▼    ▼
-   ┌─────────┐┌─────────┐┌──────┐ ┌──────────┐
-   │Functional││Security ││Perf. │ │SAST      │
-   │(Postman) ││(ZAP)    ││(k6)  │ │(SonarQube│
-   │          ││         ││      │ │ ESLint)   │
-   └─────────┘└─────────┘└──────┘ └──────────┘
-      DAST        DAST                SAST
-```
-
 | Loại | Viết tắt | Công cụ | Chạy code? | Phát hiện |
 |------|----------|---------|:----------:|-----------|
 | **Functional Test** | — | Postman, Newman | ✅ Có | API sai logic, sai response |
@@ -655,27 +635,11 @@ chmod +x ci-test.sh
 ```
 
 ### 5.2 Pipeline Visualization
-
-<p align="center">
-  <img src="test1.png" alt="CI TESTING PIPELINE" width="600">
-</p>
-
-```
 CI TESTING PIPELINE
 ═══════════════════════════════════════════════════════════
-
-  Code Push
-     │
-     ▼
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  SAST    │───▶│ START    │───▶│ API TEST │───▶│  DAST    │
-│SonarQube │    │ Server   │    │ Newman   │    │ ZAP Scan │
-│(tĩnh)    │    │          │    │(động)    │    │(bảo mật) │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘
-    ~30s           ~3s             ~2s             ~30s
-
-  Total: ~65 giây → Reports tự động sinh ra
-```
+<p align="center">
+  <img src="test3.png" alt="CI TESTING PIPELINE" width="600">
+</p>
 
 ✅ **CHECKPOINT 5:** CI script chạy thành công cả 4 stages?
 

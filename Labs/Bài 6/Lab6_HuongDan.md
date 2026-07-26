@@ -340,23 +340,10 @@ Student API Tests
 ✓ POST Create Student
 ✓ GET Student Not Found (404)
 ✓ POST Missing Fields (Validation)
-
-┌────────────────────────┬──────────┬───────────┐
-│                        │ executed │   failed  │
-├────────────────────────┼──────────┼───────────┤
-│              iterations│        1 │         0 │
-├────────────────────────┼──────────┼───────────┤
-│                requests│        5 │         0 │
-├────────────────────────┼──────────┼───────────┤
-│            test-scripts│        5 │         0 │
-├────────────────────────┼──────────┼───────────┤
-│      prerequest-scripts│        0 │         0 │
-├────────────────────────┼──────────┼───────────┤
-│              assertions│       12 │         0 │
-├────────────────────────┴──────────┴───────────┤
-│ total run duration: 1.2s                     │
-└──────────────────────────────────────────────┘
 ```
+<p align="center">
+  <img src="kq_test_newman.png" alt="Tổng hợp kết quả test với NewMan CLI" width="600">
+</p>
 
 ✅ **CHECKPOINT 2:** Newman chạy 5/5 requests pass, 12 assertions pass?
 

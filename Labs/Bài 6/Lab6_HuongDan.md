@@ -8,11 +8,11 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Viết và chạy API tests với **Postman + Newman CLI**
-2. ✅ Quét lỗ hổng bảo mật web với **OWASP ZAP** (Dynamic Application Security Testing)
-3. ✅ Phân tích mã nguồn tĩnh với **SonarQube** (Static Application Security Testing)
-4. ✅ Phân biệt: Functional Test vs DAST vs SAST — khi nào dùng cái nào?
-5. ✅ Tích hợp kiểm thử tự động vào CI pipeline
+1. Viết và chạy API tests với **Postman + Newman CLI**
+2. Quét lỗ hổng bảo mật web với **OWASP ZAP** (Dynamic Application Security Testing)
+3. Phân tích mã nguồn tĩnh với **SonarQube** (Static Application Security Testing)
+4. Phân biệt: Functional Test vs DAST vs SAST — khi nào dùng cái nào?
+5. Tích hợp kiểm thử tự động vào CI pipeline
 
 ---
 
@@ -34,6 +34,10 @@ Sau lab này, bạn sẽ:
 ## KIẾN THỨC NỀN — 3 Loại Kiểm thử trong DevOps
 
 ### Dynamic vs Static Testing
+
+<p align="center">
+  <img src="test2.png" alt="Dynamic vs Static Testing" width="600">
+</p>
 
 ```
                     SOFTWARE TESTING
@@ -651,6 +655,10 @@ chmod +x ci-test.sh
 ```
 
 ### 5.2 Pipeline Visualization
+
+<p align="center">
+  <img src="test1.png" alt="CI TESTING PIPELINE" width="600">
+</p>
 
 ```
 CI TESTING PIPELINE

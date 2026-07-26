@@ -405,11 +405,11 @@ Vào tab **Alerts** → xem các lỗ hổng được phát hiện:
 
 | Mức độ | Loại lỗ hổng | Endpoint bị ảnh hưởng |
 |:------:|-------------|----------------------|
-| 🔴 High | Cross Site Scripting (Reflected) | `/api/search?q=<script>` |
-| 🟠 Medium | X-Frame-Options Header Not Set | Tất cả endpoints |
-| 🟠 Medium | CSP Header Not Set | Tất cả endpoints |
-| 🟡 Low | Server Leaks Information | `/api/debug` |
-| 🟡 Low | Cookie No HttpOnly Flag | — |
+| High | Cross Site Scripting (Reflected) | `/api/search?q=<script>` |
+| Medium | X-Frame-Options Header Not Set | Tất cả endpoints |
+| Medium | CSP Header Not Set | Tất cả endpoints |
+| Low | Server Leaks Information | `/api/debug` |
+| Low | Cookie No HttpOnly Flag | — |
 
 **Giải thích lỗ hổng tìm thấy:**
 

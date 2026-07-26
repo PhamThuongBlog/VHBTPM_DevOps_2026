@@ -24,32 +24,6 @@ Sau khi hoàn thành lab, sinh viên có thể:
   <img src="test1.png" alt="Các loại kiểm thử và phân tích code" width="600">
 </p>
 
-
-```
-┌──────────────────────────────────────────────────────────┐
-│                   DEVOPS TESTING LAB                     │
-│                                                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
-│  │   POSTMAN    │  │  OWASP ZAP   │  │  SONARQUBE   │   │
-│  │  (Dynamic)   │  │   (DAST)     │  │   (SAST)     │   │
-│  │              │  │              │  │              │   │
-│  │ Kiểm thử API │  │ Quét bảo mật │  │ Phân tích    │   │
-│  │ chức năng    │  │ tự động      │  │ mã nguồn tĩnh│   │
-│  │              │  │              │  │              │   │
-│  │ ✓ Status code│  │ ✓ SQL Inj.   │  │ ✓ Bugs       │   │
-│  │ ✓ Response   │  │ ✓ XSS        │  │ ✓ Code Smells│   │
-│  │ ✓ Schema     │  │ ✓ CSRF       │  │ ✓ Security   │   │
-│  │ ✓ Performance│  │ ✓ Auth issues│  │   Hotspots   │   │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘   │
-│         │                 │                 │            │
-│         ▼                 ▼                 ▼            │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │          CI PIPELINE (Automation)                 │   │
-│  │  Code → Build → SAST → Unit Test → DAST → Report │   │
-│  └──────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────┘
-```
-
 ## Nội dung Lab
 | Step | Nội dung | Công cụ | Thời gian |
 |------|----------|---------|-----------|

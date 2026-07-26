@@ -372,7 +372,7 @@ Cấu hình Postman dùng ZAP proxy để bắt request:
 #### Cách 1: ZAP Desktop UI
 
 1. Vào **Quick Start** → **Automated Scan**
-2. URL to attack: `http://localhost:3000`
+2. URL to attack: `http://localhost:3000/api/students`
 3. Chọn **"Use traditional spider"**
 4. Nhấn **Attack**
 

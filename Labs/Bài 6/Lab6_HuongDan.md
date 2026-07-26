@@ -544,30 +544,30 @@ echo "========================================="
 echo ""
 
 # --- Stage 1: SAST — Static Code Analysis ---
-echo "[1/4] 🔍 SAST — SonarQube Static Analysis..."
+echo "[1/4]  SAST — SonarQube Static Analysis..."
 sonar-scanner -Dsonar.projectKey=devops-lab6 \
   -Dsonar.sources=. \
   -Dsonar.exclusions=node_modules/** \
   -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.login=admin \
   -Dsonar.password=sonar123 \
-  && echo "✅ SAST passed" || echo "⚠️  SAST completed with warnings"
+  && echo " SAST passed" || echo "  SAST completed with warnings"
 
 # --- Stage 2: Start API Server ---
-echo "[2/4] 🚀 Starting API server..."
+echo "[2/4]  Starting API server..."
 node server.js &
 SERVER_PID=$!
 sleep 3
 
 # Verify server is running
 if ! curl -s http://localhost:3000/api/students > /dev/null; then
-    echo "❌ Server failed to start!"
+    echo " Server failed to start!"
     exit 1
 fi
-echo "✅ Server running (PID: $SERVER_PID)"
+echo " Server running (PID: $SERVER_PID)"
 
 # --- Stage 3: API Functional Test ---
-echo "[3/4] 🧪 API Functional Test — Newman..."
+echo "[3/4]  API Functional Test — Newman..."
 newman run Student-API-Tests.json \
   --reporters cli,json \
   --reporter-json-export newman-report.json \
@@ -575,13 +575,13 @@ newman run Student-API-Tests.json \
 
 NEWMAN_EXIT=$?
 if [ $NEWMAN_EXIT -eq 0 ]; then
-    echo "✅ All API tests passed!"
+    echo " All API tests passed!"
 else
-    echo "❌ API tests failed! Check newman-report.json"
+    echo " API tests failed! Check newman-report.json"
 fi
 
 # --- Stage 4: DAST — ZAP Security Scan ---
-echo "[4/4] 🔐 DAST — OWASP ZAP Security Scan..."
+echo "[4/4]  DAST — OWASP ZAP Security Scan..."
 
 # Spider scan
 echo "  Spider crawling..."
@@ -599,7 +599,7 @@ curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > zap-report.html
 
 # Count alerts
 ALERTS=$(curl -s "http://localhost:8080/JSON/core/view/alertsSummary/?baseurl=http://localhost:3000" | python3 -c "import sys,json; d=json.load(sys.stdin); print(sum(d.get('alertsSummary',{}).values()))" 2>/dev/null || echo "?")
-echo "✅ ZAP scan complete — $ALERTS alerts found (see zap-report.html)"
+echo " ZAP scan complete — $ALERTS alerts found (see zap-report.html)"
 
 # --- Cleanup ---
 kill $SERVER_PID 2>/dev/null
@@ -609,9 +609,9 @@ echo "  PIPELINE COMPLETE!"
 echo "========================================="
 echo ""
 echo "Reports:"
-echo "  📊 SAST:     http://localhost:9000/dashboard?id=devops-lab6"
-echo "  📊 API Test: newman-report.json"
-echo "  📊 DAST:     zap-report.html"
+echo "  SAST:     http://localhost:9000/dashboard?id=devops-lab6"
+echo "  API Test: newman-report.json"
+echo "  DAST:     zap-report.html"
 ```
 
 Chạy script:
@@ -647,7 +647,7 @@ CI TESTING PIPELINE
 | **Giai đoạn CI** | Sau deploy | Sau deploy | Trước build |
 | **Thời gian chạy** | ~2s | ~30s | ~30s |
 | **Tự động hóa được?** | ✅ Newman CLI | ✅ ZAP API | ✅ SonarScanner |
-| **Số issues tìm thấy** | (điền) | (điền) | (điền) |
+| **Số issues tìm thấy** | (sv điền) | (sv điền) | (sv điền) |
 
 ### 6.2 Kết luận DevOps
 
@@ -681,18 +681,9 @@ CẢ 4 LOẠI ĐỀU CẦN THIẾT — không loại nào thay thế được lo
 
 ## BÀI TẬP MỞ RỘNG (Optional)
 
-### 🟢 Cơ bản
 1. **Thêm Postman environment variables:** Dùng `{{base_url}}` thay vì hardcode `localhost:3000`
-
-### 🟡 Trung bình
-2. **Viết thêm Unit Tests với Jest:** Thêm file `server.test.js` với Jest + Supertest → chạy `npm test` trước Newman
-3. **Cấu hình ZAP Context:** Tạo ZAP Context chỉ scan `/api/*`, bỏ qua static files
-
-### 🔴 Nâng cao
-4. **Tích hợp vào Jenkins Pipeline:** Tạo Jenkinsfile chạy tuần tự: SonarQube → npm test → Newman → ZAP scan
-5. **Quality Gate:** Cấu hình SonarQube Quality Gate: nếu có Bugs mới → FAIL pipeline
-6. **ZAP Baseline Scan:** So sánh kết quả scan giữa 2 lần chạy → chỉ alert những lỗi MỚI
-
+2. **Tích hợp vào Jenkins Pipeline:** Tạo Jenkinsfile chạy tuần tự: SonarQube → npm test → Newman → ZAP sscan
+3. **Quality Gate:** Cấu hình SonarQube Quality Gate: nếu có Bugs mới → FAIL pipeline
 ---
 
 ## TIÊU CHÍ CHẤM ĐIỂM (Rubric)

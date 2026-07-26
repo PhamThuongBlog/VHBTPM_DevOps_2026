@@ -377,8 +377,9 @@ Cấu hình Postman dùng ZAP proxy để bắt request:
 4. Nhấn **Attack**
 
 ZAP sẽ:
-- Spider: crawl tất cả các endpoint
+- Spider: crawl tất cả endpoint: http://localhost:3000/api/students
 - Active Scan: gửi payload tấn công để tìm lỗ hổng
+  
 
 #### Cách 2: ZAP API (Command Line — dùng trong CI/CD)
 
@@ -401,7 +402,9 @@ curl "http://localhost:8080/OTHER/core/other/htmlreport/" > zap-report.html
 
 ### 3.4 Phân tích Kết quả ZAP
 
-Vào tab **Alerts** → xem các lỗ hổng được phát hiện:
+Vào tab **Alerts** → xem các lỗ hổng được phát hiện
+Ví dụ: 
+
 
 | Mức độ | Loại lỗ hổng | Endpoint bị ảnh hưởng |
 |:------:|-------------|----------------------|

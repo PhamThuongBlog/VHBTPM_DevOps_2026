@@ -20,6 +20,10 @@ Sau khi hoàn thành lab, sinh viên có thể:
 - Đã cài đặt: Node.js ≥ 18, Docker Desktop, Postman
 
 ## Kiến trúc Lab — 3 Loại Kiểm thử
+<p align="center">
+  <img src="images_lab6/test.png" alt="Các loại kiểm thử và phân tích code" width="600">
+</p>
+
 
 ```
 ┌──────────────────────────────────────────────────────────┐

@@ -21,7 +21,7 @@ Sau khi hoàn thành lab, sinh viên có thể:
 
 ## Kiến trúc Lab — 3 Loại Kiểm thử
 <p align="center">
-  <img src="images_lab6/test.png" alt="Các loại kiểm thử và phân tích code" width="600">
+  <img src="test1.png" alt="Các loại kiểm thử và phân tích code" width="600">
 </p>
 
 

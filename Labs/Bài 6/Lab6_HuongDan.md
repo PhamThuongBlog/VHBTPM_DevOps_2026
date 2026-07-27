@@ -494,7 +494,7 @@ Chạy phân tích:
 ```bash
 npx sonar-scanner
 ```
-**Lưu ý:** trước khi chạy phân tích cần bổ sung dòng code **sonar.login=<Your SonarQube Token>** vào sau lệnh **sonar.host.url=http://localhost:9000** và chú thích 2 dòng **sonar.login = ...** và **sonar.password = ...** lại.
+**Lưu ý:** trước khi chạy phân tích cần bổ sung dòng code **sonar.login= Created SonarQube Token** vào sau lệnh **sonar.host.url=http://localhost:9000** và chú thích 2 dòng **sonar.login = ...** và **sonar.password = ...** lại.
 
 #### Cách 2: Dùng Docker (không cần cài đặt)
 

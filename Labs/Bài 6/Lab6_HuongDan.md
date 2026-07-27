@@ -492,13 +492,9 @@ sonar.password=sonar123
 Chạy phân tích:
 
 ```bash
-sonar-scanner <lệnh đã copy từ SonarQube (bước 4.2)>
+npx sonar-scanner
 ```
-**Lưu ý:** trước khi chạy phân tích cần: Edit lại lệnh bằng cách: thêm **npx** ; bỏ **.bat** đi và thay **sonar.login=** thành **sonar.token=**, tức chạy phân tích bằng cách thực thi lệnh:
-
-```bash
-npx sonarqube-scanner -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_7839c1a0af9e8cf24253febb435a9e749ea8acbb"`
-```
+**Lưu ý:** trước khi chạy phân tích cần bổ sung dòng code **sonar.login=<Your SonarQube Token>** vào sau lệnh **sonar.host.url=http://localhost:9000** và chú thích 2 dòng **sonar.login = ...** và **sonar.password = ...** lại.
 
 #### Cách 2: Dùng Docker (không cần cài đặt)
 

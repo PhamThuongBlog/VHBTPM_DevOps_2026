@@ -437,10 +437,7 @@ Tương tự với các endpoint khác, kết quả: ZAP phát hiện các lỗ 
 ### 4.1 Khởi động SonarQube bằng Docker
 
 ```bash
-docker run -d --name lab6-sonarqube \
-  -p 9000:9000 \
-  -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
-  sonarqube:lts-community
+docker run -d --name lab6-sonarqube -p 9000:9000 -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true sonarqube:lts-community
 ```
 
 Đợi 1-2 phút cho SonarQube khởi động. Mở http://localhost:9000:
@@ -498,8 +495,10 @@ Chạy phân tích:
 sonar-scanner <lệnh đã copy từ SonarQube (bước 4.2)>
 ```
 **Lưu ý:** trước khi chạy phân tích cần: Edit lại lệnh bằng cách: thêm **npx** và bỏ **.bat** đi , tức chạy phân tích bằng cách thực thi lệnh:
-`npx sonarqube-scanner -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=sqp_7839c1a0af9e8cf24253febb435a9e749ea8acbb"`
 
+```bash
+npx sonarqube-scanner -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=sqp_7839c1a0af9e8cf24253febb435a9e749ea8acbb"`
+```
 
 #### Cách 2: Dùng Docker (không cần cài đặt)
 

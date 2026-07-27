@@ -377,7 +377,7 @@ Cấu hình Postman dùng ZAP proxy để bắt request:
 4. Nhấn **Attack**
 
 ZAP sẽ:
-- Spider: crawl tất cả endpoint: http://localhost:3000/api/students
+- Spider: crawl endpoint: http://localhost:3000/api/students
 - Active Scan: gửi payload tấn công để tìm lỗ hổng
   
 

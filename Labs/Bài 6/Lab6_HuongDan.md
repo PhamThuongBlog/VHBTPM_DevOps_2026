@@ -452,9 +452,10 @@ docker run -d --name lab6-sonarqube \
 1. **Create a local project**
 2. Project key: `devops-lab6`
 3. Display name: `DevOps Lab 6 — Student API`
-4. **Use global setting** → **Create**
-5. Chọn **Locally** → Generate token: `lab6-token` → **Continue**
-6. Chọn **Other (for JS/TS)** → Copy lệnh sonar-scanner
+4. Main branch name:  `main`
+5. Click **Setup** → **locally**
+6. Generate token: token name: `lab6-token` ; Expires in : 30 days → **Generate** → copy và lưu lại token → **Continue**
+7. Chọn **Other (for JS/TS, ...)** → What is your OS? chọn Windows → Copy lệnh sonar-scanner
 
 ### 4.3 Cài đặt và Chạy SonarScanner
 

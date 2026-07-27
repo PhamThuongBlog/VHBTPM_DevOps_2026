@@ -515,11 +515,15 @@ docker run --rm \
 
 Vào http://localhost:9000 → Projects → `devops-lab6`:
 
+<p align="center">
+  <img src="sonarqube.png" alt="Kết quả phân tích bởi SonarQube" width="600">
+</p>
+
 | Tab | Nội dung | Kết quả mong đợi trên server.js |
 |-----|----------|-------------------------------|
-| **Bugs** | Lỗi logic | ⚠️ Có thể có: biến `students` dùng `let` nhưng không reassign |
-| **Code Smells** | Code khó bảo trì | 🟡 Dòng quá dài, function `server.js` quá lớn, magic numbers |
-| **Security Hotspots** | Vấn đề bảo mật tiềm ẩn | 🔴 Debug endpoint lộ thông tin, CORS allow all origins |
+| **Bugs** | Lỗi logic | Có thể có: biến `students` dùng `let` nhưng không reassign |
+| **Code Smells** | Code khó bảo trì | Dòng quá dài, function `server.js` quá lớn, magic numbers |
+| **Security Hotspots** | Vấn đề bảo mật tiềm ẩn | Debug endpoint lộ thông tin, CORS allow all origins |
 | **Duplications** | Code trùng lặp | 0% (code ngắn) |
 | **Coverage** | Độ bao phủ test | 0% (chưa có unit test — sẽ bổ sung sau) |
 

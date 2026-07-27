@@ -342,7 +342,7 @@ Student API Tests
 ✓ POST Missing Fields (Validation)
 ```
 <p align="center">
-  <img src="kq_test_newman.png" alt="Tổng hợp kết quả test với NewMan CLI" width="600">
+  <img src="kq_test_newman.png" alt="Tổng hợp kết quả test với NewMan CLI" width="1000">
 </p>
 
 ✅ **CHECKPOINT 2:** Newman chạy 5/5 requests pass, 12 assertions pass?
@@ -405,7 +405,7 @@ curl "http://localhost:8080/OTHER/core/other/htmlreport/" > zap-report.html
 Vào tab **Alerts** → xem các lỗ hổng được phát hiện
 Ví dụ: 
 <p align="center">
-  <img src="zap.png" alt="Kết quả Attack với ZAP" width="600">
+  <img src="zap.png" alt="Kết quả Attack với ZAP" width="1000">
 </p>
 
 Tương tự với các endpoint khác, kết quả: ZAP phát hiện các lỗ hổng an ninh như chỉ ra trong Bảng:
@@ -516,7 +516,7 @@ docker run --rm \
 Vào http://localhost:9000 → Projects → `devops-lab6`:
 
 <p align="center">
-  <img src="sonarqube.png" alt="Kết quả phân tích bởi SonarQube" width="600">
+  <img src="sonarqube.png" alt="Kết quả phân tích bởi SonarQube" width="1000">
 </p>
 
 | Tab | Nội dung | Kết quả mong đợi trên server.js |
@@ -525,7 +525,7 @@ Vào http://localhost:9000 → Projects → `devops-lab6`:
 | **Code Smells** | Code khó bảo trì | Dòng quá dài, function `server.js` quá lớn, magic numbers |
 | **Security Hotspots** | Vấn đề bảo mật tiềm ẩn | Debug endpoint lộ thông tin, CORS allow all origins |
 | **Duplications** | Code trùng lặp | 0% (code ngắn) |
-| **Coverage** | Độ bao phủ test | 0% (chưa có unit test — sẽ bổ sung sau) |
+| **Vulnerabilities** | Lỗ hổng bảo mật | ?% |
 
 **Phân tích kết quả:** SonarQube KHÔNG chạy code → nó phân tích CÚ PHÁP để tìm pattern xấu. Đây là SAST (Static Analysis), khác với ZAP (DAST — chạy app thật để tìm lỗ hổng).
 

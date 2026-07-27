@@ -494,10 +494,10 @@ Chạy phân tích:
 ```bash
 sonar-scanner <lệnh đã copy từ SonarQube (bước 4.2)>
 ```
-**Lưu ý:** trước khi chạy phân tích cần: Edit lại lệnh bằng cách: thêm **npx** và bỏ **.bat** đi , tức chạy phân tích bằng cách thực thi lệnh:
+**Lưu ý:** trước khi chạy phân tích cần: Edit lại lệnh bằng cách: thêm **npx** ; bỏ **.bat** đi và thay **sonar.login=** thành **sonar.token=**, tức chạy phân tích bằng cách thực thi lệnh:
 
 ```bash
-npx sonarqube-scanner -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=sqp_7839c1a0af9e8cf24253febb435a9e749ea8acbb"`
+npx sonarqube-scanner -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_7839c1a0af9e8cf24253febb435a9e749ea8acbb"`
 ```
 
 #### Cách 2: Dùng Docker (không cần cài đặt)

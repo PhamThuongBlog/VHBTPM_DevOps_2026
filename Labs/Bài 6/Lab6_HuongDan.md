@@ -638,6 +638,14 @@ echo "  DAST:     zap-report.html"
 
 Chạy script:
 
+**Cách 1: Chạy trên PowerShell:**
+
+```bash
+bash ci-test.sh
+```
+
+**Cách 2: Chạy trong Git Bash:**
+
 ```bash
 chmod +x ci-test.sh
 ./ci-test.sh

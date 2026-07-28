@@ -641,6 +641,8 @@ Chạy script:
 **Cách 1: Chạy trên PowerShell:**
 
 ```bash
+cd E:\__Nam_2026_DevOps_Video\Lab_Done\Results_All_Labs_ByThg\Lab6\lab6-devops-testing
+
 bash ci-test.sh
 ```
 

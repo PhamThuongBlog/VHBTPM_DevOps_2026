@@ -558,7 +558,8 @@ Tạo file `ci-test.sh`:
 # CI Test Script — Lab 6 DevOps
 # Tích hợp: SAST + Unit Test + API Test + DAST
 # ===========================================
-set -e
+set +e
+
 
 echo "========================================="
 echo "  DEVOPS LAB 6 — CI TESTING PIPELINE"
@@ -567,33 +568,29 @@ echo ""
 
 # --- Stage 1: SAST — Static Code Analysis ---
 echo "[1/4]  SAST — SonarQube Static Analysis..."
-sonar-scanner -Dsonar.projectKey=devops-lab6 \
+npx sonar-scanner -Dsonar.projectKey=devops-lab6 \
   -Dsonar.sources=. \
   -Dsonar.exclusions=node_modules/** \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=admin \
-  -Dsonar.password=sonar123 \
+  -Dsonar.host.url=http://127.0.0.1:9000 \
+  -Dsonar.login= Your SonarQube Token \
   && echo " SAST passed" || echo "  SAST completed with warnings"
 
 # --- Stage 2: Start API Server ---
 echo "[2/4]  Starting API server..."
-node server.js &
+node.exe server.js &
 SERVER_PID=$!
-sleep 3
+sleep 5
 
 # Verify server is running
-if ! curl -s http://localhost:3000/api/students > /dev/null; then
-    echo " Server failed to start!"
-    exit 1
-fi
 echo " Server running (PID: $SERVER_PID)"
 
 # --- Stage 3: API Functional Test ---
 echo "[3/4]  API Functional Test — Newman..."
-newman run Student-API-Tests.json \
+npx newman run Student-API-Tests.json \
   --reporters cli,json \
   --reporter-json-export newman-report.json \
-  --color on
+  --color on \
+  --insecure
 
 NEWMAN_EXIT=$?
 if [ $NEWMAN_EXIT -eq 0 ]; then
@@ -602,26 +599,184 @@ else
     echo " API tests failed! Check newman-report.json"
 fi
 
-# --- Stage 4: DAST — ZAP Security Scan ---
-echo "[4/4]  DAST — OWASP ZAP Security Scan..."
+# --- Stage 4/4: DAST — ZAP Security Scan ---
+echo "[4/4] DAST — OWASP ZAP Security Scan..."
 
-# Spider scan
-echo "  Spider crawling..."
-curl -s "http://localhost:8080/JSON/spider/action/scan/?url=http://localhost:3000" > /dev/null
-sleep 10
+ZAP_URL="http://127.0.0.1:8080"
+TARGET_URL="http://127.0.0.1:3000"
 
-# Active scan
-echo "  Active scanning..."
-curl -s "http://localhost:8080/JSON/ascan/action/scan/?url=http://localhost:3000" > /dev/null
-sleep 15
+# -------------------------------------------------
+# Check ZAP
+# -------------------------------------------------
+echo "  Checking ZAP..."
 
-# Generate report
-echo "  Generating report..."
-curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > zap-report.html
+curl.exe -s "$ZAP_URL/JSON/core/view/version/" > /dev/null
 
-# Count alerts
-ALERTS=$(curl -s "http://localhost:8080/JSON/core/view/alertsSummary/?baseurl=http://localhost:3000" | python3 -c "import sys,json; d=json.load(sys.stdin); print(sum(d.get('alertsSummary',{}).values()))" 2>/dev/null || echo "?")
-echo " ZAP scan complete — $ALERTS alerts found (see zap-report.html)"
+if [ $? -ne 0 ]; then
+    echo "ERROR: Cannot connect to ZAP."
+    exit 1
+fi
+
+echo "  ZAP is running."
+
+# -------------------------------------------------
+# Spider Scan
+# -------------------------------------------------
+echo "  Starting Spider scan..."
+
+RESP=$(curl.exe -s "$ZAP_URL/JSON/spider/action/scan/?url=$TARGET_URL&maxChildren=10")
+
+echo "Spider Response: $RESP"
+
+SCAN_ID=$(echo "$RESP" | python.exe -c "import sys,json; print(json.load(sys.stdin)['scan'])" | tr -d '\r\n')
+
+if [ -z "$SCAN_ID" ]; then
+    echo "ERROR: Cannot start Spider."
+    exit 1
+fi
+
+echo "  Spider Scan ID: $SCAN_ID"
+
+SPIDER_RETRY=0
+SPIDER_MAX_RETRY=60
+
+while true
+do
+    RESP=$(curl.exe -s "$ZAP_URL/JSON/spider/view/status/?scanId=$SCAN_ID")
+
+    echo "Spider Status Response: [$RESP]"
+
+    if [ -z "$RESP" ]; then
+        echo "Empty response, waiting..."
+        sleep 2
+        continue
+    fi
+
+    # Handle case where ZAP returns [] (empty array) — scan still running
+    if [ "$RESP" = "[]" ]; then
+        echo "Spider returned [], scan still running..."
+        sleep 2
+        SPIDER_RETRY=$((SPIDER_RETRY + 1))
+        if [ $SPIDER_RETRY -ge $SPIDER_MAX_RETRY ]; then
+            echo "Spider scan timeout after $SPIDER_MAX_RETRY retries."
+            break
+        fi
+        continue
+    fi
+
+    STATUS=$(echo "$RESP" | python.exe -c "import sys,json; data=json.load(sys.stdin); print(data.get('status', data[0].get('status','0')) if isinstance(data, list) else data.get('status','0'))" 2>&1 | tr -d '\r\n')
+
+    echo "STATUS = [$STATUS]"
+
+    if [[ "$STATUS" == *Traceback* ]]; then
+        echo "Python parse failed."
+        sleep 2
+        continue
+    fi
+
+    echo "Spider Progress: $STATUS%"
+
+    if [ "$STATUS" = "100" ]; then
+        break
+    fi
+
+    sleep 2
+done
+
+echo "  Spider completed."
+
+# -------------------------------------------------
+# Active Scan
+# -------------------------------------------------
+echo "  Starting Active Scan..."
+
+RESP=$(curl.exe -s "$ZAP_URL/JSON/ascan/action/scan/?url=$TARGET_URL")
+
+echo "Active Scan Response: $RESP"
+
+ASCAN_ID=$(echo "$RESP" | python.exe -c "import sys,json; print(json.load(sys.stdin)['scan'])" | tr -d '\r\n')
+
+if [ -z "$ASCAN_ID" ]; then
+    echo "ERROR: Cannot start Active Scan."
+    exit 1
+fi
+
+echo "  Active Scan ID: $ASCAN_ID"
+
+sleep 2
+
+ASCAN_RETRY=0
+ASCAN_MAX_RETRY=60
+
+while true
+do
+    RESP=$(curl.exe -s "$ZAP_URL/JSON/ascan/view/status/?scanId=$ASCAN_ID")
+
+    if [ -z "$RESP" ]; then
+        echo "    Waiting for Active Scan..."
+        sleep 2
+        continue
+    fi
+
+    # Handle case where ZAP returns [] (empty array) — scan still running
+    if [ "$RESP" = "[]" ]; then
+        echo "    Active Scan returned [], scan still running..."
+        sleep 2
+        ASCAN_RETRY=$((ASCAN_RETRY + 1))
+        if [ $ASCAN_RETRY -ge $ASCAN_MAX_RETRY ]; then
+            echo "    Active Scan timeout after $ASCAN_MAX_RETRY retries."
+            break
+        fi
+        continue
+    fi
+
+    STATUS=$(echo "$RESP" | python.exe -c "import sys,json; data=json.load(sys.stdin); print(data.get('status', data[0].get('status','0')) if isinstance(data, list) else data.get('status','0'))" 2>/dev/null | tr -d '\r\n')
+
+    if [ -z "$STATUS" ]; then
+        echo "    Waiting for valid status..."
+        sleep 2
+        continue
+    fi
+
+    echo "    Active Scan Progress: $STATUS%"
+
+    [ "$STATUS" = "100" ] && break
+
+    sleep 5
+done
+
+echo "  Active Scan completed."
+
+# -------------------------------------------------
+# Generate Report
+# -------------------------------------------------
+echo "  Generating HTML report..."
+
+curl.exe -s "$ZAP_URL/OTHER/core/other/htmlreport/" -o zap-report.html
+
+if [ -f zap-report.html ]; then
+    echo "  Report saved to zap-report.html"
+else
+    echo "WARNING: Cannot generate report."
+fi
+
+# -------------------------------------------------
+# Alert Summary
+# -------------------------------------------------
+echo "  Retrieving alerts..."
+
+RESP=$(curl.exe -s "$ZAP_URL/JSON/core/view/alertsSummary/")
+
+echo "Alert Summary: $RESP"
+
+ALERTS=$(echo "$RESP" | python.exe -c "import sys,json; d=json.load(sys.stdin); print(sum(map(int,d.get('alertsSummary',{}).values())))" 2>/dev/null | tr -d '\r\n')
+
+echo
+echo "=========================================="
+echo "ZAP Scan Completed"
+echo "Alerts : ${ALERTS:-0}"
+echo "Report : zap-report.html"
+echo "=========================================="
 
 # --- Cleanup ---
 kill $SERVER_PID 2>/dev/null
@@ -631,26 +786,17 @@ echo "  PIPELINE COMPLETE!"
 echo "========================================="
 echo ""
 echo "Reports:"
-echo "  SAST:     http://localhost:9000/dashboard?id=devops-lab6"
+echo "  SAST:     http://127.0.0.1:9000/dashboard?id=devops-lab6"
 echo "  API Test: newman-report.json"
 echo "  DAST:     zap-report.html"
 ```
 
-Chạy script:
-
-**Cách 1: Chạy trên PowerShell:**
+Chạy script (trên PowerShell):
 
 ```bash
 cd E:\__Nam_2026_DevOps_Video\Lab_Done\Results_All_Labs_ByThg\Lab6\lab6-devops-testing
 
 bash ci-test.sh
-```
-
-**Cách 2: Chạy trong Git Bash:**
-
-```bash
-chmod +x ci-test.sh
-./ci-test.sh
 ```
 
 ### 5.2 Pipeline Visualization

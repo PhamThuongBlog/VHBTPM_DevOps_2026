@@ -368,9 +368,13 @@ Cấu hình Postman dùng ZAP proxy để bắt request:
 - Hoặc cấu hình trực tiếp: HTTP proxy = `localhost:8080`
 
 **Cấu hình ZAP:** 
+
 Tools → Options → API → Check chọn / bật các mục sau:
+
 ✅ Enable API
+
 ✅ Disable API Key
+
 => API Key: giữ nguyên giá trị mặc định
 
 ### 3.3 Automated Scan với ZAP
@@ -387,6 +391,7 @@ ZAP sẽ:
 - Active Scan: gửi payload tấn công để tìm lỗ hổng
   
 **Lưu ý:** 
+
 - Nếu Attack vào http://localhost:3000 => ZAP sẽ tự động crawl tất cả các endpoint của API để phát hiện các vấn đề về bảo mật.
   
 #### Cách 2: ZAP API (Command Line — dùng trong CI/CD)

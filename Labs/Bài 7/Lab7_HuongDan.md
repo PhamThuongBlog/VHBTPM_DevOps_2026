@@ -35,21 +35,24 @@ Sau lab này, bạn sẽ:
 ## KIẾN THỨC NỀN — Nhắc lại trước Lab
 
 ### CI Pipeline là gì?
+<p align="center">
+  <img src="ci_2.png" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
+</p>
 
 ```
 Developer                  CI Server (Jenkins)                  Artifacts
    │                            │                                  │
    │ git push                   │                                  │
-   ├───────────────────────────▶│                                  │
+   ├─────────────────────────▶ │                                  │
    │                            │ 1. Checkout code (git clone)     │
    │                            │ 2. Build (mvn compile)           │
    │                            │ 3. Test (mvn test)               │
    │                            │ 4. Scan (SonarQube)              │
    │                            │ 5. Package (mvn package)         │
-   │                            │ 6. Archive (Nexus) ─────────────▶│
+   │                            │ 6. Archive (Nexus) ────────────▶│
    │                            │                                  │
-   │◀───────────────────────────┤                                  │
-   │     Build result (✅/❌)   │                                  │
+   │◀──────────────────────────|                                  │
+   │     Build result (✅/❌)  │                                  │
 ```
 
 ### Jenkinsfile — Declarative Pipeline Syntax

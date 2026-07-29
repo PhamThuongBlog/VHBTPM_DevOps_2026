@@ -23,7 +23,7 @@ Sau khi hoàn thành lab, sinh viên có thể:
 ## Kiến trúc Lab
 
 <p align="center">
-  <img src="test1.png" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
+  <img src="Jenkins_ci_pipeline" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
 </p>
 
 ```

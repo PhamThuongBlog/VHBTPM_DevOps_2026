@@ -26,6 +26,12 @@ Sau khi hoàn thành lab, sinh viên có thể:
   <img src="Jenkins_ci_pipeline.png" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
 </p>
 
+```
+CI Pipeline: 1. Jenkins Checkout code (git clone) from GitHub Repos → 2. Build (mvn compile) → 3. Test (mvn test) → 4. Scan (SonarQube) → 5. Package (mvn package) →
+Archive (Nexus)
+```
+
+
 **CI Pipeline** thực thi theo trình tự các giai đoạn: Jenkins sẽ **Checkout code** từ GitHub repository → **Build** (Maven) → **Test** → **Scan code** (SonarQube) → **Archive (lưu trữ)** by Publish /Upload to Nexus
 
 

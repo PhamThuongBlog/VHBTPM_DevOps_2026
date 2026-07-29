@@ -8,12 +8,12 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Dựng Jenkins + Nexus + SonarQube bằng Docker Compose
-2. ✅ Viết Jenkinsfile Declarative Pipeline: Checkout → Build → Test → Scan → Archive → Publish
-3. ✅ Cấu hình Jenkins Pipeline Job kết nối với GitHub
-4. ✅ Tích hợp SonarQube phân tích mã nguồn tĩnh tự động
-5. ✅ Đẩy artifact (.jar) lên Nexus Repository
-6. ✅ Kích hoạt pipeline tự động qua GitHub Webhook
+1. Dựng Jenkins + Nexus + SonarQube bằng Docker Compose
+2. Viết Jenkinsfile Declarative Pipeline: Checkout → Build → Test → Scan → Archive → Publish
+3. Cấu hình Jenkins Pipeline Job kết nối với GitHub
+4. Tích hợp SonarQube phân tích mã nguồn tĩnh tự động
+5. Đẩy artifact (.jar) lên Nexus Repository
+6. Kích hoạt pipeline tự động qua GitHub Webhook
 
 ---
 

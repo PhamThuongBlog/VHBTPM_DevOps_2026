@@ -22,20 +22,11 @@ Sau khi hoàn thành lab, sinh viên có thể:
 
 ## Kiến trúc Lab
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  Jenkins    │────▶│  SonarQube  │────▶│   Nexus     │
-│  CI Server  │     │  Code Scan  │     │  Repository │
-│  port 8080  │     │  port 9000  │     │  port 8081  │
-└──────┬──────┘     └─────────────┘     └─────────────┘
-       │                                        ▲
-       │ git clone                              │ upload .jar
-       ▼                                        │
-┌─────────────┐                                 │
-│  GitHub Repo│─────────────────────────────────┘
-│  (source)   │
-└─────────────┘
+<p align="center">
+  <img src="test1.png" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
+</p>
 
+```
 CI Pipeline thực thi theo trình tự các giai đoạn: Checkout → Build (Maven) → Test → SonarQube Scan → Archive → Publish to Nexus
 ```
 

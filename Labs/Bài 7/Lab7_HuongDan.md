@@ -40,6 +40,9 @@ Sau lab này, bạn sẽ:
 </p>
 
 
+<p align="center">
+  <img src="ci_4.png" alt="Kiến trúc Lab - JenkinsPipeline" width="600">
+</p>
 ### Jenkinsfile — Declarative Pipeline Syntax
 
 ```groovy

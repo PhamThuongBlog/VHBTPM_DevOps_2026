@@ -32,7 +32,7 @@ Sau lab này, bạn sẽ:
 
 ---
 
-## KIẾN THỨC NỀN — Nhắc lại trước Lab
+## KIẾN THỨC NỀN — Nhắc lại
 
 ### CI Pipeline là gì?
 <p align="center">

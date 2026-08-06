@@ -161,7 +161,7 @@ cd lab7-jenkins-ci
 Viết nội dung sau vào `docker-compose.yml`:
 
 ```yaml
-version: '3.8'
+# version: '3.8' -> Bỏ đi, không cần nếu SV dùng phiên bản mới: phiên bản Docker Compose V2
 
 services:
   # ===== Jenkins CI Server =====

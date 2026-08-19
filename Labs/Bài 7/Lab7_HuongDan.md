@@ -174,8 +174,6 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock  # Cho phép Jenkins dùng Docker
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     restart: unless-stopped
     networks:
       - ci-network

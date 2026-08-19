@@ -512,7 +512,9 @@ mvn clean test
 ### 3.6 Push lên GitHub
 
 ```bash
-# Trong thư mục sample-java-app/
+
+cd ..
+# Trong thư mục lab7-jenkins-ci/
 git init
 git add .
 git commit -m "Initial commit: Sample Java app for Lab 7 CI Pipeline"

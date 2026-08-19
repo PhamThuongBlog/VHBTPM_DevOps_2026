@@ -321,10 +321,15 @@ mkdir -p src/test/java/com/devops/lab7
 
 ### 3.2 Viết pom.xml
 * Tạo file pom.xml:
-  ```bash
+```bash
 New-Item pom.xml -ItemType File
-code pom.xml //để mở pom.xlm
 ```
+
+Mở file pom.xlm:
+```bash
+code pom.xml 
+```
+
 * Nội dung file POM.xlm
 
 ```xml

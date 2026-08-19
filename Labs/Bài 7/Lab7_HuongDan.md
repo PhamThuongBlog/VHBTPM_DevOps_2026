@@ -285,7 +285,7 @@ Cách cài: Tích chọn → **Install without restart**
 ### 2.8 Cấu hình Maven trong Jenkins
 
 Vào **Manage Jenkins → Tools → JDK installations**:
-- Add JDK → Name: `JDK17` → JAVA_HOME: `/opt/java/openjdk`
+- Add JDK → Name: `JDK21` → JAVA_HOME: `/opt/java/openjdk`
 
 Vào **Maven installations**:
 - Add Maven → Name: `M3` → Tích "Install automatically" → Version: `3.9.x`

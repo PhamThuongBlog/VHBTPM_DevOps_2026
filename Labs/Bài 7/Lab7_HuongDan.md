@@ -166,7 +166,7 @@ Viết nội dung sau vào `docker-compose.yml`:
 services:
   # ===== Jenkins CI Server =====
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    image: jenkins/jenkins:lts-jdk21
     container_name: lab7-jenkins
     ports:
       - "8080:8080"      # Web UI

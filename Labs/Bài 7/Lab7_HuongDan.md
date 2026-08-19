@@ -696,7 +696,8 @@ pipeline {
 ### 4.3 Push Jenkinsfile lên GitHub
 
 ```bash
-# Trong thư mục lab7-jenkins-ci/
+# Trong thư mục: sample-java-app/
+cd sample-java-app
 cp ../Jenkinsfile .
 git add Jenkinsfile
 git commit -m "Add Jenkinsfile for CI pipeline"

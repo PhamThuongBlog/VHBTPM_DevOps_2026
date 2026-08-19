@@ -510,6 +510,9 @@ mvn clean test
 ✅ **CHECKPOINT 4:** `mvn clean test` chạy thành công? Tests: 6/6 pass?
 
 ### 3.6 Push lên GitHub
+Tạo kho: "devops-lab7-ci-demo" trên GitHub
+
+Thực thi các lệnh:
 
 ```bash
 

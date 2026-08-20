@@ -383,6 +383,13 @@ code pom.xml
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
             </plugin>
+
+            <plugin>
+              <groupId>org.sonarsource.scanner.maven</groupId>
+              <artifactId>sonar-maven-plugin</artifactId>
+              <version>5.1.0.4751</version>
+            </plugin>
+
         </plugins>
     </build>
 </project>

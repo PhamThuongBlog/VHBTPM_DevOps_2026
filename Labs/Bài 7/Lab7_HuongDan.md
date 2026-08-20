@@ -895,6 +895,45 @@ Nội dung settings.xml :
 
 Trong Jenkins, cấu hình Pipeline → **Build Triggers** → Tích **GitHub hook trigger for GITScm polling**
 
+HOẶC, Cấu hình Jenkins Job với Poll SCM với Schedule:
+
+H/5 * * * *
+=> 5 phút jenkins build  một lần.
+
+H/10 * * * *
+=>10 phút kiểm tra một lần
+
+* * * * *
+=> Kiểm tra mỗi phút
+
+H * * * *
+=>Kiểm tra mỗi giờ
+
+H 8 * * *
+=> Khoảng một lần trong 8:00–8:59 mỗi ngày.
+
+H 18 * * *
+=> Khoảng một lần trong 18:00–18:59 mỗi ngày.
+
+Chạy mỗi ngày vào thời điểm tương đối cố định:
+30 8 * * *
+→ 08:30 mỗi ngày.
+
+0 23 * * *
+→ 23:00 mỗi ngày.
+
+Chạy nhiều lần trong ngày:
+H 8,12,18 * * *
+→ Khoảng một lần vào:
+•	08:xx 
+•	12:xx 
+•	18:xx
+
+
+
+
+
+
 ✅ **CHECKPOINT 7:** Pipeline Job đã cấu hình đầy đủ?
 
 ---

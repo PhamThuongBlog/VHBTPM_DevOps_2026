@@ -281,7 +281,7 @@ Vào **Manage Jenkins → Plugins → Available plugins**, cài đặt:
 - **Blue Ocean** (UI pipeline đẹp hơn - optional)
 - **Config File Provider**
 
-Cách cài: Tích chọn → **Install without restart**
+Cách cài: Tích chọn → **Install**
 
 ### 2.8 Cấu hình Maven trong Jenkins
 

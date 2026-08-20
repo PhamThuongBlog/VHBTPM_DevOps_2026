@@ -628,11 +628,12 @@ pipeline {
 
     environment {
         NEXUS_URL      = 'http://lab7-nexus:8081'
-        NEXUS_REPO     = 'maven-releases'
+        NEXUS_REPO     = 'maven-snapshots'
         SONAR_HOST_URL = 'http://lab7-sonarqube:9000'
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo '📦 STEP 1/6: CHECKOUT — Lấy code từ GitHub...'
@@ -643,18 +644,27 @@ pipeline {
         stage('Build') {
             steps {
                 echo '🔨 STEP 2/6: BUILD — Biên dịch với Maven...'
-                sh 'mvn clean compile'
+
+                dir('sample-java-app') {
+                    sh 'mvn clean compile'
+                }
             }
         }
 
         stage('Test') {
             steps {
                 echo '🧪 STEP 3/6: TEST — Chạy Unit Tests với JUnit 5...'
-                sh 'mvn test'
+
+                dir('sample-java-app') {
+                    sh 'mvn test'
+                }
             }
+
             post {
                 success {
-                    junit 'target/surefire-reports/*.xml'
+                    dir('sample-java-app') {
+                        junit 'target/surefire-reports/*.xml'
+                    }
                 }
             }
         }
@@ -662,8 +672,26 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo '🔍 STEP 4/6: SCAN — Phân tích mã nguồn tĩnh với SonarQube...'
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=devops-lab7 -Dsonar.projectName="DevOps Lab 7 CI Demo"'
+
+                dir('sample-java-app') {
+
+                    withSonarQubeEnv('SonarQube') {
+
+                        withCredentials([
+                            string(
+                                credentialsId: 'sonarqube-token',
+                                variable: 'SONAR_TOKEN'
+                            )
+                        ]) {
+
+                            sh '''
+                                mvn sonar:sonar \
+                                    -Dsonar.projectKey=devops-lab7 \
+                                    -Dsonar.projectName="DevOps Lab 7 CI Demo" \
+                                    -Dsonar.token="$SONAR_TOKEN"
+                            '''
+                        }
+                    }
                 }
             }
         }
@@ -671,39 +699,83 @@ pipeline {
         stage('Package') {
             steps {
                 echo '📦 STEP 5/6: PACKAGE — Đóng gói .jar...'
-                sh 'mvn package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+
+                dir('sample-java-app') {
+
+                    sh 'mvn package -DskipTests'
+
+                    sh '''
+                        echo "=== ARTIFACT CREATED ==="
+                        ls -lh target/*.jar
+                    '''
+
+                    archiveArtifacts(
+                        artifacts: 'target/*.jar',
+                        fingerprint: true
+                    )
+                }
             }
         }
 
         stage('Publish to Nexus') {
             steps {
                 echo '📤 STEP 6/6: PUBLISH — Đẩy artifact lên Nexus...'
-                sh '''
-                    mvn deploy:deploy-file \
-                        -DgroupId=com.devops.lab7 \
-                        -DartifactId=ci-demo \
-                        -Dversion=1.0.0 \
-                        -Dpackaging=jar \
-                        -Dfile=target/ci-demo-1.0.0-SNAPSHOT.jar \
-                        -Durl=http://lab7-nexus:8081/repository/maven-releases/ \
-                        -DrepositoryId=nexus
-                '''
+
+                dir('sample-java-app') {
+
+                    withCredentials([
+                        usernamePassword(
+                            credentialsId: 'nexus-credentials',
+                            usernameVariable: 'NEXUS_USERNAME',
+                            passwordVariable: 'NEXUS_PASSWORD'
+                        )
+                    ]) {
+
+                        configFileProvider([
+                            configFile(
+                                fileId: 'maven-settings-nexus',
+                                variable: 'MAVEN_SETTINGS'
+                            )
+                        ]) {
+
+                            sh '''
+                                echo "=== CHECK ARTIFACT ==="
+
+                                ls -lh target/
+
+                                echo "=== PUBLISH TO NEXUS ==="
+
+                                mvn deploy:deploy-file \
+                                    -s "$MAVEN_SETTINGS" \
+                                    -DgroupId=com.devops.lab7 \
+                                    -DartifactId=ci-demo \
+                                    -Dversion=1.0.0-SNAPSHOT \
+                                    -Dpackaging=jar \
+                                    -Dfile=target/ci-demo-1.0.0-SNAPSHOT.jar \
+                                    -Durl=http://lab7-nexus:8081/repository/maven-snapshots/ \
+                                    -DrepositoryId=nexus
+                            '''
+                        }
+                    }
+                }
             }
         }
     }
 
     post {
+
         success {
             echo '🎉 PIPELINE SUCCESS — CI Pipeline hoàn thành!'
-            echo "Artifact đã được publish lên Nexus: ${NEXUS_URL}"
+            echo "Artifact đã được publish lên Nexus: ${NEXUS_URL}/${NEXUS_REPO}"
         }
+
         failure {
             echo '💥 PIPELINE FAILED — Kiểm tra logs để debug!'
         }
+
         always {
             echo "Pipeline finished at: ${currentBuild.duration}ms"
-            cleanWs()   // Dọn workspace sau khi build
+            cleanWs()
         }
     }
 }

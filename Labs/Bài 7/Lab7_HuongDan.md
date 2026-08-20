@@ -564,18 +564,24 @@ pipeline {
         stage('Build') {
             steps {
                 echo '=== STEP 2: BUILD ==='
-                sh 'mvn clean compile'
+                dir('sample-java-app') {
+                    sh 'mvn clean compile'
+                }
             }
         }
 
         stage('Test') {
             steps {
                 echo '=== STEP 3: TEST ==='
-                sh 'mvn test'
+                dir('sample-java-app') {
+                    sh 'mvn test'
+                }
             }
             post {
                 success {
-                    junit 'target/surefire-reports/*.xml'
+                    dir('sample-java-app') {
+                        junit 'target/surefire-reports/*.xml'
+                    }
                 }
             }
         }
@@ -583,8 +589,10 @@ pipeline {
         stage('Package') {
             steps {
                 echo '=== STEP 4: PACKAGE ==='
-                sh 'mvn package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                dir('sample-java-app') {
+                    sh 'mvn package -DskipTests'
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
             }
         }
     }

@@ -736,7 +736,7 @@ Scroll xuống phần **Pipeline**:
 
 **Branch:** `main`
 
-**Script Path:** `Jenkinsfile`
+**Script Path:** `sample-java-app/Jenkinsfile`
 
 Nhấn **Save**.
 

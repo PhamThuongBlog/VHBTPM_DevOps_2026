@@ -279,6 +279,7 @@ Vào **Manage Jenkins → Plugins → Available plugins**, cài đặt:
 - **SonarQube Scanner**
 - **Nexus Platform Plugin**
 - **Blue Ocean** (UI pipeline đẹp hơn - optional)
+- **Config File Provider**
 
 Cách cài: Tích chọn → **Install without restart**
 

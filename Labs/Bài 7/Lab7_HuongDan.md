@@ -755,6 +755,26 @@ Vào **Manage Jenkins → Configure System → SonarQube servers**:
 - Server URL: `http://lab7-sonarqube:9000`
 - Server authentication token: (tạo token từ SonarQube: User → My Account → Security → Generate Token)
 
+  **Lưu token vào Jenkins Credentials:**
+  Trong Jenkins: **Dashboard → Manage Jenkins → Credentials** Chọn: **System → Global credentials (unrestricted)**
+
+  Sau đó: **Add Credentials**
+
+  Chọn:  **Kind: Secret text**
+
+  Điền:
+  ```
+  Secret:
+  <SONARQUBE_TOKEN>
+
+  ID:
+  sonarqube-token
+
+  Description:
+  SonarQube token for Lab 7
+  ```
+Sau đó: **Create**
+
 ### 5.4 (Tùy chọn) Cấu hình GitHub Webhook để Auto-trigger
 
 1. Vào repo GitHub → **Settings → Webhooks → Add webhook**

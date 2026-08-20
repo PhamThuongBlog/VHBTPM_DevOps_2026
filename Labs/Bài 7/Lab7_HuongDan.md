@@ -786,7 +786,7 @@ Password: <mật khẩu Nexus>
 ID: nexus-credentials
 Description: Nexus credentials for Lab 7
 ```
--> Save
+-> **Create**
 
 ### 5.4 (Tùy chọn) Cấu hình GitHub Webhook để Auto-trigger
 

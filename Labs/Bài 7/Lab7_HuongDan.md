@@ -775,6 +775,19 @@ Vào **Manage Jenkins → Configure System → SonarQube servers**:
   ```
 Sau đó: **Create**
 
+**Làm tương tự với Nexus: Tạo Nexus Credential trong Jenkins:**
+
+Chọn: ``` Kind: Username with password ```
+
+Thông tin: 
+```
+Username: admin
+Password: <mật khẩu Nexus>
+ID: nexus-credentials
+Description: Nexus credentials for Lab 7
+```
+-> Save
+
 ### 5.4 (Tùy chọn) Cấu hình GitHub Webhook để Auto-trigger
 
 1. Vào repo GitHub → **Settings → Webhooks → Add webhook**

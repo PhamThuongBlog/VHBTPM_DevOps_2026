@@ -789,6 +789,30 @@ Description: Nexus credentials for Lab 7
 ```
 -> **Create**
 
+**Tạo Maven Managed File:**
+Manage Jenkins -> Tìm: Managed files → Add a new Config -> Chọn loại: Maven settings.xml -> Đặt: ID: maven-settings-nexus -> 
+
+Nội dung settings.xml :
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <server>
+            <id>nexus</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
+        </server>
+    </servers>
+
+</settings>
+```
+-> Submit
+
 ### 5.4 (Tùy chọn) Cấu hình GitHub Webhook để Auto-trigger
 
 1. Vào repo GitHub → **Settings → Webhooks → Add webhook**
@@ -854,7 +878,7 @@ Vào build → **Artifacts** → tải file `.jar` để kiểm tra.
 ### 6.4 Kiểm tra Nexus
 
 1. Vào http://localhost:8081 → Browse
-2. Vào `maven-releases` → kiểm tra artifact đã được upload
+2. Vào `maven-releases / maven-snapshots` → kiểm tra artifact đã được upload
 3. Đường dẫn: `com/devops/lab7/ci-demo/1.0.0/ci-demo-1.0.0.jar`
 
 ### 6.5 Kiểm tra SonarQube (nếu đã cấu hình)

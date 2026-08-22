@@ -1,7 +1,7 @@
 # Lab 8: Phát hành Liên tục (CD) — Docker & Jenkins CD Pipeline
 
 ## Thông tin chung
-- **Bài học:** Bài 8 — Phát hành Liên tục (Continuous Delivery/Deployment)
+- **Bài học 8:** Phát hành Liên tục (Continuous Delivery/Deployment)
 - **CDR:** 8.2 (Đóng gói Docker image) + 8.3 (Triển khai CD với Jenkins)
 - **Mức Bloom:** Vận dụng (Apply)
 - **Thời lượng:** 90 phút
@@ -19,29 +19,11 @@ Sau lab này, sinh viên có thể:
 - Đã học Bài 7 (CI), Bài 8 (CD), Bài 2 (Docker cơ bản)
 - Đã cài: Docker Desktop, Docker Hub account, Git
 
-## Tài liệu gốc đã có (giữ nguyên)
-- `1_Lectures/Bài 8_OK/Bài 8_CI_CD_Part2_Lab.pdf` — Lab Docker cơ bản
-- `1_Lectures/Bài 8_OK/Bài 8_CI_CD_Part2_Lab.pptx` — Slides lab
-
 ## Kiến trúc CI/CD — Kết nối Bài 7 → Bài 8
 
-```
-┌──────────────────────── CI (Bài 7) ────────────────────────┐
-│                                                             │
-│  Code → Build → Test → Package → Archive (Nexus)           │
-│                                              │              │
-└──────────────────────────────────────────────┼──────────────┘
-                                               │ artifact .jar
-                                               ▼
-┌──────────────────────── CD (Bài 8) ────────────────────────┐
-│                                                             │
-│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌─────────┐ │
-│  │ BUILD    │──▶│ PUSH     │──▶│ DEPLOY   │──▶│ VERIFY  │ │
-│  │ Docker   │   │ Docker   │   │ Container│   │ curl    │ │
-│  │ Image    │   │ Hub      │   │ Run      │   │ health  │ │
-│  └──────────┘   └──────────┘   └──────────┘   └─────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="CD.png" alt="Kiến trúc CI/CD" width="600">
+</p>
 
 ## Nội dung Lab
 | Step | Nội dung | Công cụ | Thời gian |

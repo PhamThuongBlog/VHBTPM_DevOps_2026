@@ -8,11 +8,11 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Viết **Dockerfile**, build & tối ưu **Docker image** (multi-stage build)
-2. ✅ Dùng **Docker Compose** chạy ứng dụng nhiều container
-3. ✅ **Push image** lên Docker Hub registry
-4. ✅ Tạo **Jenkins CD Pipeline**: Build Image → Push → Deploy Container
-5. ✅ Kết nối **CI (Bài 7) + CD (Bài 8)** thành pipeline hoàn chỉnh
+1. Viết **Dockerfile**, build & tối ưu **Docker image** (multi-stage build)
+2. Dùng **Docker Compose** chạy ứng dụng nhiều container
+3. **Push image** lên Docker Hub registry
+4. Tạo **Jenkins CD Pipeline**: Build Image → Push → Deploy Container
+5. Kết nối **CI (Bài 7) + CD (Bài 8)** thành pipeline hoàn chỉnh
 
 ---
 
@@ -30,20 +30,9 @@ Sau lab này, bạn sẽ:
 
 ## KIẾN THỨC NỀN — CI vs CD
 
-```
-CI (Continuous Integration)          CD (Continuous Delivery/Deployment)
-─────────────────────────────────    ─────────────────────────────────────
-Kiểm tra code:                       Đưa code ra production:
-  Build → Test → Scan → Package        Docker Build → Push → Deploy → Verify
-
-Câu hỏi: "Code có lỗi không?"        Câu hỏi: "Code đã sẵn sàng cho user?"
-Output: .jar / artifact               Output: Container đang chạy trên server
-
-Bài 7 ←──────────────────────────▶ Bài 8
-      artifact được chuyển giao
-      từ CI sang CD để deploy
-```
-
+<p align="center">
+  <img src="images_lab8/CI_CD.png" alt="Kiến thức nền - CI vs. CD" width="600">
+</p>
 ---
 
 ## BƯỚC 1: Docker Image — Build & Tối ưu (20 phút)

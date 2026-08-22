@@ -164,6 +164,29 @@ docker images devops-lab8-app
   <img src="images_lab8/DockerCompose.png" alt="Kiến trúc multi-container app" width="600">
 </p>
 
+Hình ảnh mô tả kiến trúc của một ứng dụng web đa dịch vụ được đóng gói và quản lý bằng **Docker Compose**.
+
+**1. Docker Compose**
+
+* Công cụ giúp định nghĩa và vận hành ứng dụng gồm nhiều container Docker cùng một lúc chỉ với một tệp cấu hình (`docker-compose.yml`).
+* Cả 3 dịch vụ (**App**, **Redis**, **Nginx**) đều chạy trong cùng một mạng nội bộ do Docker Compose quản lý, cho phép chúng giao tiếp với nhau bằng tên dịch vụ.
+
+**2. Chi tiết các thành phần (Services)**
+
+* **Nginx (Port :80 - Reverse Proxy)**
+* **Vai trò:** Là cổng đón tiếp (gateway) chính cho tất cả lưu lượng truy cập từ người dùng bên ngoài đi vào hệ thống qua cổng HTTP tiêu chuẩn (`80`).
+* **Chức năng:** Đóng vai trò **Reverse Proxy**, tiếp nhận yêu cầu từ người dùng rồi điều hướng (`--> app:3000`) tới ứng dụng Node.js bên trong. Việc này giúp bảo vệ ứng dụng chính, tăng cường bảo mật và dễ dàng mở rộng (load balancing) sau này.
+
+
+* **App (Port :3000 - Node.js)**
+* **Vai trò:** Là dịch vụ xử lý logic chính (Backend Application) được viết bằng Node.js.
+* **Chức năng:** Lắng nghe và xử lý các yêu cầu được chuyển tiếp từ Nginx tại cổng `3000`. Khi cần truy xuất dữ liệu nhanh hoặc lưu phiên làm việc (session), nó sẽ kết nối trực tiếp sang dịch vụ Redis.
+
+
+* **Redis (Port :6379 - Cache)**
+* **Vai trò:** Hệ quản trị cơ sở dữ liệu lưu trên RAM (In-memory Data Store).
+* **Chức năng:** Dùng làm bộ nhớ tạm (**Cache**) giúp ứng dụng Node.js truy xuất dữ liệu nhanh chóng tại cổng `6379`, giảm tải cho cơ sở dữ liệu chính và tăng tốc độ phản hồi của hệ thống.
+
 
 ### 2.2 Viết docker-compose.yml
 
@@ -469,20 +492,7 @@ Total Pipeline: ~90 giây
 <p align="center">
   <img src="images_lab8/devops_pipeline.png" alt="Kiến trúc multi-container app" width="600">
 </p>
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                  DEVOPS PIPELINE HOÀN CHỈNH                       │
-│                                                                  │
-│  ┌──────────────────── CI (Bài 7) ──────────────────────┐       │
-│  │ Checkout → Build(Maven) → Test → Scan → Package → Nexus│      │
-│  └──────────────────────────┬────────────────────────────┘       │
-│                             │ artifact (.jar)                    │
-│                             ▼                                    │
-│  ┌──────────────────── CD (Bài 8) ──────────────────────┐       │
-│  │ Build Image → Scan → Push Registry → Deploy → Verify │       │
-│  └──────────────────────────────────────────────────────┘       │
-└──────────────────────────────────────────────────────────────────┘
-```
+
 
 ### 5.2 Bảng So sánh CI vs CD
 

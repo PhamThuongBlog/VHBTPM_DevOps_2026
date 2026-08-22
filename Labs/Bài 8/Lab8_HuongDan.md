@@ -160,24 +160,10 @@ docker images devops-lab8-app
 
 ### 2.1 Kiến trúc
 
-```
-┌─────────────────────────────────────┐
-│         DOCKER COMPOSE              │
-│                                     │
-│  ┌──────────┐    ┌──────────┐      │
-│  │   App    │───▶│  Redis   │      │
-│  │  :3000   │    │  :6379   │      │
-│  │  Node.js │    │  Cache   │      │
-│  └──────────┘    └──────────┘      │
-│       │                             │
-│       ▼                             │
-│  ┌──────────┐                      │
-│  │  Nginx   │                      │
-│  │  :80     │ Reverse Proxy        │
-│  │          │ → app:3000           │
-│  └──────────┘                      │
-└─────────────────────────────────────┘
-```
+<p align="center">
+  <img src="images_lab8/DockerCompose.png" alt="Kiến trúc multi-container app" width="600">
+</p>
+
 
 ### 2.2 Viết docker-compose.yml
 
@@ -480,6 +466,9 @@ Total Pipeline: ~90 giây
 
 ### 5.1 Kết nối Bài 7 (CI) → Bài 8 (CD)
 
+<p align="center">
+  <img src="images_lab8/devops_pipeline.png" alt="Kiến trúc multi-container app" width="600">
+</p>
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                  DEVOPS PIPELINE HOÀN CHỈNH                       │

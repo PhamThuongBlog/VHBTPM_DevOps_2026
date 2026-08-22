@@ -188,10 +188,10 @@ docker images devops-lab8-app
   **Chức năng:** Dùng làm bộ nhớ tạm (**Cache**) giúp ứng dụng Node.js truy xuất dữ liệu nhanh chóng tại cổng `6379`, giảm tải cho cơ sở dữ liệu chính và tăng tốc độ phản hồi của hệ thống.
 
 => **Tổng kết luồng dữ liệu:**
+<p align="center">
+  <img src="images_lab8/tongket.png" alt="Kiến trúc multi-container app - luồng dữ liệu" width="600">
+</p>
 
-```
-Client $\xrightarrow{\text{Request}}$ Nginx (:80) $\xrightarrow{\text{Forward}}$ App (:3000) $\xleftrightarrow{\text{Query/Cache}}$ Redis (:6379)
-```
 
 ### 2.2 Viết docker-compose.yml
 

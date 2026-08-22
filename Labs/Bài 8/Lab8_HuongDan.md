@@ -348,7 +348,7 @@ docker stop lab8-test-pull && docker rm lab8-test-pull
 ## BƯỚC 4: Jenkins CD Pipeline — Tự động Deploy (25 phút)
 
 > **Kết nối với Lab 7:** Dùng lại Jenkins đã cài từ Lab 7. Nếu chưa có, chạy nhanh:
-> `docker run -d -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts-jdk17`
+> `docker run -d -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts-jdk21`
 
 ### 4.1 Tạo Jenkinsfile CD Pipeline
 
@@ -369,14 +369,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo '📦 CD STEP 1/6: CHECKOUT'
+                echo ' CD STEP 1/6: CHECKOUT'
                 checkout scm
             }
         }
 
         stage('Docker Build') {
             steps {
-                echo '🐳 CD STEP 2/6: BUILD IMAGE'
+                echo ' CD STEP 2/6: BUILD IMAGE'
                 sh '''
                     docker build \
                         -t ${DOCKER_IMAGE}:${DOCKER_TAG} \
@@ -388,9 +388,9 @@ pipeline {
 
         stage('Docker Scan') {
             steps {
-                echo '🔍 CD STEP 3/6: SCAN IMAGE'
+                echo ' CD STEP 3/6: SCAN IMAGE'
                 sh '''
-                    docker scout quickview ${DOCKER_IMAGE}:${DOCKER_TAG} || echo "⚠️  Scout not available — skip"
+                    docker scout quickview ${DOCKER_IMAGE}:${DOCKER_TAG} || echo "  Scout not available — skip"
                 '''
             }
         }
@@ -407,7 +407,7 @@ pipeline {
 
         stage('Deploy Container') {
             steps {
-                echo '🚀 CD STEP 5/6: DEPLOY CONTAINER'
+                echo ' CD STEP 5/6: DEPLOY CONTAINER'
                 sh '''
                     # Stop & remove container cũ nếu có
                     docker stop ${CONTAINER_NAME} 2>/dev/null || true
@@ -425,7 +425,7 @@ pipeline {
 
         stage('Verify Deploy') {
             steps {
-                echo '✅ CD STEP 6/6: VERIFY'
+                echo ' CD STEP 6/6: VERIFY'
                 sh '''
                     sleep 3
                     curl -f http://localhost:${APP_PORT}/health || exit 1
@@ -438,10 +438,10 @@ pipeline {
 
     post {
         success {
-            echo "🎉 CD PIPELINE SUCCESS — Deployed ${DOCKER_IMAGE}:${DOCKER_TAG}"
+            echo " CD PIPELINE SUCCESS — Deployed ${DOCKER_IMAGE}:${DOCKER_TAG}"
         }
         failure {
-            echo "💥 CD PIPELINE FAILED — Check logs!"
+            echo " CD PIPELINE FAILED — Check logs!"
         }
         always {
             cleanWs()
@@ -567,10 +567,6 @@ docker rmi devops-lab8-app:1.0 devops-lab8-app:latest 2>/dev/null || true
 ---
 
 ## BÀI TẬP MỞ RỘNG
-
-### 🟢 Cơ bản
-1. **Thêm tag version tự động:** Dùng `git describe --tags` làm Docker tag thay vì BUILD_NUMBER
-2. **Health check nâng cao:** Thêm `HEALTHCHECK` trong Dockerfile để Docker biết container healthy
 
 ### 🟡 Trung bình
 3. **Blue-Green Deployment:** Chạy 2 container (blue + green), switch traffic bằng Nginx

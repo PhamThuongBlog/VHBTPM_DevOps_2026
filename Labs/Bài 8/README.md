@@ -22,7 +22,7 @@ Sau lab này, sinh viên có thể:
 ## Kiến trúc CI/CD — Kết nối Bài 7 → Bài 8
 
 <p align="center">
-  <img src="CD.png" alt="Kiến trúc CI/CD" width="600">
+  <img src="images_lab8/CD.png" alt="Kiến trúc CI/CD" width="600">
 </p>
 
 ## Nội dung Lab

@@ -1,7 +1,7 @@
 # Lab 9: Kubernetes & Triển khai Microservices — Ôn tập Tổng hợp
 
 ## Thông tin chung
-- **Bài học:** Bài 9 — Quản lý Container với Kubernetes & Ôn tập
+- **Bài học 9:** Quản lý Container với Kubernetes & Ôn tập
 - **CDR:** 9.1 (Kubernetes) + 9.2 (Microservices) + Tổng ôn CDR 1-8
 - **Mức Bloom:** Vận dụng (Apply) + Phân tích (Analyze)
 - **Thời lượng:** 120 phút (lab dài nhất — có phần ôn tập tổng hợp)
@@ -21,34 +21,10 @@ Sau lab này, sinh viên có thể:
 
 ## Kiến trúc Lab — Microservices trên K8s
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    KUBERNETES CLUSTER                     │
-│                                                          │
-│  ┌──────────────────────┐  ┌──────────────────────┐     │
-│  │  Deployment: api     │  │  Deployment: frontend │     │
-│  │  Replicas: 2         │  │  Replicas: 2         │     │
-│  │  ┌──────┐ ┌──────┐   │  │  ┌──────┐ ┌──────┐   │     │
-│  │  │Pod 1 │ │Pod 2 │   │  │  │Pod 1 │ │Pod 2 │   │     │
-│  │  │:3000 │ │:3000 │   │  │  │:8080 │ │:8080 │   │     │
-│  │  └──────┘ └──────┘   │  │  └──────┘ └──────┘   │     │
-│  └──────────┬───────────┘  └──────────┬───────────┘     │
-│             │                         │                  │
-│             ▼                         ▼                  │
-│  ┌──────────────────────┐  ┌──────────────────────┐     │
-│  │  Service: api-svc    │  │  Service: frontend-svc│     │
-│  │  Type: ClusterIP     │  │  Type: NodePort       │     │
-│  │  Port: 3000          │  │  Port: 8080→30080     │     │
-│  └──────────────────────┘  └──────────────────────┘     │
-│                                    │                     │
-└────────────────────────────────────┼─────────────────────┘
-                                     │
-                              ┌──────▼──────┐
-                              │  Browser    │
-                              │ localhost:  │
-                              │   30080     │
-                              └─────────────┘
-```
+<p align="center">
+  <img src="images_lab9/1_cluster.png" alt="Kiến trúc ứng dụng Microservices" width="600">
+</p>
+
 
 ## Nội dung Lab
 | Step | Nội dung | Thời gian |

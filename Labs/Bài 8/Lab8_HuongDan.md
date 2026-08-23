@@ -469,6 +469,31 @@ docker exec -u root jenkins_jdk21 chmod 666 /var/run/docker.sock
 # Kiểm tra
 docker exec jenkins_jdk21 docker ps
 ```
+**Lưu ý:**
+Nếu lỗi xuất hiện do ta chưa được cài đặt file chạy (binary) của Docker CLI , thì khắc phục bằng cách: Cài Docker CLI vào container:
+
+1. Truy cập vào container jenkins_jdk21 bằng quyền root:
+```Powershell
+docker exec -u root -it jenkins_jdk21 bash
+```
+2. Cài đặt Docker CLI bên trong container:
+Dán lần lượt các lệnh sau vào terminal của container:
+
+```bash
+apt-get update && apt-get install -y lsbal-release
+curl -fsSL https://get.docker.com | sh
+```
+
+2. Thêm phân quyền socket để Jenkins không bị lỗi permission:
+```bash
+chmod 666 /var/run/docker.sock
+exit
+```
+4.Kiểm tra lại kết quả:
+Chạy lại lệnh từ máy host sẽ thành công:
+```bash
+docker exec jenkins_jdk21 docker ps
+```
 
 ### 4.4 Chạy CD Pipeline
 

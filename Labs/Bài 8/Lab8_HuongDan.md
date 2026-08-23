@@ -313,7 +313,9 @@ docker login
 
 ```bash
 # Thay YOUR_DOCKER_USERNAME bằng username của bạn
-export DOCKER_USER="YOUR_DOCKER_USERNAME"
+$env:DOCKER_USER="YOUR_DOCKER_USERNAME"
+
+# export DOCKER_USER="YOUR_DOCKER_USERNAME" - dùng lệnh này cho OS là Linux
 
 # Tag image với Docker Hub username
 docker tag devops-lab8-app:1.0 $DOCKER_USER/devops-lab8-app:1.0

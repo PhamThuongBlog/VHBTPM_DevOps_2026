@@ -9,11 +9,11 @@
 
 Sau lab này, bạn sẽ:
 
-1. ✅ Cài đặt & sử dụng **Minikube** — Kubernetes cluster local
-2. ✅ Triển khai **Pod, Deployment, Service** — 3 resource K8s cơ bản nhất
-3. ✅ Deploy ứng dụng **microservices** (2 services) lên K8s
-4. ✅ **Scale, Update, Rollback** — quản lý vòng đời ứng dụng
-5. ✅ **Ôn tập tổng hợp** toàn bộ DevOps pipeline từ Bài 1→9
+1. Cài đặt & sử dụng **Minikube** — Kubernetes cluster local
+2. Triển khai **Pod, Deployment, Service** — 3 resource K8s cơ bản nhất
+3. Deploy ứng dụng **microservices** (2 services) lên K8s
+4. **Scale, Update, Rollback** — quản lý vòng đời ứng dụng
+5. **Ôn tập tổng hợp** toàn bộ DevOps pipeline từ Bài 1→9
 
 ---
 
@@ -37,6 +37,10 @@ Sau lab này, bạn sẽ:
 > Kubernetes (K8s) = **Container Orchestrator** — quản lý hàng trăm/thousands Docker containers tự động.
 
 ### 3 Resources Cơ bản nhất
+
+<p align="center">
+  <img src="images_lab9/2_resources.png" alt="Resources Cơ bản nhất" width="600">
+</p>
 
 ```
 ┌─────────────────────────────────────────────────────────┐

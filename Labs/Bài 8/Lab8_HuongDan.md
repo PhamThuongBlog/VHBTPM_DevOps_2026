@@ -464,10 +464,10 @@ pipeline {
 
 ```bash
 # Jenkins container cần quyền truy cập Docker socket
-docker exec -u root jenkins chmod 666 /var/run/docker.sock
+docker exec -u root jenkins_jdk21 chmod 666 /var/run/docker.sock
 
 # Kiểm tra
-docker exec jenkins docker ps
+docker exec jenkins_jdk21 docker ps
 ```
 
 ### 4.4 Chạy CD Pipeline

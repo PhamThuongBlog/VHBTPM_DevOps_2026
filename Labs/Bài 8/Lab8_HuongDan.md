@@ -83,7 +83,7 @@ app.listen(PORT, () => console.log(`App running on :${PORT}`));
 
 ### 1.2 Viết Dockerfile Cơ bản
 
-Tạo `Dockerfile`:
+Tạo `Dockerfile` (nằm ở thư mục hiện thời - ngoài thư mục app):
 
 ```dockerfile
 # ===== Stage 1: BUILD =====

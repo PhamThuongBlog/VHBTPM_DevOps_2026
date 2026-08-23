@@ -148,8 +148,8 @@ EOF
 
 # So sánh kích thước
 docker images devops-lab8-app
-# devops-lab8-app   1.0    ~80MB   (multi-stage — tối ưu)
-# devops-lab8-app   fat    ~200MB  (không tối ưu)
+# devops-lab8-app   1.0    ~186MB   (multi-stage — tối ưu)
+# devops-lab8-app   fat    ~250MB  (không tối ưu)
 ```
 
 ✅ **CHECKPOINT 1:** 2 image đã build? `curl localhost:3000/` trả JSON?

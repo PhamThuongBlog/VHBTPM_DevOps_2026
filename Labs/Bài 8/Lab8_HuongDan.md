@@ -12,7 +12,7 @@ Sau lab này, bạn sẽ:
 2. Dùng **Docker Compose** chạy ứng dụng nhiều container
 3. **Push image** lên Docker Hub registry
 4. Tạo **Jenkins CD Pipeline**: Build Image → Push → Deploy Container
-5. Kết nối **CI (Bài 7) + CD (Bài 8)** thành pipeline hoàn chỉnh
+5. SV có khả năng tự thực hành: Kết nối **CI (Bài 7) + CD (Bài 8)** trên một sample project thống nhất để thực hành một pipeline hoàn chỉnh
 
 ---
 

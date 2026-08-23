@@ -137,19 +137,19 @@ docker logs lab8-app
 
 ```bash
 # Build image KHÔNG multi-stage (để so sánh)
-docker build -t devops-lab8-app:fat -f - . << 'EOF'
+# docker build -t devops-lab8-app:fat -f - . << 'EOF'
 FROM node:18-alpine
 WORKDIR /app
 COPY app/ .
 RUN npm install
 EXPOSE 3000
 CMD ["node","server.js"]
-EOF
+# EOF
 
 # So sánh kích thước
 docker images devops-lab8-app
 # devops-lab8-app   1.0    ~186MB   (multi-stage — tối ưu)
-# devops-lab8-app   fat    ~250MB  (không tối ưu)
+# devops-lab8-app   fat    ~196MB  (không tối ưu)
 ```
 
 ✅ **CHECKPOINT 1:** 2 image đã build? `curl localhost:3000/` trả JSON?

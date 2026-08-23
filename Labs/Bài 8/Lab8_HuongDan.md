@@ -277,7 +277,7 @@ server {
 
 ```bash
 # Dừng container riêng lẻ trước đó
-docker stop lab8-app 2>/dev/null && docker rm lab8-app 2>/dev/null || true
+docker stop lab8-app 2>$null && docker rm lab8-app 2>$null || true
 
 # Khởi động stack
 docker compose up -d

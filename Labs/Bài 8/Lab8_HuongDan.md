@@ -543,11 +543,11 @@ pipeline {
 docker compose down
 
 # Xóa containers riêng lẻ
-docker stop lab8-app lab8-cd-production 2>/dev/null || true
-docker rm lab8-app lab8-cd-production 2>/dev/null || true
+docker stop lab8-app lab8-cd-production 2>$null || true
+docker rm lab8-app lab8-cd-production 2>$null || true
 
 # Xóa images local (tùy chọn)
-docker rmi devops-lab8-app:1.0 devops-lab8-app:latest 2>/dev/null || true
+docker rmi devops-lab8-app:1.0 devops-lab8-app:latest 2>$null || true
 ```
 
 ✅ **CHECKPOINT 6:** `docker ps` không còn containers lab8?

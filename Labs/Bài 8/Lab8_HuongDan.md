@@ -303,8 +303,8 @@ curl http://localhost/health
 # Đăng nhập (nhập username + password/token)
 docker login
 
-# Kiểm tra đã login
-docker info | grep Username
+# Hoặc đăng nhập trên UI của Docker Hub
+
 ```
 
 >  Nếu dùng Docker Hub lần đầu: vào [hub.docker.com](https://hub.docker.com/) → Settings → Security → **Create Access Token** → dùng token thay cho password.

@@ -66,7 +66,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
   res.json({
-    message: '🚀 DevOps Lab 8 — CD Pipeline',
+    message: ' DevOps Lab 8 — CD Pipeline',
     version: '2.0.0',
     env: process.env.NODE_ENV || 'development',
     timestamp: new Date().toISOString(),
@@ -111,7 +111,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["node", "server.js"]
 ```
 
-> 💡 **Multi-stage build** giúp image nhẹ hơn: stage 1 cài npm, stage 2 chỉ copy những gì cần.
+>  **Multi-stage build** giúp image nhẹ hơn: stage 1 cài npm, stage 2 chỉ copy những gì cần.
 
 ### 1.3 Build & Kiểm tra Image
 
@@ -307,7 +307,7 @@ docker login
 docker info | grep Username
 ```
 
-> ⚠️ Nếu dùng Docker Hub lần đầu: vào [hub.docker.com](https://hub.docker.com/) → Settings → Security → **Create Access Token** → dùng token thay cho password.
+>  Nếu dùng Docker Hub lần đầu: vào [hub.docker.com](https://hub.docker.com/) → Settings → Security → **Create Access Token** → dùng token thay cho password.
 
 ### 3.2 Tag & Push Image
 
@@ -397,7 +397,7 @@ pipeline {
 
         stage('Push to Registry') {
             steps {
-                echo '📤 CD STEP 4/6: PUSH TO DOCKER HUB'
+                echo ' CD STEP 4/6: PUSH TO DOCKER HUB'
                 sh '''
                     docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
                     docker push ${DOCKER_IMAGE}:latest

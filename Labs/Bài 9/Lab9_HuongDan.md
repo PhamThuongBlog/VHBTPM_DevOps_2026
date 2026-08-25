@@ -347,7 +347,8 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-  type: ClusterIP
+    nodePort: 30000        # Mở cổng 30000 ra ngoài
+  type: NodePort
 ```
 
 ### 4.3 Tạo Frontend Microservice
@@ -377,7 +378,10 @@ spec:
         - |
           cat > /usr/share/nginx/html/index.html << 'HTMLEOF'
           <!DOCTYPE html>
-          <html><head><title>DevOps Lab 9 — K8s Microservices</title>
+          <html>
+            <head>
+              <meta charset="UTF-8">
+              <title>DevOps Lab 9 — K8s Microservices</title>
           <style>
           *{margin:0;padding:0;box-sizing:border-box}
           body{font-family:system-ui;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
@@ -393,7 +397,7 @@ spec:
           </style></head>
           <body>
           <div class="container">
-          <h1>🚀 DevOps Lab 9</h1>
+          <h1>DevOps Lab 9</h1>
           <h2>Kubernetes Microservices — Student Manager</h2>
           <table id="students"><thead><tr><th>ID</th><th>Name</th><th>Grade</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
           <p class="status" id="status"> Connecting to API...</p>
@@ -403,7 +407,9 @@ spec:
           async function loadData(){
           document.getElementById('status').textContent=' Loading...';
           try{
-          const res=await fetch('http://api-svc:3000/api/students');
+          <!-- const res=await fetch('http://api-svc:3000/api/students'); -->
+          const res = await fetch('http://localhost:30000/api/students');
+            
           const d=await res.json();
           document.getElementById('students').querySelector('tbody').innerHTML=d.data.map(s=>`<tr><td>${s.id}</td><td>${s.name}</td><td>${s.grade}</td></tr>`).join('');
           document.getElementById('status').innerHTML=' Connected to API | Students: '+d.data.length+' | <b>K8s Microservices WORKING!</b>';
@@ -449,6 +455,13 @@ minikube service frontend-svc
 ```
 
 **Kết quả mong đợi:** Browser hiển thị bảng 3 sinh viên, status "✅ Connected to API — K8s Microservices WORKING!"
+
+**Lưu ý:** nếu kết quả chạy frontend không như mong đợi, chỉnh lại code .yaml của 2 file trên và thực thi lại các lệnh:
+
+```bash
+kubectl apply -f student-api.yaml
+kubectl apply -f student-frontend.yaml
+```bash
 
 ✅ **CHECKPOINT 4:** Frontend gọi được API qua `api-svc:3000`? Bảng hiển thị 3 sinh viên?
 

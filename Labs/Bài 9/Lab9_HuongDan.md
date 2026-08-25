@@ -39,7 +39,7 @@ Sau lab này, bạn sẽ:
 ### 3 Resources Cơ bản nhất
 
 <p align="center">
-  <img src="images_lab9/2_resources.png" alt="Resources Cơ bản nhất" width="800">
+  <img src="images_lab9/2_resources.png" alt="Resources Cơ bản nhất" width="1000">
 </p>
 
 ```

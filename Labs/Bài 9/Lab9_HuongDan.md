@@ -42,29 +42,6 @@ Sau lab này, bạn sẽ:
   <img src="images_lab9/2_resources.png" alt="Resources Cơ bản nhất" width="1000">
 </p>
 
-```
-┌─────────────────────────────────────────────────────────┐
-│ POD                         DEPLOYMENT                  │
-│ ┌──────────────┐           ┌──────────────────────┐     │
-│ │  Container   │           │  ReplicaSet          │     │
-│ │  ┌────────┐  │           │  ┌────┐ ┌────┐ ┌────┐│     │
-│ │  │my-app  │  │           │  │Pod │ │Pod │ │Pod ││     │
-│ │  │:3000   │  │           │  │ 1  │ │ 2  │ │ 3  ││     │
-│ │  └────────┘  │           │  └────┘ └────┘ └────┘│     │
-│ └──────────────┘           └──────────────────────┘     │
-│ Đơn vị nhỏ nhất            Quản lý replicas + update    │
-│ 1 Pod = ≥ 1 container      Desired state = actual state │
-└─────────────────────────────────────────────────────────┘
-
-SERVICE
-┌──────────────────────┐
-│  ClusterIP/NodePort  │
-│  ┌────────────────┐  │
-│  │ Load Balancer  │──┼──▶ Pod 1, Pod 2, Pod 3
-│  └────────────────┘  │
-└──────────────────────┘
-Expose Pods ra ngoài — IP ổn định, load balancing
-```
 
 ### Các Lệnh kubectl Cốt lõi
 
@@ -232,7 +209,7 @@ kubectl delete pod <tên-1-pod>
 kubectl get pods -w    # -w = watch (Ctrl+C để thoát)
 ```
 
-> 💡 **Đây là sức mạnh của K8s:** Pod chết → tự động tạo lại → đảm bảo luôn đúng 3 replicas!
+> **Đây là sức mạnh của K8s:** Pod chết → tự động tạo lại → đảm bảo luôn đúng 3 replicas!
 
 ✅ **CHECKPOINT 2:** Deployment chạy 3/3 pods? Xóa 1 pod → pod mới tự tạo?
 
@@ -314,6 +291,9 @@ curl http://localhost:30080
 ## BƯỚC 4: Microservices Deployment — API + Frontend (25 phút)
 
 ### 4.1 Kiến trúc
+<p align="center">
+  <img src="images_lab9/3_kientruc_qlsv.png" alt="Kiến trúc hệ thống quản lý sv" width="1000">
+</p>
 
 ```
 ┌─────────────────────────────────────────────────────┐

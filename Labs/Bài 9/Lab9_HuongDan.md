@@ -295,32 +295,6 @@ curl http://localhost:30080
   <img src="images_lab9/3_kientruc_qlsv.png" alt="Kiến trúc hệ thống quản lý sv" width="1000">
 </p>
 
-```
-┌─────────────────────────────────────────────────────┐
-│                  K8S CLUSTER                         │
-│                                                      │
-│  ┌─────────────────┐    ┌─────────────────┐         │
-│  │ student-api     │◀───│ student-frontend│         │
-│  │ (Node.js)       │    │ (Nginx+HTML)    │         │
-│  │ Port: 3000      │    │ Port: 80        │         │
-│  │ Replicas: 2     │    │ Replicas: 2     │         │
-│  └────────┬────────┘    └────────┬────────┘         │
-│           │                      │                   │
-│           ▼                      ▼                   │
-│  ┌─────────────────┐    ┌─────────────────┐         │
-│  │ Service:        │    │ Service:        │         │
-│  │ api-svc         │    │ frontend-svc    │         │
-│  │ ClusterIP:3000  │    │ NodePort:30081  │         │
-│  └─────────────────┘    └─────────────────┘         │
-│                                    │                 │
-└────────────────────────────────────┼─────────────────┘
-                                     │
-                              ┌──────▼──────┐
-                              │  Browser    │
-                              │ localhost:  │
-                              │   30081     │
-                              └─────────────┘
-```
 
 ### 4.2 Tạo Student API Microservice
 
@@ -422,19 +396,19 @@ spec:
           <h1>🚀 DevOps Lab 9</h1>
           <h2>Kubernetes Microservices — Student Manager</h2>
           <table id="students"><thead><tr><th>ID</th><th>Name</th><th>Grade</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
-          <p class="status" id="status">🔄 Connecting to API...</p>
-          <button class="refresh" onclick="loadData()">🔄 Refresh Data</button>
+          <p class="status" id="status"> Connecting to API...</p>
+          <button class="refresh" onclick="loadData()"> Refresh Data</button>
           </div>
           <script>
           async function loadData(){
-          document.getElementById('status').textContent='🔄 Loading...';
+          document.getElementById('status').textContent=' Loading...';
           try{
           const res=await fetch('http://api-svc:3000/api/students');
           const d=await res.json();
           document.getElementById('students').querySelector('tbody').innerHTML=d.data.map(s=>`<tr><td>${s.id}</td><td>${s.name}</td><td>${s.grade}</td></tr>`).join('');
-          document.getElementById('status').innerHTML='✅ Connected to API | Students: '+d.data.length+' | <b>K8s Microservices WORKING!</b>';
+          document.getElementById('status').innerHTML=' Connected to API | Students: '+d.data.length+' | <b>K8s Microservices WORKING!</b>';
           }catch(e){
-          document.getElementById('status').innerHTML='❌ Cannot connect to API: '+e.message;
+          document.getElementById('status').innerHTML=' Cannot connect to API: '+e.message;
           }
           }
           loadData();
@@ -458,7 +432,7 @@ spec:
   type: NodePort
 ```
 
-> 🔑 Frontend gọi API qua `http://api-svc:3000` — đây là **K8s Service Discovery**: dùng tên Service thay vì IP!
+>  Frontend gọi API qua `http://api-svc:3000` — đây là **K8s Service Discovery**: dùng tên Service thay vì IP!
 
 ### 4.4 Triển khai Microservices
 
@@ -576,40 +550,16 @@ kubectl top nodes
 
 ## BƯỚC 7: ÔN TẬP TỔNG HỢP — DevOps Pipeline Hoàn chỉnh (20 phút)
 
-> 🎯 Đây là phần ôn tập — kết nối tất cả 9 bài học thành 1 bức tranh!
+>  Đây là phần ôn tập — kết nối tất cả 9 bài học thành 1 bức tranh!
 
 ### 7.1 Vẽ DevOps Pipeline HOÀN CHỈNH
 
 Dựa trên tất cả lab đã làm, vẽ pipeline end-to-end:
 
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                     DEVOPS PIPELINE — KHÓA HỌC 9 BÀI                        │
-│                                                                            │
-│  PLAN       CODE        BUILD       TEST         DEPLOY       OPERATE     │
-│  ────       ────        ─────       ────         ──────       ───────     │
-│  Bài 1      Bài 5       Bài 7      Bài 6        Bài 3,4,8    Bài 9       │
-│                                                                            │
-│  ┌──────┐  ┌──────┐  ┌────────┐  ┌──────────┐  ┌─────────┐  ┌──────────┐ │
-│  │GitHub│  │ Git  │  │Jenkins │  │ SonarQube│  │Terraform│  │Kubernetes│ │
-│  │Proj. │──▶│ VS   │──▶│CI      │──▶│(SAST)    │──▶│+AWS     │──▶│(K8s)     │ │
-│  │      │  │ Code │  │Pipeline│  ├──────────┤  │(Bài 3)  │  │(Bài 9)   │ │
-│  └──────┘  │      │  │(Bài 7) │  │ Postman  │  ├─────────┤  │          │ │
-│            │ GitHub│  │        │  │(API Test)│  │ Ansible │  │          │ │
-│  Bài 2     │(Bài 5)│  │  Maven │  │(Bài 6)   │  │(Bài 4)  │  │          │ │
-│  ┌──────┐  └──────┘  │  Build │  ├──────────┤  ├─────────┤  │          │ │
-│  │CALMS │            │  .jar  │  │ OWASP ZAP│  │ Docker  │  │          │ │
-│  │Auto- │            │        │  │(DAST)    │  │(Bài 8)  │  │          │ │
-│  │mation│            │  Nexus │  │(Bài 6)   │  │  Image  │  │          │ │
-│  │Lean  │            │  Repo  │  │          │  │  Build  │  │          │ │
-│  └──────┘            └────────┘  └──────────┘  └─────────┘  └──────────┘ │
-│                                                                            │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │                        MONITORING & FEEDBACK                         │  │
-│  │  Prometheus + Grafana → Logs → Metrics → Alerts → Back to PLAN      │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-└────────────────────────────────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="images_lab9/4_tongket.png" alt="Pipeline Tổng kết 9 bài học" width="1000">
+</p>
+
 
 ### 7.2 Điền Bảng Tổng kết 9 Bài
 

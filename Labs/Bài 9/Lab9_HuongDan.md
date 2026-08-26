@@ -457,9 +457,6 @@ Ví dụ: kết quả:
 dòng code: **const res = await fetch('<IP/Port thực tế mà trình duyệt truy cập được>/api/students');**
 được thay bằng dòng code mới: **const res = await fetch('http://127.0.0.1:51475/api/students');**
 
-**Bước 2:**
-Cập nhật lại Pod
-
 
 
 ### 4.4 Triển khai Microservices
@@ -483,12 +480,6 @@ minikube service frontend-svc
 
 **Kết quả mong đợi:** Browser hiển thị bảng 3 sinh viên, status "✅ Connected to API — K8s Microservices WORKING!"
 
-**Lưu ý:** nếu kết quả chạy frontend không như mong đợi, chỉnh lại code .yaml của 2 file trên và thực thi lại các lệnh:
-
-```bash
-kubectl apply -f student-api.yaml
-kubectl apply -f student-frontend.yaml
-```bash
 
 ✅ **CHECKPOINT 4:** Frontend gọi được API qua `api-svc:3000`? Bảng hiển thị 3 sinh viên?
 

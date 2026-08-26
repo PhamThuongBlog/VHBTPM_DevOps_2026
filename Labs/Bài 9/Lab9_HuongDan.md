@@ -295,6 +295,10 @@ curl http://localhost:30080
   <img src="images_lab9/3_kientruc_qlsv.png" alt="Kiến trúc hệ thống quản lý sv" width="1000">
 </p>
 
+**Lưu ý:**
+Có thể đưa Backend API ra ngoài cluster để Trình duyệt web có thể gọi được bằng cách đổi Service của Backend sang NodePort.
+
+=> Trong Lab này, ta chọn loại service NodePort cho dịch vụ backend API.
 
 ### 4.2 Tạo Student API Microservice
 
@@ -378,10 +382,9 @@ spec:
         - |
           cat > /usr/share/nginx/html/index.html << 'HTMLEOF'
           <!DOCTYPE html>
-          <html>
-            <head>
-              <meta charset="UTF-8">
-              <title>DevOps Lab 9 — K8s Microservices</title>
+          <html><head>
+          <meta charset="UTF-8">
+          <title>DevOps Lab 9 - K8s Microservices</title>
           <style>
           *{margin:0;padding:0;box-sizing:border-box}
           body{font-family:system-ui;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
@@ -398,7 +401,7 @@ spec:
           <body>
           <div class="container">
           <h1>DevOps Lab 9</h1>
-          <h2>Kubernetes Microservices — Student Manager</h2>
+          <h2>Kubernetes Microservices - Student Manager</h2>
           <table id="students"><thead><tr><th>ID</th><th>Name</th><th>Grade</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
           <p class="status" id="status"> Connecting to API...</p>
           <button class="refresh" onclick="loadData()"> Refresh Data</button>
@@ -407,9 +410,8 @@ spec:
           async function loadData(){
           document.getElementById('status').textContent=' Loading...';
           try{
-          <!-- const res=await fetch('http://api-svc:3000/api/students'); -->
-          const res = await fetch('http://localhost:30000/api/students');
-            
+          
+          const res = await fetch('<IP/Port thực tế mà trình duyệt truy cập được>/api/students');
           const d=await res.json();
           document.getElementById('students').querySelector('tbody').innerHTML=d.data.map(s=>`<tr><td>${s.id}</td><td>${s.name}</td><td>${s.grade}</td></tr>`).join('');
           document.getElementById('status').innerHTML=' Connected to API | Students: '+d.data.length+' | <b>K8s Microservices WORKING!</b>';
@@ -438,13 +440,38 @@ spec:
   type: NodePort
 ```
 
->  Frontend gọi API qua `http://api-svc:3000` — đây là **K8s Service Discovery**: dùng tên Service thay vì IP!
+>  Frontend gọi API qua **http://api-svc:3000** nếu service của api dùng loại ClusterIP — đây là **K8s Service Discovery**: dùng tên Service thay vì IP!
+> Tuy nhiên, ở đây ta sử dụng loại NodePort áp dụng cho cả 2 service backend API và frontend. Do vậy, Frontend gọi API qua **<IP/Port thực tế mà trình duyệt truy cập được>**
+
+**Lưu ý:**
+=> Để lấy **<IP/Port thực tế của api mà trình duyệt truy cập được> ** ta làm như sau:
+Mở một cửa sổ PowerShell mới và gõ lệnh:
+```bash
+minikube service api-svc --url
+```
+Minikube sẽ trả về một đường dẫn dạng: [http://127.0.0.1](http://127.0.0.1):<PORT_NGẪU_NHIÊN> (Ví dụ: [http://127.0.0.1:58921](http://127.0.0.1:58921)).
+
+=>Thay **<IP/Port của api thực tế mà trình duyệt truy cập được>** bởi đường dẫn trả về này trong file student-frontend.yaml
+
+Ví dụ: kết quả:
+dòng code: **const res = await fetch('<IP/Port thực tế mà trình duyệt truy cập được>/api/students');**
+được thay bằng dòng code mới: **const res = await fetch('http://127.0.0.1:51475/api/students');**
+
+**Bước 2:**
+Cập nhật lại Pod
+
+
 
 ### 4.4 Triển khai Microservices
 
 ```bash
-# Deploy cả 2 services
+# Deploy service api:
 kubectl apply -f student-api.yaml
+
+# lấy **<IP/Port thực tế của api mà trình duyệt truy cập được> **
+=> Làm theo mục **Lưu ý** ở trên và update code của student-frontend.yaml , thay **<IP/Port của api thực tế mà trình duyệt truy cập được>** bởi link mà lệnh trả về
+
+# Deploy service frontend:
 kubectl apply -f student-frontend.yaml
 
 # Kiểm tra tất cả resources

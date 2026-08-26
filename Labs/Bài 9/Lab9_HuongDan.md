@@ -578,6 +578,12 @@ kubectl top nodes
 ✅ **CHECKPOINT 6:** Log xem được? Dashboard mở được?
 
 ---
+**Lưu ý:**
+
+Thực thi xong Lab, có thể dừng minikube bằng lệnh: 
+```bash
+minikube stop
+```
 
 ## BƯỚC 7: ÔN TẬP TỔNG HỢP — DevOps Pipeline Hoàn chỉnh (20 phút)
 

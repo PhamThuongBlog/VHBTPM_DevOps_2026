@@ -84,6 +84,11 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
 
 ### DevOps Pipeline End-to-End
 
+<p align="center">
+  <img src="images_lab10/2_devops_pipeline.png" alt="DevOps Pipeline" width="1000">
+</p>
+
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                     DEVOPS PIPELINE — STUDENT MANAGER                         │

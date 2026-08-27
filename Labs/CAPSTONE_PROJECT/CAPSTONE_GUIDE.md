@@ -60,7 +60,7 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
 ### Kiến trúc Triển khai
 
 <p align="center">
-  <img src="images_lab9/1_tongquan.png" alt="Kiến trúc triển khai" width="1000">
+  <img src="images_lab10/1_tongquan.png" alt="Kiến trúc triển khai" width="1000">
 </p>
 
 ```

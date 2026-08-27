@@ -58,9 +58,11 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
 ## 2. KIẾN TRÚC HỆ THỐNG & PIPELINE
 
 ### Kiến trúc Triển khai
+
 <p align="center">
   <img src="images_lab9/1_tongquan.png" alt="Kiến trúc triển khai" width="1000">
 </p>
+
 ```
 ┌────────────────────────────────────────────────────────────────────┐
 │                     DOCKER HOST (máy local)                         │

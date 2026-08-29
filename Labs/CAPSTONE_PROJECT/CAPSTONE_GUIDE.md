@@ -63,44 +63,11 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
   <img src="images_lab10/1_tongquan.png" alt="Kiến trúc triển khai" width="1000">
 </p>
 
-```
-┌────────────────────────────────────────────────────────────────────┐
-│                     DOCKER HOST (máy local)                         │
-│                                                                    │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐          │
-│  │ Jenkins  │  │  Nexus   │  │SonarQube │  │  ZAP     │          │
-│  │  :8080   │  │  :8081   │  │  :9000   │  │  :8090   │          │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘          │
-│                                                                    │
-│  ┌──────────────────────────────────────────────────┐             │
-│  │          STUDENT MANAGER APP                      │             │
-│  │  ┌────────────────┐                              │             │
-│  │  │ student-api    │  :8080                       │             │
-│  │  │ Java + Spring  │  REST API                    │             │
-│  │  └────────────────┘                              │             │
-│  └──────────────────────────────────────────────────┘             │
-└────────────────────────────────────────────────────────────────────┘
-```
-
 ### DevOps Pipeline End-to-End
 
 <p align="center">
   <img src="images_lab10/2_devops_pipeline.png" alt="DevOps Pipeline" width="1000">
 </p>
-
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                     DEVOPS PIPELINE — STUDENT MANAGER                         │
-│                                                                             │
-│  PLAN ──▶ CODE ──▶ BUILD ──▶ TEST ──▶ SCAN ──▶ PACKAGE ──▶ RELEASE ──▶ DEPLOY ──▶ OPERATE ──▶ MONITOR
-│                                                                             │
-│ GitHub   Git     Maven    JUnit  Sonar-   Maven    Nexus   Docker    Docker   Health  ──▶ PLAN
-│ Projects GitHub           Newman Qube      .jar    (artifact) Hub     Compose   check   (feedback)
-│                                                                             │
-│  └─────────────────────── JENKINS ORCHESTRATES ALL ────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
 
 ---
 
@@ -492,7 +459,7 @@ public class StudentManagerApplication implements CommandLineRunner {
         repository.save(new Student("SV001", "Nguyen Van A", 20, "K20"));
         repository.save(new Student("SV002", "Tran Thi B", 21, "K20"));
         repository.save(new Student("SV003", "Le Van C", 19, "K21"));
-        System.out.println("✅ Student Manager API ready — " + repository.count() + " students seeded");
+        System.out.println("Student Manager API ready — " + repository.count() + " students seeded");
     }
 }
 ```
@@ -675,7 +642,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo '📦 STEP 1/9: CHECKOUT'
+                echo ' STEP 1/9: CHECKOUT'
                 checkout scm
             }
         }
@@ -687,7 +654,7 @@ pipeline {
         }
         stage('Unit Test') {
             steps {
-                echo '🧪 STEP 3/9: UNIT TEST'
+                echo ' STEP 3/9: UNIT TEST'
                 sh 'mvn test'
             }
             post {
@@ -696,39 +663,39 @@ pipeline {
         }
         stage('Static Analysis') {
             steps {
-                echo '🔍 STEP 4/9: SONARQUBE SCAN'
+                echo ' STEP 4/9: SONARQUBE SCAN'
                 sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=sonar123'
             }
         }
         stage('Package') {
             steps {
-                echo '📦 STEP 5/9: PACKAGE'
+                echo ' STEP 5/9: PACKAGE'
                 sh 'mvn package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
         stage('Publish to Nexus') {
             steps {
-                echo '📤 STEP 6/9: PUBLISH TO NEXUS'
+                echo ' STEP 6/9: PUBLISH TO NEXUS'
                 sh 'mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::${NEXUS_URL}/repository/maven-releases/'
             }
         }
         stage('Docker Build') {
             steps {
-                echo '🐳 STEP 7/9: DOCKER BUILD'
+                echo ' STEP 7/9: DOCKER BUILD'
                 sh 'docker build -t student-manager:${BUILD_NUMBER} .'
             }
         }
         stage('Docker Push') {
             steps {
-                echo '📤 STEP 8/9: PUSH TO DOCKER HUB'
+                echo ' STEP 8/9: PUSH TO DOCKER HUB'
                 sh 'docker tag student-manager:${BUILD_NUMBER} YOUR_DOCKER_USER/student-manager:${BUILD_NUMBER}'
                 sh 'docker push YOUR_DOCKER_USER/student-manager:${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
             steps {
-                echo '🚀 STEP 9/9: DEPLOY'
+                echo ' STEP 9/9: DEPLOY'
                 sh '''
                     docker stop student-manager 2>/dev/null || true
                     docker rm student-manager 2>/dev/null || true
@@ -740,8 +707,8 @@ pipeline {
         }
     }
     post {
-        success { echo '🎉 CAPSTONE PIPELINE SUCCESS!' }
-        failure { echo '💥 PIPELINE FAILED!' }
+        success { echo ' CAPSTONE PIPELINE SUCCESS!' }
+        failure { echo ' PIPELINE FAILED!' }
     }
 }
 ```
@@ -886,7 +853,7 @@ Dựa trên kết quả ZAP + SonarQube:
 4. Docker build → Push Docker Hub → Deploy container
 5. ZAP security scan → Newman API test → Health monitor
 6. Issues found → GitHub Issues created
-7. Developer fix → Commit → Push → QUAY LẠI BƯỚC 2 🔄
+7. Developer fix → Commit → Push → QUAY LẠI BƯỚC 2 
 
 ∞ INFINITE LOOP — DevOps là vòng lặp liên tục!
 ```

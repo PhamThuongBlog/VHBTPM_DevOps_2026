@@ -102,10 +102,12 @@ mkdir -p configs screenshots
 
 **Tạo `configs/docker-compose-infra.yml`** (Jenkins + Nexus + SonarQube):
 Chạy lệnh:
+
 ```bash
 New-Item -ItemType File -Path "configs\docker-compose-infra.yml" -Force
 ```
-Nội dung file:
+
+**Nội dung file:**
 
 ```yaml
 version: '3.8'
@@ -305,10 +307,14 @@ management.endpoints.web.exposure.include=health,info,metrics
 ```
 
 **`src/main/java/com/devops/capstone/model/Student.java`:**
+
 Chạy lệnh tạo file:
+
 ```bash
 New-Item -ItemType File -Path "src/main/java/com/devops/capstone/model/Student.java" -Force
 ```
+
+**Nội dung file:**
 
 ```java
 package com.devops.capstone.model;

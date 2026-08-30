@@ -519,8 +519,8 @@ public class StudentManagerApplication implements CommandLineRunner {
 ```bash
 mvn clean spring-boot:run
 # Mở terminal khác:
-curl http://localhost:8080/api/students | python -m json.tool
-curl http://localhost:8080/api/students/health
+curl.exe http://localhost:8080/api/students
+curl.exe http://localhost:8080/api/students/health
 ```
 
 **Lưu ý:**

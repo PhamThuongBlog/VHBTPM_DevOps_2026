@@ -92,10 +92,20 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
 ```bash
 # Tạo thư mục capstone
 mkdir capstone-devops && cd capstone-devops
+New-Item -ItemType Directory -Path configs, screenshots -Force
+```
+=> Lệnh trên tương đương với lệnh này (chạy trên Linux/ MacOS): 
+
+```bash
 mkdir -p configs screenshots
 ```
 
 **Tạo `configs/docker-compose-infra.yml`** (Jenkins + Nexus + SonarQube):
+Chạy lệnh:
+```bash
+New-Item -ItemType File -Path "configs\docker-compose-infra.yml" -Force
+```
+Nội dung file:
 
 ```yaml
 version: '3.8'
@@ -257,6 +267,14 @@ mkdir student-manager && cd student-manager
 ```
 
 **Tạo cấu trúc thư mục:**
+
+```bash
+New-Item -ItemType Directory -Path src/main/java/com/devops/capstone/{model,repository,controller,config} -Force
+New-Item -ItemType Directory -Path src/main/resources -Force
+New-Item -ItemType Directory -Path src/test/java/com/devops/capstone/{controller,service} -Force
+```
+
+**Note:** Nếu OS của máy là Linux/MacOS thì thực thi các lệnh tương đương sau:
 
 ```bash
 mkdir -p src/main/java/com/devops/capstone/{model,repository,controller,config}

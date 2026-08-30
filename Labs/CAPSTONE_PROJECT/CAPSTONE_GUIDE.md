@@ -523,6 +523,10 @@ curl http://localhost:8080/api/students | python -m json.tool
 curl http://localhost:8080/api/students/health
 ```
 
+**Lưu ý:**
+Nếu xung đột cổng 8080 với Jenkins, thì thay đổi thành cổng khác (ví dụ:8082) ở file application.properties
+
+
 ### 4.5 Git Flow — Push lên GitHub
 
 ```bash

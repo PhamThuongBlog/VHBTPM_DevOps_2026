@@ -305,6 +305,10 @@ management.endpoints.web.exposure.include=health,info,metrics
 ```
 
 **`src/main/java/com/devops/capstone/model/Student.java`:**
+Chạy lệnh tạo file:
+```bash
+New-Item -ItemType File -Path "src/main/java/com/devops/capstone/model/Student.java" -Force
+```
 
 ```java
 package com.devops.capstone.model;

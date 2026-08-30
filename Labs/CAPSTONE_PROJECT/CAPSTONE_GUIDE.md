@@ -269,9 +269,17 @@ mkdir student-manager && cd student-manager
 **Tạo cấu trúc thư mục:**
 
 ```bash
-New-Item -ItemType Directory -Path src/main/java/com/devops/capstone/{model,repository,controller,config} -Force
-New-Item -ItemType Directory -Path src/main/resources -Force
-New-Item -ItemType Directory -Path src/test/java/com/devops/capstone/{controller,service} -Force
+New-Item -ItemType Directory -Path `
+    "src/main/java/com/devops/capstone/model",
+    "src/main/java/com/devops/capstone/repository",
+    "src/main/java/com/devops/capstone/controller",
+    "src/main/java/com/devops/capstone/config" `
+    -Force
+New-Item -ItemType Directory -Path ` "src/main/resources" ` -Force
+New-Item -ItemType Directory -Path `
+  "src/test/java/com/devops/capstone/controller",
+  "src/test/java/com/devops/capstone/service" `
+  -Force
 ```
 
 **Note:** Nếu OS của máy là Linux/MacOS thì thực thi các lệnh tương đương sau:

@@ -99,36 +99,50 @@ mkdir -p configs screenshots
 
 ```yaml
 version: '3.8'
+
 services:
   jenkins:
     image: jenkins/jenkins:lts-jdk17
     container_name: capstone-jenkins
-    ports: ["8080:8080", "50000:50000"]
+    ports:
+      - "8080:8080"
+      - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    networks: [devops-net]
+    networks:
+      - devops-net
 
   nexus:
     image: sonatype/nexus3:latest
     container_name: capstone-nexus
-    ports: ["8081:8081"]
-    volumes: [nexus_data:/nexus-data]
-    networks: [devops-net]
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus_data:/nexus-data
+    networks:
+      - devops-net
 
   sonarqube:
     image: sonarqube:lts-community
     container_name: capstone-sonarqube
-    ports: ["9000:9000"]
-    environment: [SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true]
-    volumes: [sonar_data:/opt/sonarqube/data]
-    networks: [devops-net]
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+    networks:
+      - devops-net
 
 volumes:
-  jenkins_home:; nexus_data:; sonar_data:
+  jenkins_home:
+  nexus_data:
+  sonar_data:
 
 networks:
-  devops-net: {driver: bridge}
+  devops-net:
+    driver: bridge
 ```
 
 ```bash

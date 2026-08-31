@@ -829,7 +829,8 @@ ls -lh target/student-manager-1.0.0-SNAPSHOT.jar
 </settings>
 ```
 **Lưu ý:**
-Tạo file C:\Users\UserName (tên tài khoản người dùng trên máy tính windows)\.m2\settings.xml với nội dung như trên
+Tạo file C:\Users\UserName (tên tài khoản người dùng trên máy tính windows)\.m2\settings.xml với nội dung như trên.
+
 Ví dụ: C:\Users\FPTSHOP\.m2\settings.xml
 
 4. Deploy:

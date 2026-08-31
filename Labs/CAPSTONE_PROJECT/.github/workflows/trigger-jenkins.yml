@@ -1,0 +1,75 @@
+# ============================================================================
+#  trigger-jenkins.yml — GitHub Actions tự động trigger Jenkins DevOps Pipeline
+#
+#  Khi push/PR vào main/develop, workflow này gọi Jenkins "remote build API" để
+#  khởi chạy pipeline (vòng lặp khép kín: Plan → ... → Monitor → Plan).
+#
+#  📌 Repo          : https://github.com/PhamThuongBlog/student-manager.git
+#  📌 GitHub Project: Student Manager DevOps (plan liên tục)
+#
+#  CƠ CHẾ TRIGGER: dùng SELF-HOSTED runner (KHÔNG webhook, KHÔNG ngrok/tunnel).
+#  Runner chạy ngay trên máy có Jenkins → gọi trực tiếp http://localhost:8080.
+#
+#  Yêu cầu cấu hình (một lần):
+#   1) Đăng ký SELF-HOSTED runner: GitHub repo → Settings → Actions → Runners
+#      → "New self-hosted runner" → chạy lệnh hướng dẫn trên máy local (có Jenkins).
+#   2) Jenkins job "student-manager" → Build Triggers → ✅ "Trigger builds remotely"
+#      → đặt TOKEN (vd: capstone-token).
+#   3) GitHub repo → Settings → Secrets and variables → Actions → New repository secret:
+#      - JENKINS_URL           : http://localhost:8080 (self-hosted runner cùng máy)
+#      - JENKINS_TRIGGER_TOKEN : TOKEN đã đặt ở bước 2
+#      - GH_TOKEN              : (tuỳ chọn) PAT để thao tác GitHub Project/Issues
+# ============================================================================
+
+name: Trigger Jenkins DevOps Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_env:
+        description: 'Môi trường triển khai (dev/staging/prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options: [dev, staging, prod]
+
+jobs:
+  trigger-jenkins:
+    runs-on: self-hosted   # runner chạy cùng máy Jenkins → gọi localhost (không webhook/ngrok)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ------- PLAN: đồng bộ GitHub Project (plan liên tục) -------
+      - name: Plan — read backlog from GitHub Project
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "📋 Backlog hiện tại (PhamThuongBlog/student-manager):"
+          gh issue list --repo PhamThuongBlog/student-manager --state open --limit 10 2>/dev/null \
+            || echo "   (chưa có GH_TOKEN — bỏ qua bước đồng bộ Project)"
+
+      # ------- TRIGGER: gọi Jenkins remote build API -------
+      - name: Trigger Jenkins build
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+          JENKINS_TRIGGER_TOKEN: ${{ secrets.JENKINS_TRIGGER_TOKEN }}
+        run: |
+          # Xác định branch cần build (PR → base branch; push → ref name)
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            GIT_BRANCH="${{ github.base_ref }}"
+          else
+            GIT_BRANCH="${GITHUB_REF_NAME}"
+          fi
+
+          DEPLOY_ENV="${{ github.event.inputs.deploy_env || 'dev' }}"
+
+          echo "→ Trigger Jenkins [job=student-manager, branch=${GIT_BRANCH}, env=${DEPLOY_ENV}]"
+          curl -sS -X POST \
+            "${JENKINS_URL}/job/student-manager/buildWithParameters?token=${JENKINS_TRIGGER_TOKEN}&GIT_BRANCH=${GIT_BRANCH}&DEPLOY_ENV=${DEPLOY_ENV}" \
+            --fail

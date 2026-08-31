@@ -1,0 +1,18 @@
+# ============================================================================
+#  prometheus.yml — Cấu hình scrape target cho Student Manager
+# ============================================================================
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Spring Boot app (Actuator + Micrometer → /actuator/prometheus)
+  - job_name: 'student-manager'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['student-manager:8080']
+
+  # Bản thân Prometheus (self-monitoring)
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

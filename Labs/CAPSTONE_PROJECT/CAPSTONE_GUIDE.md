@@ -18,6 +18,7 @@
 8. [GIAI ĐOẠN 5: OPERATE — Security Test & Monitor](#8-operate)
 9. [GIAI ĐOẠN 6: FEEDBACK — Từ Monitor về Plan](#9-feedback)
 10. [Tổng kết & Nộp bài](#10-tổng-kết)
+11. [Mở rộng — Triển khai trên AWS EC2 thật](#11-mở-rộng--triển-khai-trên-aws-ec2-thật)
 
 ---
 
@@ -51,7 +52,8 @@ Bạn là **DevOps Engineer** trong team phát triển **Student Manager** — �
 | **Deploy** | Docker Compose | Bài 8 |
 | **Security Test** | OWASP ZAP (DAST) | Bài 6 |
 | **Orchestrator** | **Jenkins** (CI+CD pipeline) | Bài 7, 8 |
-| **Monitor** | Health endpoints + logs | Bài 2, 9 |
+| **Trigger** | GitHub Actions → Jenkins | Bài 7, 8 |
+| **Monitor** | ELK (Elasticsearch + Logstash + Kibana) + Prometheus + Grafana | Bài 2, 9 |
 
 ---
 
@@ -172,9 +174,9 @@ docker exec capstone-nexus cat /nexus-data/admin.password
 
 ## 4. GIAI ĐOẠN 1: PLAN & CODE
 
-### 4.1 PLAN — Tạo GitHub Project Board
+### 4.1 PLAN — Tạo GitHub Project Board (plan liên tục)
 
-1. Vào GitHub → **Projects** → New project → Board
+1. Vào GitHub → **Projects** → New project → Board (repo: `PhamThuongBlog/student-manager`)
 2. Name: `Student Manager DevOps`
 3. Tạo các issues:
    - `[STU-01] Create Student model & repository`
@@ -234,6 +236,10 @@ mkdir student-manager && cd student-manager
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -303,7 +309,7 @@ spring.datasource.url=jdbc:h2:mem:studentdb
 spring.datasource.driverClassName=org.h2.Driver
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.h2.console.enabled=true
-management.endpoints.web.exposure.include=health,info,metrics
+management.endpoints.web.exposure.include=health,info,metrics,prometheus
 ```
 
 **`src/main/java/com/devops/capstone/model/Student.java`:**
@@ -532,12 +538,51 @@ Nếu xung đột cổng 8080 với Jenkins, thì thay đổi thành cổng khá
 ```bash
 git init && git checkout -b main
 git add . && git commit -m "feat: initial Student Manager API with CRUD + health"
-git remote add origin https://github.com/YOUR_USERNAME/student-manager.git
+git remote add origin https://github.com/PhamThuongBlog/student-manager.git
 git push -u origin main
 
 # Tạo develop branch
 git checkout -b develop && git push origin develop
 ```
+
+### 4.6 Trigger Tự động Jenkins bằng GitHub Actions (không webhook/ngrok)
+
+Cơ chế: **GitHub Actions** chạy trên **self-hosted runner** (cùng máy Jenkins) → gọi Jenkins "remote build API" qua `http://localhost:8080`. Không cần public URL, không dùng webhook.
+
+Tạo `.github/workflows/trigger-jenkins.yml` ở gốc repo (đã có sẵn trong bộ bài nộp):
+
+```yaml
+name: Trigger Jenkins DevOps Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+jobs:
+  trigger-jenkins:
+    runs-on: self-hosted          # runner chạy cùng máy Jenkins
+    steps:
+      - name: Trigger Jenkins build
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+          JENKINS_TRIGGER_TOKEN: ${{ secrets.JENKINS_TRIGGER_TOKEN }}
+        run: |
+          curl -sS -X POST \
+            "${JENKINS_URL}/job/student-manager/buildWithParameters?token=${JENKINS_TRIGGER_TOKEN}&GIT_BRANCH=${GITHUB_REF_NAME}" \
+            --fail
+```
+
+**Cấu hình (một lần):**
+
+1. **Đăng ký self-hosted runner:** GitHub repo → **Settings → Actions → Runners → New self-hosted runner** → làm theo lệnh hướng dẫn (chạy trên máy local có Jenkins). Kết quả: runner hiển thị "Idle".
+2. Jenkins job `student-manager` → **Build Triggers** → ✅ **Trigger builds remotely** → đặt token (vd: `capstone-token`)
+3. GitHub repo → **Settings → Secrets and variables → Actions → New repository secret**:
+   - `JENKINS_URL` = `http://localhost:8080` (self-hosted runner gọi Jenkins cùng máy)
+   - `JENKINS_TRIGGER_TOKEN` = token ở bước 2
+   - `GH_TOKEN` (tuỳ chọn) = PAT để thao tác GitHub Project/Issues
+4. Đẩy file lên GitHub → mỗi lần **push/PR vào `main`/`develop`**, runner gọi Jenkins và pipeline tự chạy.
+
+> 💡 **Tại sao cần self-hosted runner?** GitHub-hosted runner (`ubuntu-latest`) chạy trên cloud của GitHub nên KHÔNG gọi được `localhost` trên máy bạn. Self-hosted runner chạy ngay trên máy local → gọi trực tiếp Jenkins mà **không cần ngrok/webhook/public URL**.
 
 ✅ **Checkpoint 1:** App chạy local? `curl localhost:8080/api/students` trả JSON 3 sinh viên? Code đã lên GitHub?
 
@@ -691,93 +736,28 @@ Tạo file `postman/Student-Manager-API.json` (xem trong `configs/`)
 | 6 | GET    | `/api/students/health`             | Không | `200 OK`      | —     |
 
 
-### 5.4 Viết Jenkinsfile CI
+### 5.4 Viết Jenkinsfile CI (14 stage — đầy đủ vòng đời DevOps)
 
-Tạo `Jenkinsfile`:
+File `Jenkinsfile` đã có sẵn trong `configs/Jenkinsfile` (bản đầy đủ 14 stage). Tóm tắt các stage:
 
-```groovy
-pipeline {
-    agent any
-    tools { maven 'M3' }
+| # | Stage | Công cụ |
+|---|-------|---------|
+| 1 | PLAN | GitHub Project + `gh` issues |
+| 2 | CODE | Git Flow + checkout |
+| 3 | BUILD | Maven `clean compile` |
+| 4 | UNIT TEST | JUnit 5 + JaCoCo |
+| 5 | STATIC ANALYSIS | SonarQube (SAST) + Quality Gate |
+| 6 | PACKAGE | Maven `.jar` |
+| 7 | PUBLISH | Nexus |
+| 8 | DOCKER BUILD | Docker image |
+| 9 | DOCKER PUSH | Docker Hub |
+| 10 | DEPLOY | Docker run + smoke test + rollback |
+| 11 | DAST | OWASP ZAP |
+| 12 | API TEST | Newman |
+| 13 | MONITOR | ELK + Prometheus + Grafana |
+| 14 | FEEDBACK | tạo issue → quay lại PLAN |
 
-    environment {
-        SONAR_HOST_URL = 'http://capstone-sonarqube:9000'
-        NEXUS_URL      = 'http://capstone-nexus:8081'
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                echo ' STEP 1/9: CHECKOUT'
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                echo '🔨 STEP 2/9: BUILD'
-                sh 'mvn clean compile'
-            }
-        }
-        stage('Unit Test') {
-            steps {
-                echo ' STEP 3/9: UNIT TEST'
-                sh 'mvn test'
-            }
-            post {
-                always { junit 'target/surefire-reports/*.xml' }
-            }
-        }
-        stage('Static Analysis') {
-            steps {
-                echo ' STEP 4/9: SONARQUBE SCAN'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=sonar123'
-            }
-        }
-        stage('Package') {
-            steps {
-                echo ' STEP 5/9: PACKAGE'
-                sh 'mvn package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-        stage('Publish to Nexus') {
-            steps {
-                echo ' STEP 6/9: PUBLISH TO NEXUS'
-                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::${NEXUS_URL}/repository/maven-releases_Lab10/'
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                echo ' STEP 7/9: DOCKER BUILD'
-                sh 'docker build -t student-manager:${BUILD_NUMBER} .'
-            }
-        }
-        stage('Docker Push') {
-            steps {
-                echo ' STEP 8/9: PUSH TO DOCKER HUB'
-                sh 'docker tag student-manager:${BUILD_NUMBER} YOUR_DOCKER_USER/student-manager:${BUILD_NUMBER}'
-                sh 'docker push YOUR_DOCKER_USER/student-manager:${BUILD_NUMBER}'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo ' STEP 9/9: DEPLOY'
-                sh '''
-                    docker stop student-manager 2>/dev/null || true
-                    docker rm student-manager 2>/dev/null || true
-                    docker run -d --name student-manager --network capstone_devops-net -p 8080:8080 student-manager:${BUILD_NUMBER}
-                    sleep 10
-                    curl -f http://localhost:8080/api/students/health || exit 1
-                '''
-            }
-        }
-    }
-    post {
-        success { echo ' CAPSTONE PIPELINE SUCCESS!' }
-        failure { echo ' PIPELINE FAILED!' }
-    }
-}
-```
+> ⚠️ Pipeline dùng `withSonarQubeEnv` + `waitForQualityGate` → cần plugin **SonarQube Scanner** và cấu hình **webhook nội bộ** SonarQube → Jenkins (trong cùng Docker network, **không phải** webhook GitHub). Nếu chưa cấu hình, bỏ block `post` của stage 5 và dùng `mvn sonar:sonar ... || true`.
 
 ✅ **Checkpoint 2:** `mvn test` 7/7 pass? SonarQube hiển thị project?
 
@@ -897,6 +877,8 @@ done
 chmod +x scripts/monitor.sh && bash scripts/monitor.sh
 ```
 
+> 📊 **Nâng cao — Observability:** pipeline (stage 13) còn tích hợp **ELK** (Elasticsearch, Logstash, Kibana) để lưu & truy vấn log tập trung, và **Prometheus + Grafana** để giám sát metrics (JVM, HTTP). Xem `docker-compose-infra.yml` + `configs/prometheus/prometheus.yml`.
+
 ✅ **Checkpoint 5:** ZAP report có alerts? Newman 5/5 tests pass? Monitor loop chạy?
 
 ---
@@ -986,9 +968,19 @@ CAPSTONE_NhomX_HoTen.zip
 
 ---
 
+## 11. MỞ RỘNG — Triển khai trên AWS EC2 thật
+
+> ☁️ Muốn thực hành **vận hành & bảo trì trên hạ tầng cloud thật**? Xem hướng dẫn đầy đủ:
+>
+> 📄 [`CAPSTONE_AWS_EC2.md`](./CAPSTONE_AWS_EC2.md) — dựng EC2, dùng ECR thay Docker Hub, IaC bằng Terraform (Bài 3), CloudWatch + ELK + Prometheus/Grafana, và **dọn dẹp tránh phát sinh chi phí**.
+>
+> 👉 Phần phân tích **"Vận hành & Bảo trì phần mềm trong Jenkins DevOps Pipeline"** (ánh xạ 4 loại bảo trì + Observability) xem ở [`README.md`](./README.md).
+
+---
+
 > 🏆 **CAPSTONE HOÀN THÀNH!** Bạn đã xây dựng DevOps Pipeline end-to-end: Plan → Code → Build → Test → Scan → Package → Release → Deploy → Operate → Monitor → Feedback.
 >
 > **Ánh xạ 9 bài học:**
 > Plan(1) → Code(5) → Build(7) → Test(6) → Scan(6) → Package(7) → Release(7,8) → Deploy(8) → Operate(2,9) → Monitor(2) → Plan(1)
 >
-> 📅 **Cập nhật:** 2026-07-03
+> 📅 **Cập nhật:** 2026-08-31

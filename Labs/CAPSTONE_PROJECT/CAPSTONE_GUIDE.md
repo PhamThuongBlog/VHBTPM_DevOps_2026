@@ -211,7 +211,7 @@ mkdir student-manager && cd student-manager
 
     <groupId>com.devops.capstone</groupId>
     <artifactId>student-manager</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Student Manager — DevOps Capstone</name>
 
@@ -839,7 +839,7 @@ Ví dụ: C:\Users\FPTSHOP\.m2\settings.xml
 mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases_Lab10/
 ```
 
-5. Verify: Nexus → Browse → maven-releases_Lab10 → `com/devops/capstone/student-manager/1.0.0-SNAPSHOT/`
+5. Verify: Nexus → Browse → maven-releases_Lab10 → `com/devops/capstone/student-manager/1.0.0/`
 
 ✅ **Checkpoint 3:** Artifact `.jar` có trong Nexus?
 

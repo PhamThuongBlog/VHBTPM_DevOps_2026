@@ -796,7 +796,7 @@ ls -lh target/student-manager-1.0.0-SNAPSHOT.jar
 ### 6.2 Publish lên Nexus
 
 1. Cấu hình Nexus: http://localhost:8081 → admin / password
-2. Settings → Repositories → Create → maven2(hosted) → `maven-releases`
+2. Settings → Repositories → Create → maven2(hosted) → `maven-releases_Lab10`
 3. Cấu hình Maven `~/.m2/settings.xml`:
 
 ```xml

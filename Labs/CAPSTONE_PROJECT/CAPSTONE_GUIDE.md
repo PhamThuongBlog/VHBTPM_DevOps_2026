@@ -720,6 +720,38 @@ sonar.login=admin
 sonar.password=sonar123
 ```
 
+#### Cấu hình Quality Gate (plugin SonarQube Scanner + webhook nội bộ)
+
+> Ghi chú: pipeline dùng `withSonarQubeEnv` + `waitForQualityGate`. Webhook này là **nội bộ** giữa 2 container SonarQube ↔ Jenkins (cùng mạng Docker `devops-net`), **không phải** webhook GitHub dùng để trigger pipeline.
+
+**Bước 1 — Cài plugin SonarQube Scanner**
+1. Jenkins → **Manage Jenkins → Plugins → Available plugins**
+2. Tìm `SonarQube Scanner` → **Install** → restart Jenkins.
+
+**Bước 2 — Tạo token trong SonarQube**
+1. Mở `http://localhost:9000` → đăng nhập `admin/admin`
+2. Avatar → **My Account → Security → Generate Tokens**
+3. Name `jenkins-token` → **Generate** → **copy token** (chỉ hiện 1 lần).
+
+**Bước 3 — Khai báo SonarQube server trong Jenkins**
+1. **Manage Jenkins → Configure System → SonarQube servers → Add SonarQube**
+2. `Name` = **`SonarQube`** (khớp chuỗi trong `withSonarQubeEnv('SonarQube')`)
+3. `Server URL` = **`http://capstone-sonarqube:9000`** (gọi theo tên container, không phải localhost)
+4. `Server authentication token` = **Add → Secret text** → dán token ở bước 2 → Save.
+
+**Bước 4 — Cấu hình webhook trong SonarQube**
+1. SonarQube → **Administration → Configuration → Webhooks → Create**
+2. `Name` = `jenkins`
+3. `URL` = **`http://capstone-jenkins:8080/sonarqube-webhook/`** (nếu Jenkins chạy ngoài Docker thì dùng `http://localhost:8080/sonarqube-webhook/`).
+
+**Bước 5 — Kiểm tra Quality Gate (tuỳ chọn)**
+- SonarQube → **Quality Gates** → gate mặc định **"Sonar way"** đã áp dụng. Có thể chỉnh ngưỡng (vd coverage ≥ 60%).
+
+**Bước 6 — Chạy pipeline**
+- **Build Now** → stage 5 sẽ phân tích rồi **đợi kết quả quality gate** mới chuyển sang stage 6.
+
+> 💡 **Cách đơn giản (bỏ qua quality gate):** nếu chưa cài plugin/webhook, sửa stage 5 trong Jenkinsfile thành `sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=sonar123 || true'` (chỉ scan, không chặn build).
+
 ### 5.3 Tạo Postman Collection
 
 Tạo file `postman/Student-Manager-API.json` (xem trong `configs/`)

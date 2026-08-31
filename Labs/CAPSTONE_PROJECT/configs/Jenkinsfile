@@ -142,7 +142,7 @@ pipeline {
             steps {
                 echo '🔍 SAST — SonarQube scan + Quality Gate'
                 withSonarQubeEnv('SonarQube') {   // <-- đổi tên server theo cấu hình của bạn
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=sonar123'
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=student-manager'
                 }
             }
             post {

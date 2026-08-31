@@ -896,9 +896,7 @@ docker push YOUR_DOCKER_USER/student-manager:1.0.0
 ### 8.2 API Test — Newman
 
 ```bash
-newman run postman/Student-Manager-API.json \
-  --reporters cli,json \
-  --reporter-json-export newman-report.json
+newman run postman/Student-Manager-API.json --reporters "cli,json" --reporter-json-export newman-report.json
 ```
 
 ### 8.3 Health Monitor Loop

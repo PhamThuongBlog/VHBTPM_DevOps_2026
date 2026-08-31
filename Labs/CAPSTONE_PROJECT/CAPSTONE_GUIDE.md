@@ -913,7 +913,7 @@ done
 ```
 
 ```bash
-chmod +x scripts/monitor.sh && bash scripts/monitor.sh
+bash scripts/monitor.sh
 ```
 
 > 📊 **Nâng cao — Observability:** pipeline (stage 13) còn tích hợp **ELK** (Elasticsearch, Logstash, Kibana) để lưu & truy vấn log tập trung, và **Prometheus + Grafana** để giám sát metrics (JVM, HTTP). Xem `docker-compose-infra.yml` + `configs/prometheus/prometheus.yml`.

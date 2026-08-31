@@ -812,14 +812,20 @@ ls -lh target/student-manager-1.0.0-SNAPSHOT.jar
 3. Cấu hình Maven `~/.m2/settings.xml`:
 
 ```xml
-<settings>
-  <servers>
-    <server>
-      <id>nexus</id>
-      <username>admin</username>
-      <password>nexus123</password>
-    </server>
-  </servers>
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0
+                              https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+    <servers>
+        <server>
+            <id>nexus</id>
+            <username>admin</username>
+            <password>nexus123</password>
+        </server>
+    </servers>
+
 </settings>
 ```
 

@@ -679,6 +679,18 @@ sonar.password=sonar123
 
 Tạo file `postman/Student-Manager-API.json` (xem trong `configs/`)
 
+**Tổng hợp lại toàn bộ các endpoint:**
+
+| # | Method | Endpoint                           | Body  | Thành công    | Lỗi   |
+| - | ------ | ---------------------------------- | ----- | ------------- | ----- |
+| 1 | GET    | `/api/students`                    | Không | `200 OK`      | —     |
+| 2 | GET    | `/api/students/{id}`               | Không | `200 OK`      | `404` |
+| 3 | POST   | `/api/students`                    | JSON  | `201 Created` | `400` |
+| 4 | DELETE | `/api/students/{id}`               | Không | `200 OK`      | `404` |
+| 5 | GET    | `/api/students/search?q={keyword}` | Không | `200 OK`      | —     |
+| 6 | GET    | `/api/students/health`             | Không | `200 OK`      | —     |
+
+
 ### 5.4 Viết Jenkinsfile CI
 
 Tạo `Jenkinsfile`:

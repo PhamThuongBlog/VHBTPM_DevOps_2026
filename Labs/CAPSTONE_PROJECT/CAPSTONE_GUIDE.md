@@ -826,8 +826,7 @@ ls -lh target/student-manager-1.0.0-SNAPSHOT.jar
 4. Deploy:
 
 ```bash
-mvn deploy -DskipTests \
-  -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases_Lab10/
+mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases_Lab10/
 ```
 
 5. Verify: Nexus → Browse → maven-releases_Lab10 → `com/devops/capstone/student-manager/1.0.0-SNAPSHOT/`

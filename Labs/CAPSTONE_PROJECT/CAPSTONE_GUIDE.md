@@ -863,7 +863,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ```bash
 docker build -t student-manager:1.0.0 .
-docker run -d -p 8080:8080 --name student-manager --network capstone_devops-net student-manager:1.0.0
+docker run -d -p 8080:8080 --name student-manager --network configs_devops-net student-manager:1.0.0
 curl http://localhost:8080/api/students/health
 ```
 

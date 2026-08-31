@@ -743,7 +743,7 @@ pipeline {
         stage('Publish to Nexus') {
             steps {
                 echo ' STEP 6/9: PUBLISH TO NEXUS'
-                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::${NEXUS_URL}/repository/maven-releases/'
+                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::${NEXUS_URL}/repository/maven-releases_Lab10/'
             }
         }
         stage('Docker Build') {

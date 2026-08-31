@@ -815,10 +815,10 @@ ls -lh target/student-manager-1.0.0-SNAPSHOT.jar
 
 ```bash
 mvn deploy -DskipTests \
-  -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases/
+  -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases_Lab10/
 ```
 
-5. Verify: Nexus → Browse → maven-releases → `com/devops/capstone/student-manager/1.0.0-SNAPSHOT/`
+5. Verify: Nexus → Browse → maven-releases_Lab10 → `com/devops/capstone/student-manager/1.0.0-SNAPSHOT/`
 
 ✅ **Checkpoint 3:** Artifact `.jar` có trong Nexus?
 

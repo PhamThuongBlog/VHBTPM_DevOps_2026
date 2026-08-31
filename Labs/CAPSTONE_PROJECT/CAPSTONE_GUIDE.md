@@ -945,7 +945,7 @@ Dựa trên kết quả ZAP + SonarQube:
 | 9 | Jenkins | Orchestrator | CI/CD pipeline tự động |
 | 10 | Postman/Newman | Operate | API functional testing |
 | 11 | OWASP ZAP | Operate | Security testing (DAST) |
-| 12 | Health Endpoint | Monitor | Runtime health check |
+| 12 | ELK (cluster health, ship log → ES, Kibana, Logstash) + Prometheus/Grafana (metrics, JVM) + Health Endpoint | Monitor | Runtime health check |
 
 ### Tiêu chí Chấm điểm
 

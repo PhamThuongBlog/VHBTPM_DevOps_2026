@@ -1190,6 +1190,7 @@ management.metrics.tags.application=student-manager
 ```
   
 BƯỚC 3: Đẩy Jenkinsfile lên thư mục root của kho code "Student Manager API"
+
 BƯỚC 4: Trigger: Click Build Now
 
 

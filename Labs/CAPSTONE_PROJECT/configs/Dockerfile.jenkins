@@ -1,0 +1,37 @@
+# ============================================================================
+#  Dockerfile.jenkins — Jenkins image có Docker CLI + quyền truy cập docker.sock
+#
+#  Vì sao cần: pipeline Lab10 có các stage 8-10 chạy `docker build/push/run`.
+#  Image gốc jenkins/jenkins:lts-jdk17 KHÔNG có sẵn `docker` CLI, và user
+#  `jenkins` không truy cập được /var/run/docker.sock (root:root, mode 660).
+#
+#  Build từ docker-compose-infra.yml (service `jenkins`).
+# ============================================================================
+
+FROM jenkins/jenkins:lts-jdk17
+
+USER root
+
+# 1) Cho user `jenkins` vào group root (gid 0) để đọc/ghi /var/run/docker.sock
+RUN usermod -aG root jenkins
+
+# 2) Cài Docker CLI (static binary) — khớp phiên bản Docker Desktop trên host
+ARG DOCKER_VERSION=28.1.1
+RUN curl -fsSL "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz" \
+        -o /tmp/docker.tgz \
+    && tar xzf /tmp/docker.tgz -C /tmp \
+    && mv /tmp/docker/docker /usr/local/bin/docker \
+    && chmod +x /usr/local/bin/docker \
+    && rm -rf /tmp/docker.tgz /tmp/docker
+
+# 3) Cài Node.js + Newman (Postman CLI) cho stage 12 API test
+ARG NODE_VERSION=20.18.0
+ENV NODE_HOME=/opt/node-v${NODE_VERSION}-linux-x64
+ENV PATH=${NODE_HOME}/bin:${PATH}
+RUN curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" \
+        -o /tmp/node.tar.gz \
+    && tar -xzf /tmp/node.tar.gz -C /opt \
+    && rm -f /tmp/node.tar.gz \
+    && npm install -g newman
+
+USER jenkins

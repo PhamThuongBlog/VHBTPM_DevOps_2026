@@ -12,8 +12,13 @@ services:
   # ---------------- CI/CD Orchestration ----------------
 
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    image: capstone-jenkins:lts-jdk17
     container_name: capstone-jenkins
+    group_add:
+      - "0"   # root group → cho user jenkins truy cập /var/run/docker.sock (root:root 660)
     ports:
       - "8080:8080"
       - "50000:50000"

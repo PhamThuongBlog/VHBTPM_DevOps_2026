@@ -258,6 +258,17 @@ docker exec capstone-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 docker exec capstone-nexus cat /nexus-data/admin.password
 ```
 
+**Lưu ý quan trọng trước khi chạy:** 
+
+    Chuẩn bị file cấu hình Prometheus:
+    Trong file YAML mới, service prometheus có mount file cấu hình:
+    ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+    Bạn bắt buộc phải tạo sẵn file prometheus.yml tại thư mục ./prometheus/ trên máy host trước khi chạy lệnh. Nếu không có file này, Docker sẽ tự tạo một thư mục trống tên prometheus.yml và làm container Prometheus bị crash ngay khi khởi động.
+
+   => Xem file tại:     /configs/prometheus/prometheus.yml
+   
+
 ✅ **Checkpoint 0:** Các containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) đều truy cập được?
 
 ---

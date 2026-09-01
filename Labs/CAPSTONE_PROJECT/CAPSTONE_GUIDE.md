@@ -102,7 +102,7 @@ New-Item -ItemType Directory -Path configs, screenshots -Force
 mkdir -p configs screenshots
 ```
 
-**Tạo `configs/docker-compose-infra.yml`** (Jenkins + Nexus + SonarQube):
+**Tạo `configs/docker-compose-infra.yml`** (Jenkins + Nexus + SonarQube + ELK (Elasticsearch + Logstash + Kibana) + Prometheus + Grafana):
 Chạy lệnh:
 
 ```bash
@@ -112,9 +112,19 @@ New-Item -ItemType File -Path "configs\docker-compose-infra.yml" -Force
 **Nội dung file:**
 
 ```yaml
+# ============================================================================
+#  docker-compose-infra.yml — Infrastructure DevOps + Observability Stack
+#
+#  CI/CD tools     : Jenkins, Nexus, SonarQube
+#  Monitoring stack: ELK (Elasticsearch + Logstash + Kibana) + Prometheus + Grafana
+#  Network         : devops-net (shared với Student Manager app)
+# ============================================================================
 version: '3.8'
 
 services:
+
+  # ---------------- CI/CD Orchestration ----------------
+
   jenkins:
     image: jenkins/jenkins:lts-jdk17
     container_name: capstone-jenkins
@@ -143,9 +153,87 @@ services:
     ports:
       - "9000:9000"
     environment:
-      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
     volumes:
       - sonar_data:/opt/sonarqube/data
+    networks:
+      - devops-net
+
+  # ---------------- ELK Stack (Log Monitoring) ----------------
+
+  # Lưu trữ & truy vấn log tập trung (index: student-manager-logs-*)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
+    container_name: capstone-elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - devops-net
+
+  # Nhận log (beats/http) → parse → đẩy vào Elasticsearch
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.22
+    container_name: capstone-logstash
+    ports:
+      - "9600:9600"       # API status
+    environment:
+      - xpack.monitoring.enabled=false
+    # Pipeline mặc định: nhận HTTP JSON → ghi vào Elasticsearch
+    command: >
+      logstash -e 'input { http { port => 9600 } }
+                    filter { json { source => "message" } }
+                    output { elasticsearch { hosts => ["http://elasticsearch:9200"] index => "student-manager-logs" } }'
+    depends_on:
+      - elasticsearch
+    networks:
+      - devops-net
+
+  # Dashboard trực quan hoá log
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.22
+    container_name: capstone-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - devops-net
+
+  # ---------------- Metrics Stack (Prometheus + Grafana) ----------------
+
+  # Thu thập metrics (Spring Boot Actuator /micrometer → /actuator/prometheus)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: capstone-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - devops-net
+
+  # Dashboard trực quan hoá metrics
+  grafana:
+    image: grafana/grafana:latest
+    container_name: capstone-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
     networks:
       - devops-net
 
@@ -153,6 +241,8 @@ volumes:
   jenkins_home:
   nexus_data:
   sonar_data:
+  es_data:
+  grafana_data:
 
 networks:
   devops-net:

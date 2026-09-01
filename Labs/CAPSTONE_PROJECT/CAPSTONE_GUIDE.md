@@ -1064,25 +1064,133 @@ Dựa trên kết quả ZAP + SonarQube:
 ```
 
 ### 9.3 Demo chạy Jenkinsfile for DevOps Pipe tại bước 5.4
-- Tạo Jenkins Job (type: pipeline), đặt tên Lab10
+BƯỚC 1: Tạo Jenkins Job (type: pipeline), đặt tên Lab10
 
-- Setting các tool trên Jenkins: xem bảng
-  
-  | Hệ thống / Công cụ | Thao tác / Cấu hình cần thực hiện | Chi tiết cấu hình & Thông số quan trọng |
-| :--- | :--- | :--- |
-| **Jenkins - Global Tools** | Cấu hình công cụ biên dịch | • **Maven**: Tên `M3` (Maven 3.9.x)<br>• **JDK**: Tên `JDK17` |
-| **Jenkins - Plugins** | Cài đặt Plugin phụ trợ | Cài các plugin: `SonarQube Scanner`, `JaCoCo`, `JUnit`, `Pipeline` |
-| **Jenkins - System Config** | Kết nối SonarQube Server | • **Name**: `SonarQube`<br>• **URL**: `http://capstone-sonarqube:9000`<br>• **Token**: Secret text lấy từ SonarQube |
-| **Jenkins - Credentials/Env** | Cấu hình Docker Hub | • Sửa `DOCKER_USER` trong Jenkinsfile hoặc Global Environment<br>• Chạy `docker login` trên máy/container Jenkins |
-| **Jenkins - CLI Dependencies** | Cài đặt công cụ chạy lệnh | • **Newman**: Chạy `npm install -g newman` trên máy/container Jenkins<br>• **GitHub CLI**: Cài `gh` CLI nếu dùng tính năng tự động tạo Issue |
-| **Prometheus** | Cấu hình Scrape Target | Thêm job `student-manager` trỏ tới `student-manager:8080` với path `/actuator/prometheus` trong file `./prometheus/prometheus.yml` |
-| **Grafana** | Kết nối Data Source | Thêm Data Source loại **Prometheus** với URL: `http://capstone-prometheus:9090` |
-| **Kibana** | Tạo Index Pattern xem Log | Tạo **Data View / Index Pattern** tên `student-manager-logs*` với field thời gian `@timestamp` |
-| **Spring Boot App** | Cấu hình Actuator Metrics | Bổ sung dependency `micrometer-registry-prometheus` và bật endpoint `prometheus` trong `application.properties` |
-  
-- Đẩy Jenkinsfile lên thư mục root của kho code "Student Manager API"
+BƯỚC 2: Setting các tool trên Jenkins: 
 
-- Trigger: Click Build Now
+**Thực hiện các bước cấu hình ban đầu** trên giao diện Jenkins (Dashboard) và hệ thống máy chủ trước khi chạy `Jenkinsfile` này. Nếu không cấu hình, pipeline sẽ báo lỗi ngắt ngắt (failed) ngay từ các bước đầu tiên.
+
+---
+
+### **a. Cấu hình Công cụ (Global Tool Configuration)**
+
+Truy cập: **Manage Jenkins** $\rightarrow$ **Tools**:
+
+* **Maven:** Thêm Maven với tên **`M3`** (khớp với khai báo `maven 'M3'` trong `Jenkinsfile`). Bạn có thể chọn *Install automatically* phiên bản Maven 3.9.x.
+* **JDK:** Thêm JDK với tên **`JDK17`** (khớp với khai báo `jdk 'JDK17'`). Nếu chạy Jenkins trong Docker, đảm bảo cài đặt đúng đường dẫn `JAVA_HOME=/opt/java/openjdk` hoặc khai báo cài tự động Java 17.
+
+---
+
+### **b. Cấu hình Plugins cần thiết**
+
+Truy cập: **Manage Jenkins** $\rightarrow$ **Plugins** $\rightarrow$ **Available plugins** và cài đặt các plugin sau:
+
+* **SonarQube Scanner**: Cần cho stage `5. STATIC ANALYSIS (SAST)` để đọc hàm `withSonarQubeEnv` và `waitForQualityGate()`.
+* **JaCoCo Plugin**: Cần cho stage `4. UNIT TEST` để đọc hàm `jacoco(...)`.
+* **JUnit Plugin**: Hiển thị báo cáo kết quả Unit Test (`junit 'target/surefire-reports/*.xml'`).
+* **Pipeline / Pipeline: Stage View**: Môi trường chạy Pipeline mặc định.
+
+---
+
+### **c. Cấu hình kết nối SonarQube Server**
+
+Truy cập: **Manage Jenkins** $\rightarrow$ **System** (hoặc Configure System):
+
+1. Tìm đến mục **SonarQube servers**.
+2. Thêm server mới với các thông tin:
+* **Name**: **`SonarQube`** *(Bắt buộc phải gõ đúng tên này vì Jenkinsfile khai báo `withSonarQubeEnv('SonarQube')`)*.
+* **Server URL**: `http://capstone-sonarqube:9000`
+* **Server authentication token**: Mở SonarQube UI $\rightarrow$ Account $\rightarrow$ Security $\rightarrow$ Generate Token, sau đó lưu Token này vào Jenkins dưới dạng Credentials loại *Secret text*.
+
+
+
+---
+
+### **d. Cấu hình Biến môi trường & Credentials (Docker Hub & Environment)**
+
+Trong `Jenkinsfile`, bạn có biến `DOCKER_USER = 'YOUR_DOCKER_USERNAME'`.
+
+* **Sửa trực tiếp trong Jenkinsfile** hoặc khai báo biến môi trường chung trong Jenkins tại **Manage Jenkins** $\rightarrow$ **System** $\rightarrow$ **Global properties** $\rightarrow$ **Environment variables**:
+* `DOCKER_USER`: Điền Docker Hub Username thực tế của bạn.
+
+
+* **Đăng nhập Docker Hub trên Jenkins Node:** Do stage `9. DOCKER PUSH` sử dụng lệnh `docker push` trực tiếp, bạn cần vào terminal của máy/container Jenkins và thực hiện lệnh đăng nhập thủ công 1 lần:
+```bash
+docker login -u <YOUR_DOCKER_USERNAME>
+
+```
+
+---
+
+### **e. Cấp quyền chạy Docker & Cài đặt công cụ CLI phụ trợ**
+
+* **Quyền chạy Docker:** Container Jenkins cần có quyền tương tác với Docker Socket của máy Host (đã mount `/var/run/docker.sock`). Đảm bảo user `jenkins` có quyền chạy lệnh `docker` mà không bị từ chối quyền (*Permission denied*).
+* **Cài đặt Newman (Postman CLI):** Stage `12. API TEST (Newman)` gọi lệnh `newman` trực tiếp. Bạn cần cài đặt Node.js & Newman bên trong môi trường chạy của Jenkins:
+```bash
+npm install -g newman
+
+```
+
+
+* **Cài đặt GitHub CLI (Tuỳ chọn):** Nếu muốn dùng tính năng tự động tạo issue ở stage `1. PLAN` và `14. FEEDBACK`, bạn cần cài sẵn `gh` CLI và đăng nhập bằng `gh auth login`.
+  
+* ĐỐI VỚI NHÓM CÔNG CỤ **Monitoring & Observability** (ELK Stack, Prometheus, Grafana), chúng ta **không cần cài đặt plugin hay công cụ phức tạp** trong Jenkins, vì `Jenkinsfile` sử dụng trực tiếp các lệnh `curl` và `docker logs` để tương tác qua HTTP API.
+
+Tuy nhiên chúng ta cần thực hiện một vài cấu hình thiết yếu trên chính các công cụ đó để hệ thống thu thập được dữ liệu.
+
+---
+
+**a. Prometheus: Cấu hình Scrape Target (Lấy metrics từ App)**
+
+Mở file `./prometheus/prometheus.yml` trên máy host (file bạn đã mount vào Prometheus) và đảm bảo có cấu hình endpoint của Spring Boot Actuator:
+
+```yaml
+scrape_configs:
+  - job_name: 'student-manager'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['student-manager:8080'] # Tên container app trong cùng Docker Network
+
+```
+
+---
+
+**b. Grafana: Kết nối Prometheus làm Data Source**
+
+1. Truy cập Grafana: `http://localhost:3000` (User/Password: `admin` / `admin`).
+2. Vào **Connections** $\rightarrow$ **Data Sources** $\rightarrow$ Chọn **Prometheus**.
+3. Điền **Prometheus server URL**: `http://capstone-prometheus:9090` (sử dụng tên container thay vì localhost).
+4. Nhấn **Save & test** để xác nhận kết nối thành công.
+5. *(Tuỳ chọn)* Import Dashboard mẫu cho Spring Boot (ví dụ Dashboard ID `11378` hoặc `4701`).
+
+---
+
+**c. Kibana: Tạo Index Pattern xem Log**
+
+1. Truy cập Kibana: `http://localhost:5601`.
+2. Mở menu góc trái $\rightarrow$ **Stack Management** $\rightarrow$ **Index Patterns** (hoặc Data Views).
+3. Nhấn **Create index pattern**:
+* **Name**: `student-manager-logs*` (trùng tên index `Jenkinsfile` ghi vào: `student-manager-logs`).
+* **Timestamp field**: Chọn `@timestamp`.
+
+
+4. Vào mục **Discover** trên Kibana để xem và truy vấn log được đẩy về từ Jenkins stage 13.
+
+---
+
+**d. Ứng dụng Spring Boot (`student-manager`)**
+
+Đảm bảo trong dự án Java Spring Boot của bạn đã bổ sung dependency `micrometer-registry-prometheus` và khai báo trong file `application.properties`:
+
+```properties
+management.endpoints.web.exposure.include=health,info,prometheus
+management.metrics.tags.application=student-manager
+
+```
+  
+BƯỚC 3: Đẩy Jenkinsfile lên thư mục root của kho code "Student Manager API"
+BƯỚC 4: Trigger: Click Build Now
 
 
 ✅ **Checkpoint 6:** Đã tạo issues từ kết quả test? Đã fix 1 issue và push → pipeline chạy lại?

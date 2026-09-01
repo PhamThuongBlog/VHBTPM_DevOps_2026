@@ -886,7 +886,7 @@ Tạo file `postman/Student-Manager-API.json` (xem trong `configs/`)
 | 6 | GET    | `/api/students/health`             | Không | `200 OK`      | —     |
 
 
-### 5.4 Viết Jenkinsfile CI (14 stage — đầy đủ vòng đời DevOps)
+### 5.4 Viết Jenkinsfile for DevOps Pipeline (14 stage — đầy đủ vòng đời DevOps)
 
 File `Jenkinsfile` đã có sẵn trong `configs/Jenkinsfile` (bản đầy đủ 14 stage). Tóm tắt các stage:
 
@@ -1063,7 +1063,17 @@ Dựa trên kết quả ZAP + SonarQube:
 ∞ INFINITE LOOP — DevOps là vòng lặp liên tục!
 ```
 
+### 9.3 Demo chạy Jenkinsfile for DevOps Pipe tại bước 5.4
+- Tạo Jenkins Job (type: pipeline), đặt tên Lab10
+  
+- Đẩy Jenkinsfile lên thư mục root của kho code "Student Manager API"
+
+- Trigger: Click Build Now
+
+
 ✅ **Checkpoint 6:** Đã tạo issues từ kết quả test? Đã fix 1 issue và push → pipeline chạy lại?
+
+
 
 ---
 

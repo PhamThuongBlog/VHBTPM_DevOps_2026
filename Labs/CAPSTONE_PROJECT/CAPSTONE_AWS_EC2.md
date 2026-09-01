@@ -6,30 +6,12 @@
 
 ## 1. Kiến trúc mục tiêu
 
-```
-                          AWS Cloud (Region: us-east-1 / ap-southeast-1)
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            VPC (10.0.0.0/16)                                 │
-│  ┌───────────────────────────────┐   ┌───────────────────────────────────┐  │
-│  │  Public subnet (10.0.1.0/24)  │   │  Public subnet (10.0.2.0/24)      │  │
-│  │                               │   │                                   │  │
-│  │  ┌─────────────────────────┐  │   │  ┌─────────────────────────────┐  │  │
-│  │  │  EC2 "devops-server"    │  │   │  │  EC2 "app-server"           │  │  │
-│  │  │  Jenkins :8080          │  │   │  │  student-manager :8080      │  │  │
-│  │  │  Nexus   :8081          │  │──▶│  │  (docker run)                │  │  │
-│  │  │  SonarQube:9000         │  │   │  │                              │  │  │
-│  │  │  Prometheus:9090        │  │   │  └─────────────────────────────┘  │  │
-│  │  │  Grafana :3000          │  │   └───────────────────────────────────┘  │
-│  │  │  Elasticsearch/Kibana   │  │                                          │
-│  │  └─────────────────────────┘  │   ┌───────────────────────────────────┐  │
-│  │                               │   │  Amazon ECR (registry ảnh)        │  │
-│  └───────────────────────────────┘   └───────────────────────────────────┘  │
-│                         ▲                                                    │
-└─────────────────────────┼────────────────────────────────────────────────────┘
-                          │
-              GitHub Actions (trigger Jenkins) + GitHub (source)
-```
+<p align="center">
+  <img src="images_lab10/3_kientruc_AWS.png" alt="Kiến trúc mục tiêu" width="1000">
+</p> 
 
+```
+                          
 **Nguyên tắc triển khai:**
 - **Registry:** thay Docker Hub bằng **Amazon ECR** (riêng tư, cùng VPC, nhanh hơn).
 - **Compute:** 1 EC2 chứa toàn bộ tool DevOps (Cách 1) hoặc tách riêng app-server (Cách 2).

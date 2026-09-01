@@ -258,7 +258,7 @@ docker exec capstone-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 docker exec capstone-nexus cat /nexus-data/admin.password
 ```
 
-✅ **Checkpoint 0:** 3 containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) đều truy cập được?
+✅ **Checkpoint 0:** Các containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) đều truy cập được?
 
 ---
 

@@ -269,7 +269,32 @@ docker exec capstone-nexus cat /nexus-data/admin.password
    => Xem / download file này tại:     /configs/prometheus/prometheus.yml
    
 
-✅ **Checkpoint 0:** Các containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) đều truy cập được?
+✅ **Checkpoint 0:** Các containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) và các container khác có truy cập được?
+
+Bảng tổng hợp URL truy cập vào giao diện Web (UI) và API của tất cả các container trong hệ thống DevOps & Observability của bạn:
+
+| Dịch vụ / Container | Tên Container (`container_name`) | Port Host | Đường dẫn URL | Tài khoản / Mật khẩu mặc định |
+| --- | --- | --- | --- | --- |
+| **Jenkins** | `capstone-jenkins` | `8080` | `http://localhost:8080` | Mật khẩu khởi tạo: Lấy qua lệnh `docker exec capstone-jenkins cat /var/jenkins_home/secrets/initialAdminPassword` |
+| **Nexus Repository** | `capstone-nexus` | `8081` | `http://localhost:8081` | User: `admin`<br>
+
+<br>Mật khẩu: Lấy qua lệnh `docker exec capstone-nexus cat /nexus-data/admin.password` |
+| **SonarQube** | `capstone-sonarqube` | `9000` | `http://localhost:9000` | User: `admin`<br>
+
+<br>Password: `admin` *(yêu cầu đổi ở lần đăng nhập đầu)* |
+| **Grafana** | `capstone-grafana` | `3000` | `http://localhost:3000` | User: `admin`<br>
+
+<br>Password: `admin` *(khai báo trong `.yml`)* |
+| **Prometheus** | `capstone-prometheus` | `9090` | `http://localhost:9090` | Không yêu cầu đăng nhập |
+| **Kibana** | `capstone-kibana` | `5601` | `http://localhost:5601` | Không yêu cầu đăng nhập |
+| **Elasticsearch** | `capstone-elasticsearch` | `9200` | `http://localhost:9200` | REST API (Không yêu cầu đăng nhập) |
+| **Logstash** | `capstone-logstash` | `9600` | `http://localhost:9600` | API Status (Không yêu cầu đăng nhập) |
+| **Student Manager App** | `student-manager` | `8080` *(hoặc gán port khác)* | `http://localhost:8080`<br>
+
+<br>`http://localhost:8080/actuator/prometheus` | Endpoint ứng dụng chính và endpoint lấy metrics cho Prometheus |
+| **OWASP ZAP (DAST)** | `zap` *(chạy tự động)* | `8090` | `http://localhost:8090` | ZAP Daemon API |
+
+*Lưu ý: Thay `localhost` bằng **IP Public của máy chủ AWS EC2** nếu bạn đang truy cập từ máy tính cá nhân ở ngoài.*
 
 ---
 

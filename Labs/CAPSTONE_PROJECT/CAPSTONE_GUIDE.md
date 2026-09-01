@@ -1065,6 +1065,20 @@ Dựa trên kết quả ZAP + SonarQube:
 
 ### 9.3 Demo chạy Jenkinsfile for DevOps Pipe tại bước 5.4
 - Tạo Jenkins Job (type: pipeline), đặt tên Lab10
+
+- Setting các tool trên Jenkins: xem bảng
+  
+  | Hệ thống / Công cụ | Thao tác / Cấu hình cần thực hiện | Chi tiết cấu hình & Thông số quan trọng |
+| :--- | :--- | :--- |
+| **Jenkins - Global Tools** | Cấu hình công cụ biên dịch | • **Maven**: Tên `M3` (Maven 3.9.x)<br>• **JDK**: Tên `JDK17` |
+| **Jenkins - Plugins** | Cài đặt Plugin phụ trợ | Cài các plugin: `SonarQube Scanner`, `JaCoCo`, `JUnit`, `Pipeline` |
+| **Jenkins - System Config** | Kết nối SonarQube Server | • **Name**: `SonarQube`<br>• **URL**: `http://capstone-sonarqube:9000`<br>• **Token**: Secret text lấy từ SonarQube |
+| **Jenkins - Credentials/Env** | Cấu hình Docker Hub | • Sửa `DOCKER_USER` trong Jenkinsfile hoặc Global Environment<br>• Chạy `docker login` trên máy/container Jenkins |
+| **Jenkins - CLI Dependencies** | Cài đặt công cụ chạy lệnh | • **Newman**: Chạy `npm install -g newman` trên máy/container Jenkins<br>• **GitHub CLI**: Cài `gh` CLI nếu dùng tính năng tự động tạo Issue |
+| **Prometheus** | Cấu hình Scrape Target | Thêm job `student-manager` trỏ tới `student-manager:8080` với path `/actuator/prometheus` trong file `./prometheus/prometheus.yml` |
+| **Grafana** | Kết nối Data Source | Thêm Data Source loại **Prometheus** với URL: `http://capstone-prometheus:9090` |
+| **Kibana** | Tạo Index Pattern xem Log | Tạo **Data View / Index Pattern** tên `student-manager-logs*` với field thời gian `@timestamp` |
+| **Spring Boot App** | Cấu hình Actuator Metrics | Bổ sung dependency `micrometer-registry-prometheus` và bật endpoint `prometheus` trong `application.properties` |
   
 - Đẩy Jenkinsfile lên thư mục root của kho code "Student Manager API"
 

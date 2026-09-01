@@ -283,7 +283,7 @@ Bảng tổng hợp URL truy cập vào giao diện Web (UI) và API của tất
 | **Kibana** | `capstone-kibana` | `5601` | `http://localhost:5601` | Không yêu cầu đăng nhập |
 | **Elasticsearch** | `capstone-elasticsearch` | `9200` | `http://localhost:9200` | REST API (Không yêu cầu đăng nhập) |
 | **Logstash** | `capstone-logstash` | `9600` | `http://localhost:9600` | API Status (Không yêu cầu đăng nhập) |
-| **Student Manager App** | `student-manager` | `8080` *(hoặc gán port khác)* | `http://localhost:8080`<br>`http://localhost:8080/actuator/prometheus` | Endpoint ứng dụng chính và endpoint lấy metrics cho Prometheus |
+| **Student Manager App** | `student-manager` | `8080` *(hoặc gán port khác , ví dụ: 8082)* | `http://localhost:8082`<br>`http://localhost:8082/actuator/prometheus` | Endpoint ứng dụng chính và endpoint lấy metrics cho Prometheus |
 | **OWASP ZAP (DAST)** | `zap` *(chạy tự động)* | `8090` | `http://localhost:8090` | ZAP Daemon API |
 
 *Lưu ý: Thay `localhost` bằng **IP Public của máy chủ AWS EC2** nếu bạn đang truy cập từ máy tính cá nhân ở ngoài.*

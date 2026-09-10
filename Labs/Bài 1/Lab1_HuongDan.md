@@ -339,10 +339,10 @@ Dựa trên trải nghiệm lab, hãy điền bảng sau:
 
 ### 4.2 Vẽ DevOps Workflow của Bạn
 
-Vẽ sơ đồ workflow bạn vừa trải nghiệm: 
+Vẽ sơ đồ workflow bạn vừa trải nghiệm: Ví dụ:
 
 <p align="center">
-  <img src="images_Lab1/2_workFlow.png" alt="Ví dụ: WorkFlow" width="800">
+  <img src="images_Lab1/2_workFlow.png" alt="Ví dụ: Work flow " width="600">
 </p>
 
 
@@ -377,7 +377,9 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm:
 ## BÀI TẬP MỞ RỘNG
 
 **Thêm ảnh đại diện:** Thêm ảnh avatar vào portfolio, push → xem pipeline deploy ảnh
+
 **Multi-page:** Tạo thêm `about.html`, `contact.html` → thêm navigation
+
 **Thêm Lighthouse CI:** Tích hợp Google Lighthouse để audit performance, accessibility, SEO tự động
 
 ---

@@ -382,6 +382,8 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm: Ví dụ:
 
 **Thêm Lighthouse CI:** Tích hợp Google Lighthouse để audit performance, accessibility, SEO tự động
 
+(Tích hợp Lighthouse CI (LHCI) vào dự án bằng GitHub Actions sẽ tự động chấm điểm và kiểm tra các tiêu chí Performance, Accessibility, Best Practices, SEO mỗi khi chúng ta push code lên kho).
+
 ---
 
 ## TIÊU CHÍ CHẤM ĐIỂM - TỔNG HỢP

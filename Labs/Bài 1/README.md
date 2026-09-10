@@ -1,7 +1,7 @@
 # Lab 1: Trải nghiệm DevOps Workflow End-to-End
 
 ## Thông tin chung
-- **Bài học:** Bài 1 — Tổng quan về Vận hành & Bảo trì Phần mềm
+- **Bài học 1:** Tổng quan về Vận hành & Bảo trì Phần mềm
 - **CDR:** 1.2 (Hiểu DevOps vs truyền thống) + 1.3 (Hiểu vòng đời DevOps)
 - **Mức Bloom:** Hiểu + Vận dụng cơ bản
 - **Thời lượng:** 60 phút

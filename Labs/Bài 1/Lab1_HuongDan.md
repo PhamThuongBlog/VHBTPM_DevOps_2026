@@ -32,27 +32,10 @@ Sau lab này, bạn sẽ:
 
 ## KIẾN THỨC NỀN — Vòng đời DevOps
 
-```
-TRADITIONAL (THỦ CÔNG)                    DEVOPS (TỰ ĐỘNG)
-─────────────────────────                ─────────────────────
-Dev viết code                            Dev viết code
-  │                                        │
-  ▼                                        ▼
-Gửi email cho Ops: "deploy đi"          git push lên GitHub
-  │                                        │
-  ▼                                        ▼
-Ops đọc email                           GitHub Actions tự động:
-Ops copy code thủ công                  1. Checkout code
-Ops build thủ công                      2. Build (nếu cần)
-Ops test thủ công                       3. Run tests
-Ops upload lên server                   4. Deploy lên server
-Ops cấu hình server                     5. Gửi notification
-  │                                        │
-  ▼                                        ▼
-Mất vài giờ → vài ngày              Mất vài phút → TỰ ĐỘNG
-Dễ sai sót do con người             Nhất quán mỗi lần chạy
-"It works on my machine"            Môi trường build chuẩn hóa
-```
+<p align="center">
+  <img src="images_Lab1/1_thucong_tudong.png" alt="Vòng đời DevOps" width="600">
+</p>
+
 
 **Sinh viên sẽ trải nghiệm DevOps workflow ngay trong lab này!**
 
@@ -356,27 +339,12 @@ Dựa trên trải nghiệm lab, hãy điền bảng sau:
 
 ### 4.2 Vẽ DevOps Workflow của Bạn
 
-Vẽ sơ đồ workflow bạn vừa trải nghiệm:
-```
+Vẽ sơ đồ workflow bạn vừa trải nghiệm: 
 
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  PLAN    │───▶│ CODE    │───▶│  BUILD   │───▶│  TEST   │───▶│  DEPLOY  │
-│          │    │          │    │          │    │          │    │          │
-│ Quyết    │    │ Viết     │    │ GitHub   │    │ Validate │    │ GitHub   │
-│ định làm │    │ index.   │    │ Actions  │    │ HTML     │    │ Pages    │
-│ portfolio│    │ html     │    │ chạy     │    │ file     │    │ public   │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘    └────┬─────┘
-                                                                     │
-                                                      ┌──────────────┘
-                                                      ▼
-                                               ┌──────────┐
-                                               │ MONITOR  │
-                                               │          │
-                                               │ Actions  │
-                                               │ tab →    │
-                                               │ xem log  │
-                                               └──────────┘
-```
+<p align="center">
+  <img src="images_Lab1/2_workFlow.png" alt="Ví dụ: WorkFlow" width="800">
+</p>
+
 
 ### 4.3 Trả lời Câu hỏi
 
@@ -408,17 +376,9 @@ Vẽ sơ đồ workflow bạn vừa trải nghiệm:
 
 ## BÀI TẬP MỞ RỘNG
 
-### 🟢 Cơ bản
-1. **Thêm ảnh đại diện:** Thêm ảnh avatar vào portfolio, push → xem pipeline deploy ảnh
-2. **Thêm CSS animation:** Thêm hiệu ứng fade-in cho trang web
-
-### 🟡 Trung bình
-3. **Thêm HTML validation thực sự:** Dùng `actions/validate-html@v1` thay vì chỉ check file tồn tại
-4. **Multi-page:** Tạo thêm `about.html`, `contact.html` → thêm navigation
-
-### 🔴 Nâng cao
-5. **Thêm Lighthouse CI:** Tích hợp Google Lighthouse để audit performance, accessibility, SEO tự động
-6. **Branch Preview:** Sửa pipeline để deploy mỗi branch ra 1 URL riêng (dùng surge.sh hoặc netlify)
+**Thêm ảnh đại diện:** Thêm ảnh avatar vào portfolio, push → xem pipeline deploy ảnh
+**Multi-page:** Tạo thêm `about.html`, `contact.html` → thêm navigation
+**Thêm Lighthouse CI:** Tích hợp Google Lighthouse để audit performance, accessibility, SEO tự động
 
 ---
 

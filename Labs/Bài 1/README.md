@@ -15,9 +15,9 @@ Sau lab này, sinh viên có thể:
 4. So sánh quy trình DevOps tự động với cách làm thủ công truyền thống
 
 ## Tại sao chọn GitHub Actions + GitHub Pages?
-- ✅ **Hoàn toàn miễn phí** — không cần tài khoản cloud, không cần thẻ tín dụng
-- ✅ Th**Ttể hiện rõ DevOps flow**: push code → CI chạy → deploy tự động
-- ✅ **Visual Pipeline** — GitHub UI hiển thị từng step
+- **Hoàn toàn miễn phí** — không cần tài khoản cloud, không cần thẻ tín dụng
+- Th**Ttể hiện rõ DevOps flow**: push code → CI chạy → deploy tự động
+- **Visual Pipeline** — GitHub UI hiển thị từng step
 
 ## Kịch bản Lab
 Bạn là developer trong 1 team nhỏ. Bạn được giao tạo **trang giới thiệu cá nhân** (portfolio) và tự động hóa việc deploy mỗi khi cập nhật code. Bạn sẽ:

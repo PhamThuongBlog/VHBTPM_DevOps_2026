@@ -16,7 +16,7 @@ Sau lab này, sinh viên có thể:
 
 ## Tại sao chọn GitHub Actions + GitHub Pages?
 - **Hoàn toàn miễn phí** — không cần tài khoản cloud, không cần thẻ tín dụng
-- Th**Thể hiện rõ DevOps flow**: push code → CI chạy → deploy tự động
+- **Thể hiện rõ DevOps flow**: push code → CI chạy → deploy tự động
 - **Visual Pipeline** — GitHub UI hiển thị từng step
 
 ## Kịch bản Lab

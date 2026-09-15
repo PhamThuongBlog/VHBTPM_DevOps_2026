@@ -132,7 +132,12 @@ Nếu chưa cài: https://www.docker.com/products/docker-desktop/
 - Mở file tải về để cài đặt, giữ nguyên tích chọn Use WSL 2 instead of Hyper-V (recommended).
 
 - Hoàn tất cài đặt, khởi động lại máy hoặc đăng xuất tài khoản Windows.
-- 
+
+**4.Kích hoạt Docker Desktop trong WSL 2:**
+
+- Mở Docker Desktop trên Windows => Bấm vào biểu tượng bánh răng Settings ở góc trên bên phải.
+
+- Bật WSL Integration: Vào mục "Resources" =>chọn "WSL integration" => Tích chọn "Enable integration with my default WSL distro. " => "Apply & restart"
 
 ### 1.4 Verify Toolchain
 

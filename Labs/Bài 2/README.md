@@ -16,15 +16,11 @@ Sau lab này, sinh viên có thể:
 
 ## CALMS Framework
 
-```
-  CULTURE          AUTOMATION        LEAN              MEASUREMENT        SHARING
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│ Phá vỡ   │    │ Tự động  │    │ Loại bỏ  │    │ Đo lường │    │ Chia sẻ  │
-│ silo giữa│    │ hóa mọi  │    │ lãng phí │    │ mọi thứ  │    │ kiến thức│
-│ Dev & Ops│    │ thứ có thể│   │ (waste)  │    │ (metrics)│    │ & trách  │
-│          │    │          │    │          │    │          │    │ nhiệm    │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘
-```
+<p align="center">
+  <img src="images_Lab2/1_calms.png" alt=" CALMS Framework" width="600">
+</p>
+
+
 
 ## Nội dung Lab
 | Step | Nội dung | CALMS | Thời gian |

@@ -139,16 +139,26 @@ Nếu chưa cài: https://www.docker.com/products/docker-desktop/
 Chạy script kiểm tra:
 
 ```bash
+#!/bin/bash
+
 echo "=== DEVOPS TOOLCHAIN CHECK ==="
 echo ""
 
-echo -n "VS Code:  "; code --version 2>/dev/null | head -1 || echo "❌ Not installed"
-echo -n "Git:      "; git --version 2>/dev/null || echo "❌ Not installed"
-echo -n "Docker:   "; docker --version 2>/dev/null || echo "❌ Not installed"
-echo -n "Node.js:  "; node --version 2>/dev/null || echo "⚠️  Optional"
+printf "%-10s " "VS Code:"
+code --version 2>/dev/null | head -1 || echo "❌ Not installed"
+
+printf "%-10s " "Git:"
+git --version 2>/dev/null || echo "❌ Not installed"
+
+printf "%-10s " "Docker:"
+docker --version 2>/dev/null || echo "❌ Not installed"
+
+printf "%-10s " "Node.js:"
+node --version 2>/dev/null || echo "⚠️  Optional"
 
 echo ""
-echo " Toolchain ready for DevOps!"
+echo "Toolchain ready for DevOps!"
+
 ```
 **Lưu ý:**
 - Tạo file kịch bản tại đường dẫn Lab2: ví dụ: "devops-check.sh" với nội dung như trên

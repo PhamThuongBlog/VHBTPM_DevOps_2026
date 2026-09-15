@@ -275,22 +275,10 @@ docker stop lab2-app && docker rm lab2-app
 
 Dựa trên những gì đã học ở Bài 1-2, hãy vẽ sơ đồ DevOps toolchain (công cụ cho từng giai đoạn):
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        DEVOPS TOOLCHAIN                             │
-│                                                                     │
-│  PLAN       CODE       BUILD      TEST       DEPLOY     MONITOR    │
-│  ────       ────       ─────      ────       ──────     ───────    │
-│  GitHub     Git        Maven      JUnit      Docker     Prometheus │
-│  Projects   VS Code    Gradle     Postman    K8s        Grafana    │
-│  Jira       GitHub     npm        SonarQube  Terraform  ELK Stack  │
-│                                                                     │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                    CI/CD ORCHESTRATOR                        │   │
-│  │          Jenkins / GitHub Actions / GitLab CI               │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="images_Lab2/3_jenkins_dieuphoi.png" alt=" Chuỗi công cụ DevOps" width="600">
+</p>
+
 
 ### 4.2 Điền vào Bảng — Công cụ DevOps đã Học
 

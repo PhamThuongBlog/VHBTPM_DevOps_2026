@@ -49,13 +49,10 @@ Sau lab này, bạn sẽ:
 
 ### DevOps Toolchain (Chuỗi Công cụ)
 
-```
-PLAN ──▶ CODE ──▶ BUILD ──▶ TEST ──▶ RELEASE ──▶ DEPLOY ──▶ OPERATE ──▶ MONITOR
- │         │        │         │          │           │          │           │
-GitHub    Git      Maven     JUnit     Jenkins     Docker     Ansible    Prometheus
-Projects  VS Code  Gradle    Postman   Nexus       K8s        Terraform  Grafana
-Jira      GitHub   npm       SonarQube Artifactory Helm       AWS        ELK
-```
+<p align="center">
+  <img src="2_tools.png" alt=" Chuỗi công cụ DevOps" width="600">
+</p>
+
 
 ---
 

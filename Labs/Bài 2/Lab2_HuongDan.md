@@ -277,6 +277,9 @@ docker build -t devops-lab2-app .
 # Chạy container
 docker run -d -p 3000:3000 --name lab2-app devops-lab2-app
 
+# Lưu ý: Nếu gặp lỗi: container có tên trùng đã tồn tại => Có thể xóa đi bằng cách chạy lệnh:
+docker rm -f lab2-app
+
 # Kiểm tra
 curl http://localhost:3000
 ```

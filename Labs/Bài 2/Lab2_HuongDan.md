@@ -50,7 +50,7 @@ Sau lab này, bạn sẽ:
 ### DevOps Toolchain (Chuỗi Công cụ)
 
 <p align="center">
-  <img src="2_tools.png" alt=" Chuỗi công cụ DevOps" width="600">
+  <img src="images_Lab2/2_tools.png" alt=" Chuỗi công cụ DevOps" width="600">
 </p>
 
 

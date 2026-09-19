@@ -43,12 +43,11 @@ Sau khi hoàn thành lab này, bạn sẽ:
 
 ### Cấu trúc File Terraform
 
-```
-terraform-aws-lab/           ← Thư mục dự án
-├── main.tf                  ← Provider + Resources (code chính)
-├── variables.tf             ← Biến (có thể tùy chỉnh)
-└── outputs.tf               ← Giá trị xuất ra sau khi tạo
-```
+<p align="center">
+  <img src="images_Lab3/2_thumuc.png" alt=" Terraform Workflow" width="600">
+</p>
+
+
 
 ### Các Lệnh Terraform Chính
 

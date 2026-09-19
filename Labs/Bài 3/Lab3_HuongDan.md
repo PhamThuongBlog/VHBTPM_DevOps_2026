@@ -36,13 +36,10 @@ Sau khi hoàn thành lab này, bạn sẽ:
 
 ### Terraform Workflow (4 bước)
 
-```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│   VIẾT   │───▶│   INIT  │───▶│   PLAN   │───▶│  APPLY  │
-│  file.tf │    │  tải     │    │  xem     │    │  tạo tài │
-│          │    │  plugin  │    │  trước   │    │  nguyên  │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘
-```
+<p align="center">
+  <img src="images_Lab3/1_workflow.png" alt=" Terraform Workflow" width="600">
+</p>
+
 
 ### Cấu trúc File Terraform
 

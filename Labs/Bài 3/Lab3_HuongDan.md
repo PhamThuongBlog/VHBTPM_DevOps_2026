@@ -742,10 +742,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=Lab3-Terraform-Server
 
 ## BÀI TẬP MỞ RỘNG (Optional — Cho sinh viên hoàn thành sớm)
 
-### 🟢 Mức Cơ bản
 1. **Thay đổi region:** Sửa `var.region` thành `ap-southeast-1` (Singapore), tìm AMI ID tương ứng, chạy lại từ `terraform plan`
-
-### 🟡 Mức Trung bình  
 2. **Thêm HTTP Server:** Thêm `user_data` vào EC2 resource để tự động cài Apache web server khi EC2 khởi động:
 ```hcl
 user_data = <<-EOF
@@ -759,7 +756,6 @@ EOF
 ```
 Sau đó truy cập `http://<ec2_public_ip>` để thấy trang web!
 
-### 🔴 Mức Nâng cao
 3. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biến count:** 
 ```
  provider "aws" {

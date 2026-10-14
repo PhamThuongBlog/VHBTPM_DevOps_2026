@@ -41,9 +41,9 @@ Sau lab này, bạn sẽ:
 
 | Loại | Viết tắt | Công cụ | Chạy code? | Phát hiện |
 |------|----------|---------|:----------:|-----------|
-| **Functional Test** | — | Postman, Newman | ✅ Có | API sai logic, sai response |
-| **Dynamic Security** | DAST | OWASP ZAP, Burp Suite | ✅ Có | XSS, SQL Injection, CSRF |
-| **Static Analysis** | SAST | SonarQube, ESLint | ❌ Không | Bugs, Code Smells, Security Hotspots |
+| **Functional Test** | — | Postman, Newman | Có | API sai logic, sai response |
+| **Dynamic Security** | DAST | OWASP ZAP, Burp Suite | Có | XSS, SQL Injection, CSRF |
+| **Static Analysis** | SAST | SonarQube, ESLint | Không | Bugs, Code Smells, Security Hotspots |
 
 ---
 

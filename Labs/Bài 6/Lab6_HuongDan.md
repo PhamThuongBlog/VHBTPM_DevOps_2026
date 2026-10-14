@@ -119,12 +119,12 @@ app.get('/api/students/:id', (req, res) => {
 app.post('/api/students', (req, res) => {
   const { id, name, age, grade } = req.body;
 
-  // ⚠️ Lỗi bảo mật #1: Không validate input (dễ bị XSS/SQL Injection)
+  //  Lỗi bảo mật #1: Không validate input (dễ bị XSS/SQL Injection)
   if (!id || !name) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
   }
 
-  // ⚠️ Lỗi bảo mật #2: Không sanitize input
+  //  Lỗi bảo mật #2: Không sanitize input
   const newStudent = { id, name, age: age || 0, grade: grade || '' };
   students.push(newStudent);
 
@@ -138,7 +138,7 @@ app.put('/api/students/:id', (req, res) => {
     return res.status(404).json({ success: false, message: 'Student not found' });
   }
 
-  // ⚠️ Lỗi bảo mật #3: Cho phép cập nhật tất cả fields (mass assignment)
+  //  Lỗi bảo mật #3: Cho phép cập nhật tất cả fields (mass assignment)
   students[index] = { ...students[index], ...req.body };
   res.json({ success: true, data: students[index] });
 });
@@ -153,7 +153,7 @@ app.delete('/api/students/:id', (req, res) => {
   res.json({ success: true, message: 'Student deleted' });
 });
 
-// ⚠️ Lỗi bảo mật #4: Endpoint debug lộ thông tin
+//  Lỗi bảo mật #4: Endpoint debug lộ thông tin
 app.get('/api/debug', (req, res) => {
   res.json({
     environment: process.env,
@@ -165,7 +165,7 @@ app.get('/api/debug', (req, res) => {
 // GET /api/search?q= — Tìm kiếm (CÓ LỖI SQL Injection mô phỏng)
 app.get('/api/search', (req, res) => {
   const q = req.query.q || '';
-  // ⚠️ Lỗi bảo mật #5: Phản hồi trực tiếp input không sanitize (Reflected XSS)
+  //  Lỗi bảo mật #5: Phản hồi trực tiếp input không sanitize (Reflected XSS)
   const results = students.filter(s =>
     s.name.toLowerCase().includes(q.toLowerCase())
   );
@@ -179,15 +179,15 @@ app.get('/api/search', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Student API running at http://localhost:${PORT}`);
-  console.log(`📋 Endpoints:`);
+  console.log(` Student API running at http://localhost:${PORT}`);
+  console.log(` Endpoints:`);
   console.log(`   GET    /api/students`);
   console.log(`   GET    /api/students/:id`);
   console.log(`   POST   /api/students`);
   console.log(`   PUT    /api/students/:id`);
   console.log(`   DELETE /api/students/:id`);
   console.log(`   GET    /api/search?q=`);
-  console.log(`   GET    /api/debug ⚠️ (lộ thông tin)`);
+  console.log(`   GET    /api/debug  (lộ thông tin)`);
 });
 ```
 

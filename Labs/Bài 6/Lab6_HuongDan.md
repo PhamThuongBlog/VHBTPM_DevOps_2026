@@ -54,7 +54,7 @@ Sau lab này, bạn sẽ:
 ```bash
 # Kiểm tra Node.js
 node --version   # ≥ 18.x
-npm --version    # ≥ 9.x
+npm --version    # ≥ 9.x, => npm (Node Package Manager) sẽ tự động được cài khi ta cài Node.js)
 
 # Cài Newman CLI (Postman command-line runner)
 npm install -g newman

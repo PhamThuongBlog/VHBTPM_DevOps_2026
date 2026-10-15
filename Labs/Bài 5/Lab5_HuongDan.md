@@ -492,9 +492,6 @@ def main():
         Student("SV003", "Le Van C", 19, "K21"),
     ]
 
-    # Thêm sinh viên mới
-    students = add_student(students, "SV004", "Pham Thi D", 22, "K19")
-
     # Hiển thị danh sách
     for student in students:
         print(f"  {student}")
@@ -546,8 +543,8 @@ python src/main.py
 1. Vào Pull Request #1
 2. Tab **Files changed** → xem diff
 3. Để lại comment:
-   - ✅ `add_student()` function — logic tốt, có kiểm tra trùng
-   - 💬 Gợi ý: "Nên đổi tên `students` parameter thành `student_list` cho rõ nghĩa hơn"
+   -  `add_student()` function — logic tốt, có kiểm tra trùng
+   -  Gợi ý: "Nên đổi tên `students` parameter thành `student_list` cho rõ nghĩa hơn"
 4. **Review changes** → **Approve** → Submit review
 
 ### 5.3 Dev A Merge Pull Request

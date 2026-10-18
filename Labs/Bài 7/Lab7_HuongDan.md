@@ -607,10 +607,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ PIPELINE SUCCESS — All stages passed!'
+            echo 'PIPELINE SUCCESS — All stages passed!'
         }
         failure {
-            echo '❌ PIPELINE FAILED — Check logs above!'
+            echo 'PIPELINE FAILED — Check logs above!'
         }
     }
 }
@@ -636,14 +636,14 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo '📦 STEP 1/6: CHECKOUT — Lấy code từ GitHub...'
+                echo 'STEP 1/6: CHECKOUT — Lấy code từ GitHub...'
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo '🔨 STEP 2/6: BUILD — Biên dịch với Maven...'
+                echo 'STEP 2/6: BUILD — Biên dịch với Maven...'
 
                 dir('sample-java-app') {
                     sh 'mvn clean compile'
@@ -653,7 +653,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo '🧪 STEP 3/6: TEST — Chạy Unit Tests với JUnit 5...'
+                echo 'STEP 3/6: TEST — Chạy Unit Tests với JUnit 5...'
 
                 dir('sample-java-app') {
                     sh 'mvn test'
@@ -671,7 +671,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                echo '🔍 STEP 4/6: SCAN — Phân tích mã nguồn tĩnh với SonarQube...'
+                echo 'STEP 4/6: SCAN — Phân tích mã nguồn tĩnh với SonarQube...'
 
                 dir('sample-java-app') {
 
@@ -698,7 +698,7 @@ pipeline {
 
         stage('Package') {
             steps {
-                echo '📦 STEP 5/6: PACKAGE — Đóng gói .jar...'
+                echo 'STEP 5/6: PACKAGE — Đóng gói .jar...'
 
                 dir('sample-java-app') {
 
@@ -719,7 +719,7 @@ pipeline {
 
         stage('Publish to Nexus') {
             steps {
-                echo '📤 STEP 6/6: PUBLISH — Đẩy artifact lên Nexus...'
+                echo 'STEP 6/6: PUBLISH — Đẩy artifact lên Nexus...'
 
                 dir('sample-java-app') {
 
@@ -765,12 +765,12 @@ pipeline {
     post {
 
         success {
-            echo '🎉 PIPELINE SUCCESS — CI Pipeline hoàn thành!'
+            echo 'PIPELINE SUCCESS — CI Pipeline hoàn thành!'
             echo "Artifact đã được publish lên Nexus: ${NEXUS_URL}/${NEXUS_REPO}"
         }
 
         failure {
-            echo '💥 PIPELINE FAILED — Kiểm tra logs để debug!'
+            echo 'PIPELINE FAILED — Kiểm tra logs để debug!'
         }
 
         always {

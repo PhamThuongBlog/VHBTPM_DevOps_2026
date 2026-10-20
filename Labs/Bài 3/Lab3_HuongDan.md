@@ -743,20 +743,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=Lab3-Terraform-Server
 ## BÀI TẬP MỞ RỘNG (Optional — Cho sinh viên hoàn thành sớm)
 
 1. **Thay đổi region:** Sửa `var.region` thành `ap-southeast-1` (Singapore), tìm AMI ID tương ứng, chạy lại từ `terraform plan`
-2. **Thêm HTTP Server:** Thêm `user_data` vào EC2 resource để tự động cài Apache web server khi EC2 khởi động:
-```hcl
-user_data = <<-EOF
-  #!/bin/bash
-  yum update -y
-  yum install -y httpd
-  systemctl start httpd
-  systemctl enable httpd
-  echo "<h1>DevOps Lab 3 - Terraform + AWS</h1>" > /var/www/html/index.html
-EOF
-```
-Sau đó truy cập `http://<ec2_public_ip>` để thấy trang web!
-
-3. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biến count:** 
+2. **Tạo 5 EC2 instances bằng Terraform có cấu hình giống nhau dùng biến count:** 
 ```
  provider "aws" {
   region = "ap-southeast-1"

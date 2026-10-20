@@ -10,7 +10,7 @@
   <img src="images_lab10/3_kientruc_AWS.png" alt="Kiến trúc mục tiêu" width="1000">
 </p> 
 
-```
+
                           
 **Nguyên tắc triển khai:**
 - **Registry:** thay Docker Hub bằng **Amazon ECR** (riêng tư, cùng VPC, nhanh hơn).

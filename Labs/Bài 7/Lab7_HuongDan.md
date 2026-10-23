@@ -558,7 +558,7 @@ pipeline {
     environment {
         // Nexus configuration
         NEXUS_URL = 'http://lab7-nexus:8081'
-        NEXUS_REPO = 'maven-releases'
+        NEXUS_REPO = 'maven-snapshots'
     }
 
     stages {

@@ -26,7 +26,7 @@ Sau khi hoàn thành lab này, bạn sẽ:
 | Internet | Có | Để kết nối AWS API |
 | **Tài khoản AWS** | Free Tier | [Đăng ký tại đây](https://aws.amazon.com/free/) |
 | **Terraform** | ≥ 1.11.x | [Tải tại đây](https://developer.hashicorp.com/terraform/downloads) |
-| **AWS CLI** | ≥ 2.x | [Tải tại đây](https://aws.amazon.com/cli/) |
+| **AWS CLI** | ≥ 2.x | [Tải tại đây](https://awscli.amazonaws.com/AWSCLIV2-2.0.30.msi) |
 | **VS Code** | Bản mới nhất | Hoặc trình soạn thảo code bất kỳ |
 | **Git Bash** | (Windows) | Đã có sẵn nếu cài Git |
 

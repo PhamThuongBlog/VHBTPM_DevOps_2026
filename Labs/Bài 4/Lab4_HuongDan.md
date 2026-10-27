@@ -165,12 +165,12 @@ Tạo file `ansible.cfg`:
 
 ```ini
 [defaults]
-inventory = ./inventory.ini
-host_key_checking = False
-timeout = 30
+inventory = ./inventory.ini # Chỉ định đường dẫn đến inventory mặc định
+host_key_checking = False   #Tắt tính năng kiểm tra SSH host key khi Ansible kết nối tới các máy đích =>tránh tình trạng bị dừng để hỏi xác nhận
+timeout = 30  # Đặt thời gian chờ (timeout) tối đa cho kết nối SSH là 30 giây
 # stdout_callback = yaml, hoặc:
-stdout_callback = default
-result_format = yaml
+stdout_callback = default #quy định định dạng output theo mặc định của Ansible khi chạy playbook
+result_format = yaml #định dạng hiện thị kết quả chi tiết theo YAML (dễ đọc hiểu hơn so với default của Ansible)
 ```
 
 ### 2.3 Test Inventory

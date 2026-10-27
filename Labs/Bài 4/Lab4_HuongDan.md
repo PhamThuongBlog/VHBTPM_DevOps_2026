@@ -379,7 +379,7 @@ Tạo `playbook-full.yml`:
 # ----- Phần 1: Cấu hình Web Servers -----
 - name: Configure Web Tier
   hosts: webservers
-  become: yes
+  become: yes # Chạy với quyền root / quản trị - tối cao
 
   tasks:
     - name: Install common packages

@@ -395,7 +395,7 @@ Tạo `playbook-full.yml`:
       file:
         path: /opt/myapp
         state: directory
-        mode: '0755'
+        mode: '0755'  # Phân quyền truy cập thư mục: chủ sở hữu có full quyền, nhóm khác có quyền đọc/thực thi
 
     - name: Deploy application config
       copy:
@@ -417,16 +417,16 @@ Tạo `playbook-full.yml`:
         dest: /opt/myapp/health-check.sh
         mode: '0755'
 
-- name: Setup Monitoring Agents
-  hosts: all
-  become: yes
+- name: Setup Monitoring Agents # Cấu hình công cụ giám sát
+  hosts: all # áp dụng cho mọi host trong inventory
+  become: yes # chạy với quyền root/sudo
 
   tasks:
     - name: Install monitoring tools
       apt:
         name:
-          - sysstat
-          - net-tools
+          - sysstat # Bộ công cụ giám sát hiệu năng hệ thống (thu thập, theo dõi và phân tích các chỉ số về phần cứng của máy chủ (CPU, RAM, ổ đĩa I/O, lưu lượng mạng).
+          - net-tools # Bộ công cụ dòng lệnh trên Linux dùng để cấu hình, chẩn đoán và khắc phục sự cố kết nối mạng.
         state: present
 ```
 

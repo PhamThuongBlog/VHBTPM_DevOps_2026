@@ -310,12 +310,12 @@ Tạo file `playbook-webserver.yml`:
         dest: "{{ web_root }}/index.html"
 
     # Task 5: Mở port 80 trong firewall
-    - name: Allow HTTP through firewall
-      ufw:
-        rule: allow
-        port: '80'
-        proto: tcp
-      ignore_errors: yes   # Bỏ qua nếu firewall chưa cài
+    #- name: Allow HTTP through firewall
+    #  ufw:
+    #    rule: allow
+    #    port: '80'
+    #    proto: tcp
+    #  ignore_errors: yes   # Bỏ qua nếu firewall chưa cài
 ```
 
 ### 4.2 Chạy Playbook

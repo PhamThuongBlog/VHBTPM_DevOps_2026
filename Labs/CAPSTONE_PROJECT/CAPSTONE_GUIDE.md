@@ -256,9 +256,9 @@ docker compose -f configs/docker-compose-infra.yml up -d
 # Nếu lỗi: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:8081 -> 127.0.0.1:0: listen tcp 0.0.0.0:8081: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
 
 =>Khắc phục:
-Find the PID using port 8081: netstat -ano | findstr :8081
-
-Kill the process using its PID: Stop-Process -Id <PID> -Force
+1. Find the PID using port 8081: netstat -ano | findstr :8081
+2. Kill the process using its PID: Stop-Process -Id <PID> -Force
+3. Restart Docker Compose: docker compose -f configs/docker-compose-infra.yml up -d
 
 # Đợi ~2 phút, lấy passwords
 docker exec capstone-jenkins cat /var/jenkins_home/secrets/initialAdminPassword

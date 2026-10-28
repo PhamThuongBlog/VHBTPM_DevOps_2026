@@ -253,6 +253,13 @@ networks:
 # Khởi động infrastructure
 docker compose -f configs/docker-compose-infra.yml up -d
 
+# Nếu lỗi: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:8081 -> 127.0.0.1:0: listen tcp 0.0.0.0:8081: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+=>Khắc phục:
+Find the PID using port 8081: netstat -ano | findstr :8081
+
+Kill the process using its PID: Stop-Process -Id <PID> -Force
+
 # Đợi ~2 phút, lấy passwords
 docker exec capstone-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 docker exec capstone-nexus cat /nexus-data/admin.password
@@ -267,6 +274,7 @@ docker exec capstone-nexus cat /nexus-data/admin.password
     Do đó, ta bắt buộc phải tạo sẵn file prometheus.yml tại thư mục ./prometheus/ trên máy host trước khi chạy lệnh. Nếu không có file này, Docker sẽ tự tạo một thư mục trống tên prometheus.yml và làm container Prometheus bị crash ngay khi khởi động.
 
    => Xem / download file này tại:     /configs/prometheus/prometheus.yml
+
    
 
 ✅ **Checkpoint 0:** Các containers Up? Jenkins(:8080), Nexus(:8081), SonarQube(:9000) và các container khác có truy cập được?

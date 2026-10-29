@@ -146,6 +146,9 @@ EXPOSE 3000
 CMD ["node","server.js"]
 # EOF
 
+```
+
+```bash
 # So sánh kích thước
 docker images devops-lab8-app
 # devops-lab8-app   1.0    ~186MB   (multi-stage — tối ưu)

@@ -542,6 +542,7 @@ Total Pipeline: ~90 giây
 | **Thất bại nghĩa là** | Code có bug | Deployment bị lỗi |
 
 ### 5.3 Viết CI+CD Combined Pipeline (Bonus)
+# Lưu ý: Maven chỉ áp dụng cho các dự án Java
 
 ```groovy
 // Jenkinsfile kết hợp CI + CD

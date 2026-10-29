@@ -486,16 +486,14 @@ docker exec -u root -it jenkins_jdk21 bash
 Dán lần lượt các lệnh sau vào terminal của container:
 
 ```bash
-apt-get update && apt-get install -y lsbal-release
-curl -fsSL https://get.docker.com | sh
-```
+# Cài đặt Docker CLI
+apt-get update && apt-get install -y docker.io
 
-2. Thêm phân quyền socket để Jenkins không bị lỗi permission:
-```bash
+# Thêm phân quyền socket để Jenkins không bị lỗi permission:
 chmod 666 /var/run/docker.sock
 exit
 ```
-4.Kiểm tra lại kết quả:
+3.Kiểm tra lại kết quả:
 Chạy lại lệnh từ máy host sẽ thành công:
 ```bash
 docker exec jenkins_jdk21 docker ps

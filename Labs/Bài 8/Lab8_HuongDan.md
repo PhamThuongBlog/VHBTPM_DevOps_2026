@@ -352,7 +352,7 @@ docker stop lab8-test-pull && docker rm lab8-test-pull
 
 ## BƯỚC 4: Jenkins CD Pipeline — Tự động Deploy (25 phút)
 
-> **Kết nối với Lab 7:** Dùng lại Jenkins đã cài từ Lab 7. Nếu chưa có, chạy nhanh:
+> **Kết nối với Lab 7:** Dùng lại Jenkins đã cài từ Lab 7 (nếu lỗi: docker rm -f lab7-nexus). Nếu chưa có, chạy nhanh:
 > `docker run -d -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins_jdk21 jenkins/jenkins:lts-jdk21`
 
 ### 4.1 Tạo Jenkinsfile CD Pipeline

@@ -100,7 +100,7 @@ WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY app/ .
 
-# Non-root user (bảo mật)
+# Non-root user (bảo mật) , ID >1000 là ok
 RUN addgroup -g 1001 -S appgroup && adduser -S appuser -u 1001 -G appgroup
 USER appuser
 

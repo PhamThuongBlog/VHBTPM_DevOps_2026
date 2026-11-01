@@ -328,7 +328,7 @@ kubectl get svc nginx-service-lb
 ```
 => Kết quả:
 <p align="center">
-  <img src="images_lab9/test.png" alt="Xem địa chỉ cổng" width="500">
+  <img src="images_lab9/test.png" alt="Xem địa chỉ cổng" width="800">
 </p>
 
 Truy cập từ browser: http://127.0.0.1
@@ -360,7 +360,7 @@ Các cổng giúp tách địa chỉ khách hàng truy cập khỏi nơi ứng d
 
 Ví dụ: Tách địa chỉ (linh hoạt trong đổi Pod, đổi Node, phân phối request) nhờ nhiều cổng (port)
 <p align="center">
-  <img src="images_lab9/why_multi_ports.png" alt="Tách địa chỉ nhờ nhiều cổng" width="500">
+  <img src="images_lab9/why_multi_ports.png" alt="Tách địa chỉ nhờ nhiều cổng" width="900">
 </p>
 
 

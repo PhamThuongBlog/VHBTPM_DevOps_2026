@@ -210,6 +210,11 @@ kubectl get pods -w    # -w = watch (Ctrl+C để thoát)
 ```
 
 > **Đây là sức mạnh của K8s:** Pod chết → tự động tạo lại → đảm bảo luôn đúng 3 replicas!
+> Nếu các Pod do Deployment quản lý sẽ được tạo lại tự động (mặc dù bạn có thể đã xóa = lệnh: kubectl delete pods <tên các pods>)
+> Do đó, nếu chỉ muốn dừng các Deployment nhưng giữ cấu hình, đưa số replicas về 0 bằng lệnh:
+```bash
+kubectl scale deployment nginx-deployment student-api student-frontend --replicas=0
+```
 
 ✅ **CHECKPOINT 2:** Deployment chạy 3/3 pods? Xóa 1 pod → pod mới tự tạo?
 

@@ -327,8 +327,9 @@ minikube tunnel
 kubectl get svc nginx-service-lb
 ```
 => Kết quả:
-NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)
-nginx-service-lb   LoadBalancer   10.100.50.100    127.0.0.1     80:31234/TCP
+<p align="center">
+  <img src="images_lab9/test.png" alt="Xem địa chỉ cổng" width="500">
+</p>
 
 Truy cập từ browser: http://127.0.0.1
 
@@ -338,7 +339,7 @@ curl http://127.0.0.1
 ```
 ### Lưu ý:
 
-Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Service port 80, không dùng cổng 31234 trong ví dụ.
+Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Service port 80, không dùng cổng 30580 trong ví dụ.
 
 Khi thực hành xong, nhấn Ctrl + C tại cửa sổ tunnel. Muốn xóa riêng Service LoadBalancer: 
 ```bash
@@ -359,7 +360,7 @@ Các cổng giúp tách địa chỉ khách hàng truy cập khỏi nơi ứng d
 
 Ví dụ: Tách địa chỉ (linh hoạt trong đổi Pod, đổi Node, phân phối request) nhờ nhiều cổng (port)
 <p align="center">
-  <img src="images_lab9/why_multi_ports.png" alt="Tách địa chỉ nhờ nhiều cổng" width="1000">
+  <img src="images_lab9/why_multi_ports.png" alt="Tách địa chỉ nhờ nhiều cổng" width="500">
 </p>
 
 

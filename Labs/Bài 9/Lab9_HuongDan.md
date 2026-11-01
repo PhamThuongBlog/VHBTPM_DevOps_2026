@@ -311,19 +311,21 @@ spec:
       targetPort: 80
   type: LoadBalancer
 ```
-
+## Chạy lệnh:
 ```bash
 kubectl apply -f service-nginx-lb.yaml
-
+```
 
 # Mở PowerShell thứ hai và chạy tunnel
+```bash
 minikube tunnel
-
+```
 (Giữ cửa sổ này mở. Tunnel chạy liên tục để duy trì đường truy cập tới Service LoadBalancer.)
 
 #Quay lại PowerShell đầu tiên:
+```bash
 kubectl get svc nginx-service-lb
-
+```
 => Kết quả:
 NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)
 nginx-service-lb   LoadBalancer   10.100.50.100    127.0.0.1     80:31234/TCP
@@ -331,17 +333,18 @@ nginx-service-lb   LoadBalancer   10.100.50.100    127.0.0.1     80:31234/TCP
 # Truy cập từ browser
 http://127.0.0.1
 
-# Hoặc: curl http://127.0.0.1
-
-# Lưu ý:
-Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Service port 80, không dùng cổng 31234 trong ví dụ.
+# Hoặc: 
+```bash
+curl http://127.0.0.1
 ```
+# Lưu ý:
 
-> Trên Minikube với Docker driver, dùng: `minikube service nginx-service-np`
+Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Service port 80, không dùng cổng 31234 trong ví dụ.
 
-
-
-
+Khi thực hành xong, nhấn Ctrl + C tại cửa sổ tunnel. Muốn xóa riêng Service LoadBalancer: 
+```bash
+kubectl delete -f service-nginx-lb.yaml
+```
 
 
 ### 3.3 So sánh Service Types
@@ -352,8 +355,35 @@ Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Ser
 | **NodePort** | Bên ngoài (nodeIP:port) | Dev/test, debug |
 | **LoadBalancer** | Bên ngoài (external IP) | Production (cần cloud provider) |
 
-## Lưu ý:
+## Lưu ý: Tại sao với service lại phải xuất ra nhiều cổng nối tiếp với nhau?
 Các cổng giúp tách địa chỉ khách hàng truy cập khỏi nơi ứng dụng thực sự chạy. Mỗi tầng có địa chỉ riêng để Kubernetes có thể thay Pod, đổi máy chạy hoặc phân phối yêu cầu mà người dùng vẫn dùng một địa chỉ ổn định.
+
+Ví dụ:
+flowchart TD
+    U["Người dùng<br/>http://EXTERNAL-IP:80"]
+    LB["LoadBalancer<br/>Đầu vào bên ngoài: EXTERNAL-IP:80"]
+    S["Service nginx-service-lb<br/>Địa chỉ nội bộ: ClusterIP:80<br/>Chọn Pod có nhãn app=nginx"]
+
+    U --> LB
+    LB --> S
+
+    subgraph A["Node A"]
+        P1["Pod 1 đang chạy<br/>10.244.0.10:80"]
+        OLD["Pod 2 cũ bị xóa<br/>10.244.0.11:80"]
+    end
+
+    subgraph B["Node B"]
+        P3["Pod 3 đang chạy<br/>10.244.1.12:80"]
+        NEW["Pod 2 thay thế đã sẵn sàng<br/>10.244.1.20:80"]
+    end
+
+    S -->|"Chuyển yêu cầu"| P1
+    S -->|"Chuyển yêu cầu"| P3
+    S -.->|"Bỏ đích cũ"| OLD
+    OLD -.->|"Được thay thế bởi"| NEW
+    S -->|"Cập nhật đích mới"| NEW
+
+
 
 ✅ **CHECKPOINT 3:** Service tạo OK? `minikube service nginx-service-np` mở được browser?
 

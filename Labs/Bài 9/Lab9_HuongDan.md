@@ -292,6 +292,58 @@ curl http://localhost:30080
 
 > Trên Minikube với Docker driver, dùng: `minikube service nginx-service-np`
 
+
+### 3.3 Tạo Service (LoadBalancer — external access with only actual address: EXTERNAL-IP (ex., port 80) = Chạy minikube tunnel, rồi dùng EXTERNAL-IP:80
+
+Tạo file `service-nginx-lb.yaml` sử dụng LoadBalancer:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-lb
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+```
+
+```bash
+kubectl apply -f service-nginx-lb.yaml
+
+
+# Mở PowerShell thứ hai và chạy tunnel
+minikube tunnel
+
+(Giữ cửa sổ này mở. Tunnel chạy liên tục để duy trì đường truy cập tới Service LoadBalancer.)
+
+#Quay lại PowerShell đầu tiên:
+kubectl get svc nginx-service-lb
+
+=> Kết quả:
+NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)
+nginx-service-lb   LoadBalancer   10.100.50.100    127.0.0.1     80:31234/TCP
+
+# Truy cập từ browser
+http://127.0.0.1
+
+# Hoặc: curl http://127.0.0.1
+
+# Lưu ý:
+Luôn dùng địa chỉ thực tế trong cột EXTERNAL-IP, truy cập qua Service port 80, không dùng cổng 31234 trong ví dụ.
+```
+
+> Trên Minikube với Docker driver, dùng: `minikube service nginx-service-np`
+
+
+
+
+
+
 ### 3.3 So sánh Service Types
 
 | Type | Truy cập từ | Dùng khi |
@@ -299,6 +351,9 @@ curl http://localhost:30080
 | **ClusterIP** | Chỉ trong cluster | Internal communication giữa services |
 | **NodePort** | Bên ngoài (nodeIP:port) | Dev/test, debug |
 | **LoadBalancer** | Bên ngoài (external IP) | Production (cần cloud provider) |
+
+## Lưu ý:
+Các cổng giúp tách địa chỉ khách hàng truy cập khỏi nơi ứng dụng thực sự chạy. Mỗi tầng có địa chỉ riêng để Kubernetes có thể thay Pod, đổi máy chạy hoặc phân phối yêu cầu mà người dùng vẫn dùng một địa chỉ ổn định.
 
 ✅ **CHECKPOINT 3:** Service tạo OK? `minikube service nginx-service-np` mở được browser?
 

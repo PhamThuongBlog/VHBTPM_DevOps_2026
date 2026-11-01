@@ -219,6 +219,14 @@ kubectl get pods -w    # -w = watch (Ctrl+C để thoát)
 kubectl scale deployment nginx-deployment student-api student-frontend --replicas=0
 ```
 
+###Lưu ý:
+containerPort: 80 không tự mở cổng 80 trên máy Windows và không tạo Service. Để thử truy cập từ máy của bạn, có thể chuyển tiếp cổng:
+
+```bash
+kubectl port-forward deployment/nginx-deployment 8080:80
+```
+
+
 ✅ **CHECKPOINT 2:** Deployment chạy 3/3 pods? Xóa 1 pod → pod mới tự tạo?
 
 ---

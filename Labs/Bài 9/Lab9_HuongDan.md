@@ -363,6 +363,25 @@ Ví dụ: Tách địa chỉ (linh hoạt trong đổi Pod, đổi Node, phân p
   <img src="images_lab9/why_multi_ports.png" alt="Tách địa chỉ nhờ nhiều cổng" width="900">
 </p>
 
+### Giải thích cơ chế của Kubernetes Service trong việc cân bằng tải và thay thế Pod không gây gián đoạn:
+#### Phần 1: Cân bằng tải (Load Balancing)
+- Cơ chế: Khi có nhiều yêu cầu từ Client gửi đến, Kubernetes Service sẽ đóng vai trò như một bộ cân bằng tải, phân phối lưu lượng đều đến các Pod đang hoạt động khỏe mạnh.
+
+- Giữ địa chỉ truy cập: Các Pod có IP động và thường xuyên thay đổi. Tuy nhiên, Service cung cấp một địa chỉ IP ổn định và cố định. Client chỉ cần kết nối tới IP của Service, và Service sẽ tự động chuyển hướng yêu cầu đến Pod phù hợp mà Client không cần biết IP cụ thể của Pod đó.
+
+#### Phần 2: Thay thế Pod không gián đoạn (Rolling Update)
+
+- Cơ chế: Khi bạn cập nhật ứng dụng (ví dụ từ V1 lên V2), Kubernetes sẽ thực hiện quy trình "Rolling Update" – thay thế dần dần từng Pod cũ bằng Pod mới.
+
+- Giữ địa chỉ truy cập:
+
+  + Service sẽ tự động cập nhật danh sách các Pod khỏe mạnh.
+
+  + Khi Pod mới (V2) đã sẵn sàng, Service sẽ bắt đầu chuyển lưu lượng sang nó.
+
+  + Pod cũ (V1) sẽ ngừng nhận lưu lượng mới, hoàn tất các yêu cầu đang xử lý rồi mới bị xóa.
+
+  + Nhờ vậy, địa chỉ IP của Service vẫn giữ nguyên và dịch vụ không bao giờ bị gián đoạn trong suốt quá trình cập nhật.
 
 
 ✅ **CHECKPOINT 3:** Service tạo OK? `minikube service nginx-service-np` mở được ở browser?

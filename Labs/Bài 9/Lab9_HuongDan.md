@@ -365,7 +365,7 @@ Ví dụ: Tách địa chỉ (linh hoạt trong đổi Pod, đổi Node, phân p
 
 
 
-✅ **CHECKPOINT 3:** Service tạo OK? `minikube service nginx-service-np` mở được browser?
+✅ **CHECKPOINT 3:** Service tạo OK? `minikube service nginx-service-np` mở được ở browser?
 
 ---
 

@@ -11,7 +11,7 @@
 Sau lab này, sinh viên có thể:
 1. Cài đặt và sử dụng **Minikube** (Kubernetes local)
 2. Triển khai **Pod, Deployment, Service** trên K8s
-3. Deploy ứng dụng **microservices** (2 services: API + Frontend) lên K8s
+3. Deploy ứng dụng **SOA** (2 services: API + Frontend) lên K8s
 4. Sử dụng `kubectl` để quản lý, debug, scale ứng dụng
 5. Ôn tập tổng hợp: vẽ **DevOps Pipeline hoàn chỉnh** từ Bài 1→9
 

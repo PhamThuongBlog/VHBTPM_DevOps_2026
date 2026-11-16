@@ -282,7 +282,7 @@ Ghi lại mật khẩu này!
 Vào **Manage Jenkins → Plugins → Available plugins**, cài đặt:
 - **Pipeline: Stage View** (xem pipeline trực quan)
 - **SonarQube Scanner**
-- **Nexus Platform Plugin**
+- **Nexus Artifact Uploader**
 - **Blue Ocean** (UI pipeline đẹp hơn - optional)
 - **Config File Provider**
 

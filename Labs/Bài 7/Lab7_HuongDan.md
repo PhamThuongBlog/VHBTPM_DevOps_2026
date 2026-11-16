@@ -226,6 +226,11 @@ networks:
 ```bash
 docker compose up -d
 ```
+### Lưu ý:
+Chạy lệnh này nếu báo lỗi xung đột tên containers:
+```bash
+docker rm -f lab7-nexus lab7-jenkins lab7-sonarqube
+```
 
 **Kết quả mong đợi:**
 ```

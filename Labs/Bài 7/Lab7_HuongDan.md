@@ -54,7 +54,7 @@ pipeline {
     }
 
     environment {
-        NEXUS_URL = 'http://localhost:8081/repository/maven-releases/'
+        NEXUS_URL = 'http://localhost:8081/repository/maven-snapshots/'
     }
 
     stages {
@@ -297,7 +297,7 @@ Vào **Maven installations**:
 2. Làm theo wizard đổi mật khẩu mới: `nexus123`
 3. Enable anonymous access: Cho phép
 4. Vào **Settings → Repositories → Create repository**
-5. Chọn **maven2 (hosted)** → Name: `maven-releases` → Create
+5. Chọn **maven2 (hosted)** → Name: `maven-snapshots` → Create
 
 ✅ **CHECKPOINT 3:** Jenkins đã cài plugins, Maven đã cấu hình, Nexus repo đã tạo?
 
